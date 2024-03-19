@@ -195,7 +195,6 @@ if (!function_exists('comboSignatory')) {
         $str = load_plugin('css', array('select2'));
         $str .= '<select name="' . $strName . '" class="form-control select2">';
         $rs = getSignatories();
-        var_dump($rs);
         foreach ($rs as $row) {
             $str .= '<option value="' . $row['signatoryId'] . '" >' . $row['signatory'] . '</option>';
         }
