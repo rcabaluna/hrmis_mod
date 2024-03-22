@@ -34,7 +34,6 @@ class Tasks extends MY_Controller
 		$arremp_request = $this->Request_model->getEmployeeRequest($emps, curryr(), currmo());
 
 
-
 		$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $arremp_request);
 
 		foreach ($arrRequest as $req) :
@@ -69,9 +68,6 @@ class Tasks extends MY_Controller
 			$arremp_request = $this->Request_model->getEmployeeRequest($emps, curryr(), currmo());
 
 			$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $arremp_request);
-			echo "<pre>";
-			var_dump($arrRequest);
-			exit();
 
 			foreach ($arrRequest as $req) :
 

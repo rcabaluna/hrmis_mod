@@ -184,11 +184,13 @@ class Notification_model extends CI_Model
 			endif;
 		endforeach;
 		if (count($arrRequestFlow) > 1) :
+
 			foreach ($arrRequestFlow as $rflow) :
 				if ($rflow['Applicant'] != 'ALLEMP') {
 					array_push($arr_rflow, $rflow);
 				}
 			endforeach;
+
 		else :
 			if (count($arrRequestFlow) > 0) {
 				array_push($arr_rflow, $arrRequestFlow[0]);
@@ -257,10 +259,6 @@ class Notification_model extends CI_Model
 
 	function check_request_flow_and_signatories($requestFlow, $emp_requests)
 	{
-		// echo "<pre>";
-		// var_dump($requestFlow);
-		// var_dump($emp_requests);
-		// exit();
 		$arrRequest = array();
 		foreach ($emp_requests as $request) :
 			$request['code'] = $request['requestCode'];
@@ -272,7 +270,6 @@ class Notification_model extends CI_Model
 			endif;
 
 			$rflow = $this->Notification_model->getrequestflow($requestFlow, $request['requestCode']);
-
 			$next_sign = '';
 			$sign_no = '';
 			if ($request['SignatoryFin'] == '') :

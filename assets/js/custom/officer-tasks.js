@@ -87,6 +87,7 @@ $(document).ready(function() {
 
         if(data['req_code'] == "TO") {
             $('#txtto_id').val(data['req_id']);
+            $('#xtxtto_id').val(data['req_id']);
             $('#txtto_empno').val(data['req_emp']);
             $('#txtto_empname').val(data['req_empname']);
             $('#txtto_desti').val(details[0]);

@@ -232,7 +232,7 @@
                         <label class="col-md-3 control-label">Request ID</label>
                         <div class="col-md-8">
                             <input type="hidden" class="form-control" id="txtto_id" name="txtto_id">
-                            <input type="text" class="form-control" id="txtto_id" name="txtto_id" disabled>
+                            <input type="text" class="form-control" id="xtxtto_id" disabled>
                             <span class="help-block"></span>
                         </div>
                     </div>

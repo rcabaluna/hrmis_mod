@@ -436,4 +436,12 @@ class Request_model extends CI_Model
 
 		return $res;
 	}
+
+
+	function getSelectedRequest($requestid)
+	{
+		$res = $this->db->get_where('tblEmpRequest', array('requestID' => $requestid))->result_array();
+
+		return $res;
+	}
 }
