@@ -60,19 +60,15 @@ class Tasks extends MY_Controller
 
 		if (count($emps) > 0) :
 			$exec_office = $emps[0]['group1'];
-
 			$emps = array_column($emps, 'empNumber');
 
 			$requestFlow = $this->Request_model->getRequestFlow($exec_office);
 
 			$arremp_request = $this->Request_model->getEmployeeRequest($emps, curryr(), currmo());
 
+
 			$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $arremp_request);
-
 			foreach ($arrRequest as $req) :
-
-				// echo "<pre>";
-				// var_dump($req['req_nextsign']);
 
 				if ((strpos($req['req_nextsign'], $officer_empid) !== false)) :
 					$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
@@ -81,10 +77,6 @@ class Tasks extends MY_Controller
 				endif;
 			endforeach;
 		endif;
-
-		// exit();
-
-
 		$this->arrData['allemp_request'] = $allemp_request;
 		$this->template->load('template/template_view', 'officer/tasks', $this->arrData);
 	}

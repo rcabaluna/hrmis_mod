@@ -44,17 +44,33 @@ class Requests extends MY_Controller
 			$req['req_empname'] = employee_name($req['req_emp']);
 		endif;
 
-		if ($req['req_sign_no'] == "Signatory1") {
-			$arrdata['Signatory1'] = $officer_empid;
-			$arrdata['Sig1DateTime'] = date('Y-m-d');
-			$arrdata['statusDate'] = date('Y-m-d h:i:s');
-			$arrdata['requestStatus'] = strtoupper($arrpost['selto_stat']);
-			$arrdata['remarks'] = $arrpost['txtto_remarks'];
+		switch ($req['req_sign_no']) {
+			case 'Signatory1':
+				$arrdata['Signatory1'] = $officer_empid;
+				$arrdata['Sig1DateTime'] = date('Y-m-d');
+				break;
+			case 'Signatory2':
+				$arrdata['Signatory2'] = $officer_empid;
+				$arrdata['Sig2DateTime'] = date('Y-m-d');
+				break;
+			case 'Signatory3':
+				$arrdata['Signatory3'] = $officer_empid;
+				$arrdata['Sig3DateTime'] = date('Y-m-d');
+				break;
+			case 'SignatoryFin':
+				$arrdata['SignatoryFin'] = $officer_empid;
+				$arrdata['SigFinDateTime'] = date('Y-m-d');
+				break;
+			default:
+				break;
 		}
+
+		$arrdata['statusDate'] = date('Y-m-d h:i:s');
+		$arrdata['requestStatus'] = strtoupper($arrpost['selto_stat']);
+		$arrdata['remarks'] = $arrpost['txtto_remarks'];
 
 
 		$requestid = $arrpost['txtto_id'];
-
 		$this->Request_model->update_employeeRequest($arrdata, $requestid);
 		$this->session->set_flashdata('strSuccessMsg', 'Schedule added successfully.');
 		redirect('employee/notification');

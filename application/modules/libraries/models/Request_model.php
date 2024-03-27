@@ -317,11 +317,12 @@ class Request_model extends CI_Model
 			$this->db->or_like('Applicant', $app, 'before', false);
 			$this->db->or_like('Applicant', $app, 'after', false);
 			$this->db->or_like('Applicant', $app, 'both', false);
-			if (check_module() == 'hr' || check_module() == 'executive') {
+			if (check_module() == 'hr') {
 				$this->db->or_where('Applicant', 'ALLEMP');
 			}
 			$res = $this->db->get('tblRequestFlow')->result_array();
 		else :
+
 			$res = $this->db->get('tblRequestFlow')->result_array();
 		endif;
 
