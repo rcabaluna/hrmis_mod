@@ -124,12 +124,15 @@ class Attendance extends MY_Controller
 		$this->arrData['arrLatestBalance'] = $this->Leave_model->getLatestBalance($empid);
 		$this->arrData['arremp_dtr'] = $arremp_dtr;
 
+		// echo "<pre>";
+		// print_r($this->arrData);
+		// exit();
+
 		if (in_array(check_module(), array('officer', 'executive'))) :
 			$this->arrData['arrdtr'] = $this->Attendance_summary_model->getcurrent_dtr($empid);
 		endif;
 
-		// print_r($this->arrData['arremp_dtr']);
-		// exit(1);
+	
 		$this->template->load('template/template_view', 'attendance/attendance_summary/summary', $this->arrData);
 	}
 
@@ -616,6 +619,8 @@ class Attendance extends MY_Controller
 	public function filed_request()
 	{
 		$empid = $this->uri->segment(4);
+
+
 		$res = $this->Hr_model->getData($empid, '', 'all');
 		$this->arrData['arrData'] = $res[0];
 
@@ -642,7 +647,9 @@ class Attendance extends MY_Controller
 			}
 		}, $arremp_request);
 		$this->arrData['arrob'] = array_map(function ($r) {
+	
 			if (strtolower($r['requestCode']) == 'ob') {
+
 				return $r;
 			}
 		}, $arremp_request);
@@ -1629,6 +1636,7 @@ class Attendance extends MY_Controller
 		$input = $this->input->post();
 
 		$attlog_file = $_FILES['attlog_file'];
+
 		$emp_details = $this->Attendance_summary_model->get_biometricsidx($input['appointmentcode']);
 
 		$startDate = new DateTime($input['datefrom']);
@@ -1638,7 +1646,7 @@ class Attendance extends MY_Controller
 		$interval = new DateInterval('P1D');
 
 		$period = new DatePeriod($startDate, $interval, $endDate);
-
+		
 
 		if ($attlog_file['size'] > 0) {
 			$this->generate_biometrics_data_file($period, $emp_details, $attlog_file);

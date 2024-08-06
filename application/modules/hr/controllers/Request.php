@@ -32,8 +32,8 @@ class Request extends MY_Controller
 			$arrob_request = $this->official_business_model->getall_request();
 
 			if (isset($_GET['status'])) :
+				$ob_request = array();
 				if (strtolower($_GET['status']) != 'all') :
-					$ob_request = array();
 					foreach ($arrob_request as $key => $ob) :
 						$next_signatory = $this->Request_model->get_next_signatory($ob, 'OB');
 						$ob['next_signatory'] = $next_signatory;
@@ -66,8 +66,8 @@ class Request extends MY_Controller
 			$arrleave_request = $this->leave_model->getall_request();
 
 			if (isset($_GET['status'])) :
+				$leave_request = array();
 				if (strtolower($_GET['status']) != 'all') :
-					$leave_request = array();
 					foreach ($arrleave_request as $key => $leave) :
 						if ($leave['requestDetails'] != '') :
 							$requestDetails = explode(';', $leave['requestDetails']);
@@ -106,8 +106,8 @@ class Request extends MY_Controller
 			$arrto_request = $this->travel_order_model->getall_request();
 
 			if (isset($_GET['status'])) :
+				$to_request = array();
 				if (strtolower($_GET['status']) != 'all') :
-					$to_request = array();
 					foreach ($arrto_request as $key => $to) :
 						$next_signatory = $this->Request_model->get_next_signatory($to, 'TO');
 						$to['next_signatory'] = $next_signatory;
@@ -140,8 +140,8 @@ class Request extends MY_Controller
 			$arrpds_request = $this->update_pds_model->getall_request();
 
 			if (isset($_GET['status'])) :
+				$pds_request = array();
 				if (strtolower($_GET['status']) != 'all') :
-					$pds_request = array();
 					foreach ($arrpds_request as $key => $pds) :
 						$next_signatory = $this->Request_model->get_next_signatory($pds, '201');
 						$pds['next_signatory'] = $next_signatory;
@@ -174,8 +174,8 @@ class Request extends MY_Controller
 			$arrmone_request = $this->leave_monetization_model->getall_request();
 
 			if (isset($_GET['status'])) :
+				$mone_request = array();
 				if (strtolower($_GET['status']) != 'all') :
-					$mone_request = array();
 					foreach ($arrmone_request as $key => $mone) :
 						$next_signatory = $this->Request_model->get_next_signatory($mone, 'Monetization');
 						$mone['next_signatory'] = $next_signatory;
@@ -208,8 +208,8 @@ class Request extends MY_Controller
 			$arrdtr_request = $this->dtr_model->getall_request();
 
 			if (isset($_GET['status'])) :
+				$dtr_request = array();
 				if (strtolower($_GET['status']) != 'all') :
-					$dtr_request = array();
 					foreach ($arrdtr_request as $key => $dtr) :
 						$next_signatory = $this->Request_model->get_next_signatory($dtr, 'DTR');
 						$dtr['next_signatory'] = $next_signatory;
@@ -242,8 +242,8 @@ class Request extends MY_Controller
 			$arrcto_request = $this->compensatory_leave_model->getall_request();
 
 			if (isset($_GET['status'])) :
+				$cto_request = array();
 				if (strtolower($_GET['status']) != 'all') :
-					$cto_request = array();
 					foreach ($arrcto_request as $key => $cto) :
 						$next_signatory = $this->Request_model->get_next_signatory($cto, 'CTO');
 						$cto['next_signatory'] = $next_signatory;
@@ -270,7 +270,6 @@ class Request extends MY_Controller
 			$this->arrData['arrcto_request'] = $arrcto_request;
 		# end CTO
 		endif;
-
 
 		$this->template->load('template/template_view', 'hr/request/view_list', $this->arrData);
 	}
@@ -312,8 +311,6 @@ class Request extends MY_Controller
 				// 'is_override'	=> '',
 				// 'override_id'	=> ''
 			);
-
-			// print_r($arrob_data);exit(1);
 
 			$addreturn = $this->official_business_model->add($arrob_data);
 			if (count($addreturn) > 0) :
@@ -686,6 +683,8 @@ class Request extends MY_Controller
 
 	public function ob_request()
 	{
+
+
 		$emp_session = $_SESSION;
 		$arrPost = $this->input->post();
 		if (!empty($arrPost)) :
@@ -695,12 +694,12 @@ class Request extends MY_Controller
 				'dateFiled' 	 => date('Y-m-d'),
 				'empNumber'	  	 => $request_details['req_emp'],
 				'requestID' 	 => $request_details['req_id'],
-				'obDateFrom' 	 => $ob_details[1],
-				'obDateTo' 		 => $ob_details[2],
-				'obTimeFrom' 	 => $ob_details[3],
-				'obTimeTo' 		 => $ob_details[4],
-				'obPlace' 		 => $ob_details[5],
-				'obMeal' 		 => $ob_details[6] == '' ? 'Y' : 'N',
+				'obDateFrom' 	 => $ob_details[2],
+				'obDateTo' 		 => $ob_details[3],
+				'obTimeFrom' 	 => $ob_details[4],
+				'obTimeTo' 		 => $ob_details[5],
+				'obPlace' 		 => $ob_details[6],
+				'obMeal' 		 => $ob_details[8] == 'Y' ? 'Y' : 'N',
 				'purpose' 		 => $ob_details[7],
 				'official' 		 => $ob_details[0],
 				'approveRequest' => 'Y',
@@ -726,38 +725,25 @@ class Request extends MY_Controller
 	{
 
 		// echo '<pre>';
-		$emp_session = $_SESSION;
+		$officer_empid = $this->session->userdata('sessEmpNo');
+
 		$arrPost = $this->input->post();
+
+
 		if (!empty($arrPost)) :
-		// print_r($arrPost);
-		// $request_details = fixArray($arrPost['txtto_json']);
-		// print_r($request_details);
-		// $to_details = explode(';',$request_details['req_details']);
-		// print_r($to_details);
-		// $arrData=array(
-		// 	'empNumber'	  	 => $request_details['req_emp'],
-		// 	'dateFiled' 	 => $request_details['req_id'],
-		// 	'toDateFrom' 	 => $ob_details[1],
-		// 	'toDateTo' 		 => $ob_details[2],
-		// 	'destination' 	 => $ob_details[3],
-		// 	'purpose' 		 => $ob_details[4],
-		// 	'obPlace' 		 => $ob_details[5],
-		// 	'obMeal' 		 => $ob_details[6] == '' ? 'Y' : 'N',
-		// 	'purpose' 		 => $ob_details[7],
-		// 	'official' 		 => $ob_details[0],
-		// 	'approveRequest' => 'Y',
-		// 	'approveChief' 	 => 'Y',
-		// 	'approveHR' 	 => 'Y');
+			$request_details = fixArray($arrPost['txtto_json']);
+			
+			$arrdata['SignatoryFin'] = $officer_empid;
+			$arrdata['statusDate'] = date('Y-m-d');
+			$arrdata['SigFinDateTime'] = date('Y-m-d');
+			$arrdata['remarks'] = $arrPost['selto_stat'];
+			$arrdata['requestStatus'] = strtoupper($arrPost['selto_stat']);
+			$arrdata['remarks'] = $arrPost['txtto_remarks'];
 
-		// $this->Attendance_summary_model->add_ob($arrData);
-		// $arrsignatory = array(
-		// 				'SignatoryFin' => $arrPost['selob_stat'].';'.$emp_session['sessName'].';'.employee_office($emp_session['sessEmpNo']).';'.$emp_session['sessEmpNo'], # action;name;divion;empnumber
-		// 				'requestStatus' => $arrPost['selob_stat'],
-		// 				'SigFinDateTime' => date('Y-m-d H:i:s'));
-		// # update request
+			$requestid = $request_details['req_id'];
 
-		// $this->Leave_model->save($arrsignatory, $request_details['req_id']);
-		// $this->session->set_flashdata('strSuccessMsg','Employee request has been '.strtolower($arrPost['selob_stat']));
+			$this->Request_model->update_employeeRequest($arrdata, $requestid);
+			$this->session->set_flashdata('strSuccessMsg', 'Request has been updated.');
 		endif;
 		// die();
 		redirect('hr/notification?month=' . currmo() . '&yr=' . curryr() . '&status=' . $_GET['status'] . '&code=' . $_GET['code']);

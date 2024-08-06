@@ -63,6 +63,7 @@ $(document).ready(function() {
 
         if(data['req_code'] == "OB") {
             $('#txtob_id').val(data['req_id']);
+            $('#xtxtob_id').val(data['req_id']);
             $('#txtob_empno').val(data['req_emp']);
             $('#txtob_empname').val(data['req_empname']);
             $('#txtob_type').val(details[0]);

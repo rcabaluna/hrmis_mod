@@ -110,13 +110,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title"></h4>
             </div>
-            <?= form_open('employee/requests/cancel_request', array('class' => 'form-horizontal')) ?>
+            <?= form_open('employee/requests/update_ob?month=' . currmo() . '&yr=' . curryr(), array('class' => 'form-horizontal')) ?>
             <div class="modal-body">
                 <div class="form-body">
                     <div class="form-group">
                         <label class="col-md-3 control-label">Request ID</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" id="txtob_id" name="txtob_id" disabled>
+                            <input type="hidden" class="form-control" id="txtob_id" name="txtob_id">
+                            <input type="text" class="form-control" id="xtxtob_id" name="xtxtob_id" disabled>
                             <span class="help-block"></span>
                         </div>
                     </div>

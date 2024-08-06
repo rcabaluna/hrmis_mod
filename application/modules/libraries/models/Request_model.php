@@ -310,24 +310,26 @@ class Request_model extends CI_Model
 	}
 
 	# Request Flow
-	function getRequestFlow($app = '')
-	{
-
-		if ($app != '') :
+	function getRequestFlow($app = '') {
+	
+		if ($app != '') {
 			$this->db->or_like('Applicant', $app, 'before', false);
 			$this->db->or_like('Applicant', $app, 'after', false);
 			$this->db->or_like('Applicant', $app, 'both', false);
+	
 			if (check_module() == 'hr') {
-				$this->db->or_where('Applicant', 'ALLEMP');
+				$this->db->or_like('SignatoryFin', $app, 'before', false);
+				$this->db->or_like('SignatoryFin', $app, 'after', false);
+				$this->db->or_like('SignatoryFin', $app, 'both', false);
 			}
-			$res = $this->db->get('tblRequestFlow')->result_array();
-		else :
-
-			$res = $this->db->get('tblRequestFlow')->result_array();
-		endif;
-
+		}
+	
+		$this->db->where('isactive', 1);
+		$res = $this->db->get('tblRequestFlow')->result_array();
+	
 		return $res;
 	}
+	
 
 	function request_signatories_bytype($request_type)
 	{

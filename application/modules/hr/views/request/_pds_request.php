@@ -48,7 +48,7 @@
                     <a class="btn btn-sm blue" href="<?=base_url('employee/pds_update/view?req_id='.$row['requestID'])?>"><span class="icon-check"></span> Certify</a>
                     <a class="btn btn-sm btn-danger" id="btndisapproved" data-id="<?=$row['requestID']?>"><span class="icon-close" title="Cancel"></span> Disapprove</a>
                 <?php endif; ?> -->
-                <?php if(!in_array(strtolower($row['requestStatus']), array('certified','disapproved', 'cancelled')) && $row['next_signatory']['display'] == 1): ?>
+                <?php var_dump($row['requestStatus']);  if(!in_array(strtolower($row['requestStatus']), array('certified','disapproved', 'cancelled')) && $row['next_signatory']['display'] == 1): ?>
                     <a class="btn btn-sm blue" id="btncertify" data-id="<?=$row['requestID']?>"><span class="icon-check"></span> 
                         <?= strtolower($row['next_signatory']['action']) == "certified" ? "Certify" : ""; ?>
                         <?= strtolower($row['next_signatory']['action']) == "recommended" ?  "Recommend" : ""; ?>

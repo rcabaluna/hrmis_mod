@@ -155,7 +155,7 @@
             type = $(this).data('type');
             if(json.req_code=='OB'){
                 ob_details = json.req_details.split(';');
-                replink = 'employee/reports/generate/?rpt=reportOB&obtype='+ ob_details[0] +'&reqdate='+ json.req_date +'&obdatefrom='+ ob_details[2] +'&obdateto='+ ob_details[3] +'&obtimefrom='+ ob_details[4] +'&obtimeto='+ ob_details[5] +'&desti='+ ob_details[6] +'&meal='+ ob_details[9] +'&purpose='+ ob_details[7];
+                replink = 'employee/reports/generate/?rpt=reportOB&obtype='+ ob_details[0] +'&reqdate='+ json.req_date +'&obdatefrom='+ ob_details[2] +'&obdateto='+ ob_details[3] +'&obtimefrom='+ ob_details[4] +'&obtimeto='+ ob_details[5] +'&desti='+ ob_details[6] +'&meal='+ ob_details[9] +'&purpose='+ ob_details[7]+'&empnum='+ '<?=$_SESSION['sessEmpNo']?>';
             }
             if(json.req_code=='TO'){
                 to_details = json.req_details.split(';');

@@ -30,6 +30,9 @@ class Official_business extends MY_Controller {
 		$this->arrData['notif_icon'] = $notif_icon;
 
 		$arrob_request = $this->official_business_model->getall_request($_SESSION['sessEmpNo']);
+
+		// var_dump($arrob_request);
+		// exit();
 		if(isset($_GET['status'])):
 			if(strtolower($_GET['status'])!='all'):
 				$ob_request = array();

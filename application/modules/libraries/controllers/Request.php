@@ -23,35 +23,55 @@ class Request extends MY_Controller {
 		$arrRequest = array();
 		$all_requests = $this->request_model->getData();
 		
-		foreach($all_requests as $key => $request):
-			$requestDesc = array();
-			foreach(explode(';',$request['RequestType']) as $rtype):
+		foreach ($all_requests as $key => $request) {
+			$requestDesc = [];
+			foreach (explode(';', $request['RequestType']) as $rtype) {
 				$arr_reqtype = $this->request_model->getRequestType($rtype);
-				if(count($arr_reqtype) > 0):
-					$rrtype = $arr_reqtype['requestDesc'];
-				else:
-					$rrtype = $rtype;
-				endif;
+				$rrtype = count($arr_reqtype) > 0 ? $arr_reqtype['requestDesc'] : $rtype;
 				$requestDesc[] = $rrtype;
-			endforeach;
-			$all_requests[$key]['requestDesc'] = implode('; ',$requestDesc);
-
-			$first_sign = explode(';',$request['Signatory1']);
-			$first_signatory = count($first_sign) > 1 ? $first_sign[1]!=''?$this->request_model->getSignatory($first_sign[1]) : array() : array();
-			$all_requests[$key]['first_signatory'] = count($first_sign) > 1 ? array($first_sign[0],count($first_signatory) > 0 ? $first_signatory[0]['Signatory'] : '',count($first_sign) > 1 ? employee_name($first_sign[2]) : '') : array();
-
-			$second_sign = explode(';',$request['Signatory2']);
-			$second_signatory = count($second_sign) > 1 ? $second_sign[1]!=''?$this->request_model->getSignatory($second_sign[1]) : array() : array();
-			$all_requests[$key]['second_signatory'] = count($second_sign) > 1 ? array($second_sign[0],count($second_signatory) > 0 ? $second_signatory[0]['Signatory'] : '',count($second_sign) > 1 ? employee_name($second_sign[2]) : '') : array();
-
-			$third_sign = explode(';',$request['Signatory3']);
-			$third_signatory = count($third_sign) > 1 ? $third_sign[1]!=''?$this->request_model->getSignatory($third_sign[1]) : array() : array();
-			$all_requests[$key]['third_signatory'] = count($third_sign) > 1 ? array($third_sign[0],count($third_signatory) > 0 ? $third_signatory[0]['Signatory'] : '',count($third_sign) > 1 ? employee_name($third_sign[2]) : '') : array();
-
-			$final_sign = explode(';',$request['SignatoryFin']);
-			$final_signatory = count($final_sign) > 1 ? $final_sign[1]!=''?$this->request_model->getSignatory($final_sign[1]) : array() : array();
-			$all_requests[$key]['final_signatory'] = count($final_sign) > 1 ? array($final_sign[0],count($final_signatory) > 0 ? $final_signatory[0]['Signatory'] : '',count($final_sign) > 1 ? employee_name($final_sign[2]) : '') : array();
-		endforeach;
+			}
+			$all_requests[$key]['requestDesc'] = implode('; ', $requestDesc);
+		
+			$first_sign = explode(';', $request['Signatory1']);
+			if (count($first_sign) > 1) {
+				$first_signatory = $first_sign[1] != '' ? $this->request_model->getSignatory($first_sign[1]) : [];
+				$first_signatory_name = count($first_signatory) > 0 ? $first_signatory[0]['Signatory'] : '';
+				$first_employee_name = employee_name($first_sign[2]);
+				$all_requests[$key]['first_signatory'] = [$first_sign[0], $first_signatory_name, $first_employee_name];
+			} else {
+				$all_requests[$key]['first_signatory'] = [];
+			}
+		
+			$second_sign = explode(';', $request['Signatory2']);
+			if (count($second_sign) > 1) {
+				$second_signatory = $second_sign[1] != '' ? $this->request_model->getSignatory($second_sign[1]) : [];
+				$second_signatory_name = count($second_signatory) > 0 ? $second_signatory[0]['Signatory'] : '';
+				$second_employee_name = employee_name($second_sign[2]);
+				$all_requests[$key]['second_signatory'] = [$second_sign[0], $second_signatory_name, $second_employee_name];
+			} else {
+				$all_requests[$key]['second_signatory'] = [];
+			}
+		
+			$third_sign = explode(';', $request['Signatory3']);
+			if (count($third_sign) > 1) {
+				$third_signatory = $third_sign[1] != '' ? $this->request_model->getSignatory($third_sign[1]) : [];
+				$third_signatory_name = count($third_signatory) > 0 ? $third_signatory[0]['Signatory'] : '';
+				$third_employee_name = employee_name($third_sign[2]);
+				$all_requests[$key]['third_signatory'] = [$third_sign[0], $third_signatory_name, $third_employee_name];
+			} else {
+				$all_requests[$key]['third_signatory'] = [];
+			}
+		
+			$final_sign = explode(';', $request['SignatoryFin']);
+			if (count($final_sign) > 1) {
+				$final_signatory = $final_sign[1] != '' ? $this->request_model->getSignatory($final_sign[1]) : [];
+				$final_signatory_name = count($final_signatory) > 0 ? $final_signatory[0]['Signatory'] : '';
+				$final_employee_name = employee_name($final_sign[2]);
+				$all_requests[$key]['final_signatory'] = [$final_sign[0], $final_signatory_name, $final_employee_name];
+			} else {
+				$all_requests[$key]['final_signatory'] = [];
+			}
+		}
 		
 		$this->arrData['arrRequest'] = $all_requests;
 		$this->template->load('template/template_view', 'libraries/request/list_view', $this->arrData);

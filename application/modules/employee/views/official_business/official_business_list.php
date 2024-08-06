@@ -81,7 +81,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $i=1; foreach($arrob_request as $row): $req_details = explode(';',$row['requestDetails']);?>
+                    <?php $i=1; foreach($arrob_request as $row): $req_details = explode(';',$row['requestDetails']); ?>
                         <tr class="odd gradeX">
                             <td align="center"> <?=$i++?> </td>
                             <td align="center"> <?=$row['requestDate']?> </td>
@@ -106,13 +106,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 ?></td>
                             <td>
                                 <?php
-                                    if(strlen($req_details[5]) > 30):
+                                    if(strlen($req_details[6]) > 30):
                                         echo '<span class="ellipsis">'.substr($req_details[5], 0, 30).' ...</span>
                                               <span class="fulltext" style="display: none;">'.$req_details[5].'</span>&nbsp;&nbsp;
                                               <a class="showmore small" href="javascript:;"><u>show more</u></a>
                                               <a class="showless small" href="javascript:;" style="display: none;"><u>show less</u></a>';
                                     else:
-                                        echo $req_details[5];
+                                        echo $req_details[6];
                                     endif; ?></td>
                             <td>
                                 <?php
@@ -229,17 +229,20 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
         $('#table-ob').on('click','a#printreport',function(){
             var req_details = $(this).data('rdetails');
+
+            console.log(req_details);
             var obtype      = req_details[0];
             var reqdate     = $(this).data('rdate');
-            var obdatefrom  = req_details[1];
-            var obdateto    = req_details[2];
-            var obtimefrom  = req_details[3];
-            var obtimeto    = req_details[4];
-            var desti       = req_details[5];
-            var meal        = req_details[6];
+            var obdatefrom  = req_details[2];
+            var obdateto    = req_details[3];
+            var obtimefrom  = req_details[4];
+            var obtimeto    = req_details[5];
+            var desti       = req_details[6];
+            var meal        = req_details[8];
             var purpose     = req_details[7];
+            var empnum      = '<?=$_SESSION['sessEmpNo']?>';
 
-            var link = "<?=base_url('employee/reports/generate/?rpt=reportOB')?>"+"&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose;
+            var link = "<?=base_url('employee/reports/generate/?rpt=reportOB')?>"+"&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose+"&empnum="+empnum;
             $('div#attachments').html('');
             var json_file = $(this).data('rattach');
             $('div#attachments').append('<ul>');

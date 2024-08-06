@@ -103,16 +103,48 @@ $offset_wkends = 0;
                 </thead>
                 <tbody>
                     <?php foreach ($arremp_dtr as $dtr) :
-                        $in_am  = count($dtr['dtr']) > 0 ? $dtr['dtr']['inAM']  == '00:00:00' || $dtr['dtr']['inAM']  == '' ? '00:00' : date('h:i A', strtotime($dtr['dtr']['inAM']))  : '';
-                        $out_am = count($dtr['dtr']) > 0 ? $dtr['dtr']['outAM'] == '00:00:00' || $dtr['dtr']['outAM'] == '' ? '00:00' : date('h:i A', strtotime($dtr['dtr']['outAM'])) : '';
-                        $in_pm  = count($dtr['dtr']) > 0 ? $dtr['dtr']['inPM']  == '00:00:00' || $dtr['dtr']['inPM']  == '' ? '00:00' : date('h:i A', strtotime($dtr['dtr']['inPM']))  : '';
-                        $out_pm = count($dtr['dtr']) > 0 ? $dtr['dtr']['outPM'] == '00:00:00' || $dtr['dtr']['outPM'] == '' ? '00:00' : date('h:i A', strtotime($dtr['dtr']['outPM'])) : '';
+                        $in_am = '';
+                        if (count($dtr['dtr']) > 0) {
+                            if ($dtr['dtr']['inAM'] == '00:00:00' || $dtr['dtr']['inAM'] == '') {
+                                $in_am = '00:00';
+                            } else {
+                                $in_am = date('h:i A', strtotime($dtr['dtr']['inAM']));
+                            }
+                        }
+                        
+                        $out_am = '';
+                        if (count($dtr['dtr']) > 0) {
+                            if ($dtr['dtr']['outAM'] == '00:00:00' || $dtr['dtr']['outAM'] == '') {
+                                $out_am = '00:00';
+                            } else {
+                                $out_am = date('h:i A', strtotime($dtr['dtr']['outAM']));
+                            }
+                        }
+                        
+                        $in_pm = '';
+                        if (count($dtr['dtr']) > 0) {
+                            if ($dtr['dtr']['inPM'] == '00:00:00' || $dtr['dtr']['inPM'] == '') {
+                                $in_pm = '00:00';
+                            } else {
+                                $in_pm = date('h:i A', strtotime($dtr['dtr']['inPM']));
+                            }
+                        }
+                        
+                        $out_pm = '';
+                        if (count($dtr['dtr']) > 0) {
+                            if ($dtr['dtr']['outPM'] == '00:00:00' || $dtr['dtr']['outPM'] == '') {
+                                $out_pm = '00:00';
+                            } else {
+                                $out_pm = date('h:i A', strtotime($dtr['dtr']['outPM']));
+                            }
+                        }
+                        
                         $certified_ot = 0;
-                        if (count($dtr['dtr']) > 0) :
-                            if ($dtr['dtr']['OT'] == 1) :
+                        if (count($dtr['dtr']) > 0) {
+                            if ($dtr['dtr']['OT'] == 1) {
                                 $certified_ot = 1;
-                            endif;
-                        endif;
+                            }
+                        }
                     ?>
                         <tr class="odd <?= $dtr['day'] ?> tooltips <?= count($dtr['holiday_name']) > 0 ? 'holiday' : '' ?>" data-original-title="<?= date('l', strtotime($dtr['dtrdate'])) ?>">
                             <td><?= date('M d', strtotime($dtr['dtrdate'])); ?>

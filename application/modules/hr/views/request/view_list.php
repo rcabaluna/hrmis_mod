@@ -108,6 +108,6 @@
     </div>
 </div>
 
-<?php load_plugin('js',array('form_validation','datatables'));?>
+<?php load_plugin('js',array('global','form_validation','datatables'));?>
 
 <?php $this->load->view('_modal_js.php'); ?>

@@ -61,14 +61,22 @@ $(document).ready(function() {
         }
 
         if(data['req_code'] == "OB") {
+            console.log(details);
             $('#txtob_id').val(data['req_id']);
             $('#txtob_empno').val(data['req_emp']);
             $('#txtob_empname').val(data['req_empname']);
             $('#txtob_type').val(details[0]);
             $('#txtob_place').val(details[6]);
             $('#txtob_purpose').val(details[7]);
-            if(details[9] == 'Y'){
-                $('#txtob_wmeal').prop('checked',true);
+            if(details[8] == 'Y'){
+                $('#txtob_wmeal').prop('disabled', false);
+                $('#txtob_wmeal').prop('checked', true);
+                $('#txtob_wmeal').parent('span').addClass('checked');
+                $('#uniform-txtob_wmeal').removeClass('disabled');
+                $('#txtob_wmeal').prop('disabled', true);
+                $('#uniform-txtob_wmeal').addClass('disabled');
+
+
             }else{
                 $('#txtob_wmeal').prop('checked',false);
             }

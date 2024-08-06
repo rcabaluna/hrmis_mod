@@ -24,7 +24,10 @@ class Tasks extends MY_Controller
 	{
 		$officer_empid = $this->session->userdata('sessEmpNo');
 		$office = employee_office($officer_empid);
-		$emps = $this->Position_model->getemployees_bygroup(2, $office);
+
+		
+		// $emps = $this->Position_model->getemployees_bygroup(2, $office);
+		$emps = $this->Position_model->getemployees_bygroup($_SESSION['sessUserLevel'], $office);
 		$emps = array_column($emps, 'empNumber');
 		$requestFlow = $this->Request_model->getRequestFlow($office);
 
@@ -52,7 +55,9 @@ class Tasks extends MY_Controller
 	public function task_executive()
 	{
 		$officer_empid = $this->session->userdata('sessEmpNo');
+
 		$office = employee_office($officer_empid);
+
 		$emps = $this->Position_model->getemployees_bygroup(1, $office);
 		$allemp_request = array();
 

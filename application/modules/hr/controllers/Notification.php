@@ -24,6 +24,9 @@ class Notification extends MY_Controller
 		unset($menu[array_search($active_menu, $menu)]);
 		$notif_icon = array('All' => 'list', 'Filed Request' => 'file-text-o', 'Certified' => 'check', 'Cancelled' => 'ban', 'Disapproved' => 'remove');
 
+		// var_dump($active_menu);
+		// exit();
+
 
 
 
@@ -38,10 +41,17 @@ class Notification extends MY_Controller
 		# HR Notification
 		if ($this->session->userdata('sessUserLevel') == 1) :
 			$requestFlow = $this->Request_model->getRequestFlow('HR');
+
+
+
 			$emp_requests = $this->Request_model->employee_request(curryr(), currmo(), 0, $active_menu == 'All' ? '' : $active_menu, $active_code);
+
+			
 			$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $emp_requests);
-
-
+			
+			// echo "<pre>";
+			// print_r($arrRequest);
+			// exit();
 
 			foreach ($arrRequest as $req) :
 

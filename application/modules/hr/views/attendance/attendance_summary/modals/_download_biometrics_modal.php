@@ -74,6 +74,7 @@ function download_biometrics_data(currentDate) {
         contentType: false,
         processData: false,
         success: function(data) {
+        console.log(data.trim());
             if ('SUCCESS' == data.replace(/^\s+|\s+$/gm, '')) {
                 $(".xloading-image").hide();
                 $("#btn-refresh-biometrics-dl").css("display", "inline-block");
