@@ -60,9 +60,10 @@
                             <div class="form-group">
                                 <label class="control-label">Payroll Group Code <span class="required"> * </span></label>
                                 <div class="input-icon right">
+o
                                     <select class="bs-select select2 form-control form-required" name="selpayrollgroup" id="selpayrollgroup">
                                         <option value=""></option>
-                                        <?php foreach ($payrollGroup as $code) : ?>
+                                        <?php  foreach ($payrollGroup as $code) : ?>
                                             <option value="<?= $code['payrollGroupCode'] ?>" <?=
                                                                                                 isset($data)
                                                                                                     ? ($data['payrollGroupCode'] == $code['payrollGroupCode'] ? 'selected' : '')

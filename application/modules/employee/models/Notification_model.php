@@ -212,7 +212,6 @@ class Notification_model extends CI_Model
                 # check signatory 1
                 $sign1 = $this->Notification_model->validate_signature(
                     $rflow,
-
                     $request,
                     'Signatory1'
                 );

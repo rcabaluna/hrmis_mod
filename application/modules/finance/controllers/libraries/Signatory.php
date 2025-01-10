@@ -19,6 +19,7 @@ class Signatory extends MY_Controller {
 
 	public function add()
 	{
+
 		$arrPost = $this->input->post();
 		$module = $this->session->userdata('sessUserLevel')==1 ? 1 : 0;
 		if(!empty($arrPost)):

@@ -28,8 +28,11 @@ class Payroll_group_model extends CI_Model {
 
 	function getData($code='')
 	{
+
+		
 		if($code==''):
 			return $this->db->join('tblProject', 'tblProject.projectCode = tblPayrollGroup.projectCode', 'left')->order_by('payrollGroupCode','ASC')->get('tblPayrollGroup')->result_array();
+			
 		else:
 			$result = $this->db->get_where('tblPayrollGroup', array('payrollGroupCode' => $code))->result_array();
 			return $result[0];
