@@ -65,8 +65,9 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                 $leave_details = isset($arrleave) ? explode(';',$arrleave['requestDetails']) : array();
 
                 $form = $action == 'add' ? 'employee/leave/add_leave' : 'employee/leave/edit?req_id='.$arrleave['requestID'];
-             
-             form_open_multipart($form, array('method' => 'post', 'id' => 'frmLeave'))?>
+
+            ?>
+            <?=form_open_multipart($form, array('method' => 'post', 'id' => 'frmLeave'));?>
                 <input class="hidden" name="txtempno" id="txtempno" value="<?=$_SESSION['sessEmpNo']?>">
                 <input class="hidden" name="txttype" id="txttype">
                 <input class="hidden" name="intVL" id="intVL" value="<?=!empty($arrBalance[0]['vlBalance'])?$arrBalance[0]['vlBalance']:''?>">
