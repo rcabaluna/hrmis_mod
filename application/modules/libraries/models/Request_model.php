@@ -338,7 +338,8 @@ class Request_model extends CI_Model
 		$this->db->from('tblrequestflow');
 		$this->db->where('isactive', 1);
 		$this->db->group_start()
-			->like('Signatory1', $empid)
+			->like('SignatoryCountersign', $empid)
+			->or_like('Signatory1', $empid)
 			->or_like('Signatory2', $empid)
 			->or_like('Signatory3', $empid)
 			->or_like('SignatoryFin', $empid)

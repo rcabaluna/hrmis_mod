@@ -31,7 +31,17 @@ class Request extends MY_Controller {
 				$requestDesc[] = $rrtype;
 			}
 			$all_requests[$key]['requestDesc'] = implode('; ', $requestDesc);
-		
+
+			$counter_sign = explode(';', $request['SignatoryCountersign']);
+			if (count($counter_sign) > 1) {
+				$counter_signatory = $counter_sign[1] != '' ? $this->request_model->getSignatory($counter_sign[1]) : [];
+				$counter_signatory_name = count($counter_signatory) > 0 ? $counter_signatory[0]['Signatory'] : '';
+				$counter_employee_name = employee_name($counter_sign[2]);
+				$all_requests[$key]['counter_signatory'] = [$counter_sign[0], $counter_signatory_name, $counter_employee_name];
+			} else {
+				$all_requests[$key]['counter_signatory'] = [];
+			}
+
 			$first_sign = explode(';', $request['Signatory1']);
 			if (count($first_sign) > 1) {
 				$first_signatory = $first_sign[1] != '' ? $this->request_model->getSignatory($first_sign[1]) : [];
@@ -87,6 +97,7 @@ class Request extends MY_Controller {
 			$arrData = array(
 				'RequestType' => $request_type,
 				'Applicant'	  => $applicant,
+				'SignatoryCountersign'  => implode(';',array($arrPost['sigc_action'],$arrPost['sigc_signatory'],$arrPost['sigc_officer']=='0'?'':$arrPost['sigc_officer'])),
 				'Signatory1'  => implode(';',array($arrPost['sig1_action'],$arrPost['sig1_signatory'],$arrPost['sig1_officer']=='0'?'':$arrPost['sig1_officer'])),
 				'Signatory2'  => implode(';',array($arrPost['sig2_action'],$arrPost['sig2_signatory'],$arrPost['sig2_officer']=='0'?'':$arrPost['sig2_officer'])),
 				'Signatory3'  => implode(';',array($arrPost['sig3_action'],$arrPost['sig3_signatory'],$arrPost['sig3_officer']=='0'?'':$arrPost['sig3_officer'])),
@@ -126,6 +137,7 @@ class Request extends MY_Controller {
 			$arrData = array(
 				'RequestType' => $request_type,
 				'Applicant'	  => $applicant,
+				'SignatoryCountersign'  => implode(';',array($arrPost['sigc_action'],$arrPost['sigc_signatory'],$arrPost['sigc_officer']=='0'?'':$arrPost['sigc_officer'])),
 				'Signatory1'  => implode(';',array($arrPost['sig1_action'],$arrPost['sig1_signatory'],$arrPost['sig1_officer']=='0'?'':$arrPost['sig1_officer'])),
 				'Signatory2'  => implode(';',array($arrPost['sig2_action'],$arrPost['sig2_signatory'],$arrPost['sig2_officer']=='0'?'':$arrPost['sig2_officer'])),
 				'Signatory3'  => implode(';',array($arrPost['sig3_action'],$arrPost['sig3_signatory'],$arrPost['sig3_officer']=='0'?'':$arrPost['sig3_officer'])),
@@ -148,6 +160,7 @@ class Request extends MY_Controller {
 		$this->arrData['arrEmployees'] = $this->hr_model->getData();
 		$this->arrData['arrAction'] = $this->request_model->getAction();
 		$this->arrData['arrSignatory'] = $this->request_model->getSignatory();
+
 		$this->template->load('template/template_view','libraries/request/add_view',$this->arrData);
 	}
 

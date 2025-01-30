@@ -1,6 +1,7 @@
 <?php 
 load_plugin('css',array('select2','select'));
 $app_type = isset($request_flow) ? explode(';',$request_flow['Applicant']) : array();
+$signatoryc = isset($request_flow) ? explode(';',$request_flow['SignatoryCountersign']) : array();
 $signatory1 = isset($request_flow) ? explode(';',$request_flow['Signatory1']) : array();
 $signatory2 = isset($request_flow) ? explode(';',$request_flow['Signatory2']) : array();
 $signatory3 = isset($request_flow) ? explode(';',$request_flow['Signatory3']) : array();
@@ -123,6 +124,79 @@ $SignatoryFin = isset($request_flow) ? explode(';',$request_flow['SignatoryFin']
                                                             $selected = '';
                                                             if(isset($request_flow)):
                                                                 $selected = $app_type[2] == $data['empNumber'] ? 'selected' : '';
+                                                            endif;?>
+                                                            <option value="<?=$data['empNumber']?>" <?=$selected?>>
+                                                            <?=getfullname($data['firstname'],$data['surname'],$data['middlename'],$data['middleInitial'],$data['nameExtension'])?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3"><b>Counter Signatory</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Action </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="sigc_action" id="sigc_action" <?=$action=='delete'?'disabled':''?>>
+                                                    <option value=""> -- SELECT ACTION -- </option>
+                                                    <?php foreach($arrAction as $sig_action): if($sig_action['ID']!=1):
+                                                            $selected = '';
+                                                            if(isset($request_flow)):
+                                                                $selected = $signatoryc[0] == $sig_action['ActionCode'] ? 'selected' : '';
+                                                            endif;?>
+                                                            <option value="<?=$sig_action['ActionCode']?>" <?=$selected?>><?=$sig_action['ActionDesc']?></option>
+                                                    <?php endif; endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Signatory </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="bs-select form-control form-required" name="sigc_signatory" id="sigc_signatory" <?=$action=='delete'?'disabled':''?>>
+                                                    <option value=""> -- SELECT SIGNATORY -- </option>
+                                                    <?php foreach($arrSignatory as $signatory):
+                                                            $selected = '';
+                                                            if(isset($request_flow)):
+                                                                $selected = $signatoryc[1] == $signatory['SignCode'] ? 'selected' : '';
+                                                            endif;?>
+                                                            <option value="<?=$signatory['SignCode']?>" <?=$selected?>><?=$signatory['Signatory']?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="control-label col-md-3">Officer </label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                <select class="select2 form-control form-required" name="sigc_officer" id="sigc_officer" <?=$action=='delete'?'disabled':''?>>
+                                                    <option value="0"> -- SELECT EMPLOYEE -- </option>
+                                                    <?php foreach($arrEmployees as $data):
+                                                            $selected = '';
+                                                            if(isset($request_flow)):
+                                                                $selected = $signatoryc[2] == $data['empNumber'] ? 'selected' : '';
                                                             endif;?>
                                                             <option value="<?=$data['empNumber']?>" <?=$selected?>>
                                                             <?=getfullname($data['firstname'],$data['surname'],$data['middlename'],$data['middleInitial'],$data['nameExtension'])?></option>

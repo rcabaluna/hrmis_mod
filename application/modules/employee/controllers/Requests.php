@@ -149,6 +149,10 @@ class Requests extends MY_Controller
 		}
 
 		switch ($req['req_sign_no']) { 
+			case 'SignatoryCountersign':
+				$arrdata['SignatoryCountersign'] = $officer_empid;
+				$arrdata['SigCDateTime'] = date('Y-m-d H:i:s');
+				break;
 			case 'Signatory1':
 				$arrdata['Signatory1'] = $officer_empid;
 				$arrdata['Sig1DateTime'] = date('Y-m-d H:i:s');

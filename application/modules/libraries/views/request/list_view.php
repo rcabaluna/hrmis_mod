@@ -60,6 +60,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <th style="width: 100px;text-align:center;"> No. </th>
                             <th> Type of Request </th>
                             <th> Applicant </th>
+                            <th> Counter Signatory </th>
                             <th> 1st Signatory </th>
                             <th> 2nd Signatory </th>
                             <th> 3rd Signatory </th>
@@ -73,6 +74,8 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <td><?=$no++?></td>
                                 <td><?=$request['requestDesc']?> </td>
                                 <td><?=$request['Applicant']?> </td>
+                                <td nowrap>
+                                    <?=strlen(implode($request['counter_signatory'])) == 0 ? '' : implode(' <i class="fa fa-long-arrow-right"></i> ',$request['counter_signatory'])?></td>
                                 <td nowrap>
                                     <?=strlen(implode($request['first_signatory'])) == 0 ? '' : implode(' <i class="fa fa-long-arrow-right"></i> ',$request['first_signatory'])?></td>
                                 <td nowrap>

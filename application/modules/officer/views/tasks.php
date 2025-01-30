@@ -94,7 +94,7 @@
                                     <tr class="<?=strtolower($request['req_status']) == 'cancelled'? 'cancelled':''?> <?=strtolower($request['req_status']) == 'disapproved'? 'disapproved':''?>">
                                         <td align="center"><?=$no++?></td>
                                         <td><?=employee_name($request['req_emp'])?></td>
-                                        <td align="center"><?=$request['req_date']?></td>
+                                        <td align="center"><?=date('F d, Y',strtotime($request['req_date']))?></td>
                                         <td align="center"><?=$request['req_type']?></td>
                                         <td align="center"><?=$request['req_status']?></td>
                                         <td align="center"><?=$request['req_remarks']?></td>
