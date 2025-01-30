@@ -60,9 +60,20 @@
                                         <td align="center"><?=$request['req_remarks']?></td>
                                         <td><?=$request['req_nextsign']?></td>
                                         <td nowrap style="vertical-align: middle;text-align: left;">
-                                            <a href="javascript:;" class="btn btn-sm blue" id="btnview"
+                                            <?php
+                                                if ($request['req_type'] == '201') {
+                                                    ?>
+                                                    <a href="<?=base_url('/employee/pds_update/view?req_id=').$request['req_id'] ?>" class="btn btn-sm blue">
+                                                <i class="icon-magnifier"></i> View </a>
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                    <a href="javascript:;" class="btn btn-sm blue" id="btnview"
                                                 data-type="<?=$request['req_type']?>" data-json='<?=json_encode($request)?>'>
                                                 <i class="icon-magnifier"></i> View </a>
+                                                    <?php
+                                                }
+                                            ?>
                                             <?php if(!in_array(strtolower($request['req_status']), array('cancelled', 'disapproved','certified'))): ?>
                                                 <button data-id="<?=$request['req_id']?>" class="btn btn-sm red btn-cancel"> <i class="icon-close"></i> Cancel </button>
                                             <?php endif; ?>
