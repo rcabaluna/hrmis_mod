@@ -47,14 +47,10 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
             <div class="portlet-body">
                 
                 
-             <?php
-
-
-    if (!$arrBalance) {
-        echo "No set leave balance. Please contact HR Unit.";
-    }else{
-             
-             
+            <?php
+                if (!$arrBalance) {
+                    echo "No set leave balance. Please contact HR Unit.";
+                }else{
                 $permonth = date("F", strtotime($arrBalance['periodMonth'].' '.$arrBalance['periodYear']));
                 $peryear = date("Y", strtotime($arrBalance['periodYear']));
                 $vlBalance = count($arrBalance) > 0 ? $arrBalance['vlBalance'] : 0;
