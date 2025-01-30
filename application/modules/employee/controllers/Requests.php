@@ -178,7 +178,7 @@ class Requests extends MY_Controller
 
 	
 
-		if (isset($arrdata['Signatory3'])) {
+		if (isset($arrdata['Signatory1'])) {
 			echo "<pre>";
 			$reqx['requestDetails'] = $reqx['requestDetails'].';'.$arrpost['dayswpay'].';'.$arrpost['dayswopay'].';'.$arrpost['dayspayothers'];
 			$this->Request_model->update_employeeRequest($reqx, $requestid);

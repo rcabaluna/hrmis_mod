@@ -418,7 +418,7 @@
 	<div class="row"><div class="col-sm-8"><hr></div></div>
 	<div class="row">
 	    <div class="col-sm-8">
-	    	<?php if(check_module() == 'employee' || check_module() == 'officer'):  ?> 
+	    	<?php if(check_module() == 'employee' || check_module() == 'officer' || check_module() == 'executive'):  ?> 
 	    		<a href="<?=base_url('employee/pds_update')?>" class="btn blue"></i> Back</a>
 		    <?php else: ?>
 		        <a type="submit" class="btn btn-success" id="btn-request-profile" href="<?=base_url('hr/request/certify_pds?status=educ&req_id='.$_GET['req_id'].'&type=profile')?>">

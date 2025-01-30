@@ -103,7 +103,7 @@
                             <span class="help-block"></span>
                         </div>
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         <label class="col-md-3 control-label">Days w/o pay</label>
                         <div class="col-md-8">
                             <input type="number" class="form-control" id="txtdayswopay" name="dayswopay">

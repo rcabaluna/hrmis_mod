@@ -21,8 +21,8 @@ class ReportLeave_rpt_model extends CI_Model {
 		return $res;
 	}
 
-
     public function getleave_details($requestid){
+
         $this->db->select('req.*, pers.surname, pers.firstname, pers.middleInitial, pers.middlename, pers.nameExtension, pos.positionDesc, emppos.actualSalary');
         $this->db->from('tblemprequest AS req');
         $this->db->join('tblemppersonal AS pers', 'pers.empNumber = req.empNumber');
@@ -32,6 +32,7 @@ class ReportLeave_rpt_model extends CI_Model {
 
         $query = $this->db->get();
         return $query->row_array();
+
     }
 
     public function get_signatory($empNumber = ''){
@@ -75,6 +76,7 @@ class ReportLeave_rpt_model extends CI_Model {
     public function generate($requestid){
 
         $leaveDetails = $this->getleave_details($requestid);
+
         $requestSignatories = $this->get_request_signatories($leaveDetails['requestflowid']);
 
         $requestDetails = explode(';', $leaveDetails['requestDetails']);
@@ -180,6 +182,8 @@ class ReportLeave_rpt_model extends CI_Model {
             $this->fpdf->SetFont('Arial', "", 8.5);	
 
             $vl_w = $vl_a = $vl_w_remarks = $vl_a_remarks = $sl_i = $sl_o = $sl_i_remarks = $sl_o_remarks = $check_slw_remarks = '';
+
+            
 
             if($requestDetails[8] == 'within the country'){
                 $vl_w = "4";

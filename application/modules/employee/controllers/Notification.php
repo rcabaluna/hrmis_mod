@@ -34,8 +34,6 @@ class Notification extends MY_Controller
 			$strEmpNo = $_SESSION['sessEmpNo'];
 			$arrempRequest = array();
 
-
-
 			$requestFlow = $this->Request_model->getRequestFlow(employee_office($this->session->userdata('sessEmpNo')));
 			// $requestFlow = $this->Request_model->getRequestFlow('ALLEMP');
 			
@@ -47,6 +45,8 @@ class Notification extends MY_Controller
 		$this->arrData['arrRequest'] = $arrRequest;
 		// $this->arrData['arrRequest'] = $forhr_requests;
 		// $this->arrData['arrhr_request'] = count($this->Notification_model->check_request_flow_and_signatories($requestFlow,$emp_requests,1));
+
+	
 		$this->template->load('template/template_view', 'employee/notification/notification_view', $this->arrData);
 	}
 }

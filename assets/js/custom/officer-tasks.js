@@ -50,8 +50,18 @@ $(document).ready(function() {
             $("#txtreq_comm").css('text-transform', 'capitalize');
             $("#txtreq_reason").css('text-transform', 'capitalize');
 
-            if (data['req_sign_no'] == 'Signatory3') {
+            console.log(details);
+
+            if (data['req_sign_no'] == 'Signatory1') {
                 $("#approvedfor_container").show();
+                $('#txtdayswpay').val(details[3]);
+            }else{
+                $("#approvedfor_container").show();
+                $("#approvedfor_container input").attr('disabled','disabled');
+
+                $('#txtdayswpay').val(details[14]);
+                $('#txtdayswopay').val(details[15]);
+                $('#txtdayspayothers').val(details[16]);
             }
 
 
