@@ -25,8 +25,8 @@ class Notification extends MY_Controller
 			$arrempRequest = array();
 			//CHANGE PARAMETER TO "HR"
 			$requestFlow = $this->Request_model->getRequestFlow('ALLEMP');
-
-			$arremp_request = $this->Request_model->getEmployeeRequest($strEmpNo);
+			
+			$arremp_request = $this->Request_model->getEmployeeRequest2($strEmpNo);
 			$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $arremp_request);
 		endif;
 
@@ -36,8 +36,8 @@ class Notification extends MY_Controller
 
 			$requestFlow = $this->Request_model->getRequestFlow(employee_office($this->session->userdata('sessEmpNo')));
 			// $requestFlow = $this->Request_model->getRequestFlow('ALLEMP');
-			
-			$arremp_request = $this->Request_model->getEmployeeRequest($strEmpNo);
+			$requestFlow = $this->Request_model->getRequestFlow($strEmpNo);
+			$arremp_request = $this->Request_model->getEmployeeRequest2($strEmpNo);
 
 			$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $arremp_request);
 		endif;

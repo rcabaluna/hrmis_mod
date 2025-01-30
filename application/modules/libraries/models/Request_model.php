@@ -313,6 +313,8 @@ class Request_model extends CI_Model
 
 	# Request Flow
 	function getRequestFlow_old($app = '') {
+
+		
 		if ($app != '') {
 			$this->db->or_like('Applicant', $app, 'before', false);
 			$this->db->or_like('Applicant', $app, 'after', false);
@@ -332,7 +334,6 @@ class Request_model extends CI_Model
 	}
 
 	function getRequestFlow($empid = '') {
-
 		$this->db->select('*');
 		$this->db->from('tblrequestflow');
 		$this->db->where('isactive', 1);
@@ -366,27 +367,26 @@ class Request_model extends CI_Model
 		return $query->num_rows() > 0 ? $query->row_array() : array();
 	}
 
-	// function getEmployeeRequest($empnumber, $yr = '', $month = '')
-	// {
+	function getEmployeeRequest2($empnumber, $yr = '', $month = '')
+	{
 
-	// 	$this->db->order_by('requestDate', 'desc');
-	// 	if ($yr != '' && $month != '') :
-	// 		if ($month == 'all') :
-	// 			$this->db->like('requestDate', $yr . '-', 'after', false);
-	// 		else :
-	// 			$this->db->like('requestDate', $yr . '-' . $month, 'after', false);
-	// 		endif;
-	// 	endif;
+		if ($yr != '' && $month != '') :
+			if ($month == 'all') :
+				$this->db->like('requestDate', $yr . '-', 'after', false);
+			else :
+				$this->db->like('requestDate', $yr . '-' . $month, 'after', false);
+			endif;
+		endif;
 
-	// 	if (gettype($empnumber) == 'array') {	
-	// 		$this->db->where_in('empNumber', $empnumber);
-	// 		$res = $this->db->get('tblemprequest')->result_array();
-	// 	}else {
-	// 		$res = $this->db->get_where('tblemprequest', array('empNumber' => $empnumber))->result_array();
-	// 	}
+		if (gettype($empnumber) == 'array') {	
+			$this->db->where_in('empNumber', $empnumber);
+			$res = $this->db->get('tblemprequest')->result_array();
+		}else {
+			$res = $this->db->get_where('tblemprequest', array('empNumber' => $empnumber))->result_array();
+		}
 
-	// 	return $res;
-	// }
+		return $res;
+	}
 
 	function getEmployeeRequest($yr = '', $month = '')
 	{
