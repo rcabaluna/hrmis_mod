@@ -1,0 +1,1563 @@
+host: localhost
+<br>dbname: hrmis
+<br>uname: root
+<br>pass: 123
+<br>Create database hrmisv10_upt..
+<br>Checking database if not empty...
+<br>Start creating sql file...
+<br>Checking Tables...
+<br># Remove unused Tables that does not exist in updated schema
+# Remove unused Tables that does not exist in updated schema
+<br># Remove unused Tables...
+# Remove unused Tables...
+<br># Remove table tblattendancescheme_online_dtr...
+# Remove table tblattendancescheme_online_dtr...
+DROP TABLE IF EXISTS `tblattendancescheme_online_dtr`;
+<br># Remove table tbleventsatt...
+# Remove table tbleventsatt...
+DROP TABLE IF EXISTS `tbleventsatt`;
+<br># Remove table tblnonpermcomputationx...
+# Remove table tblnonpermcomputationx...
+DROP TABLE IF EXISTS `tblnonpermcomputationx`;
+<br># Remove table tblofficex...
+# Remove table tblofficex...
+DROP TABLE IF EXISTS `tblofficex`;
+<br># Remove table tbltempnotification...
+# Remove table tbltempnotification...
+DROP TABLE IF EXISTS `tbltempnotification`;
+<br># Remove table tempempdeduct...
+# Remove table tempempdeduct...
+DROP TABLE IF EXISTS `tempempdeduct`;
+<br># Remove table tempempincome...
+# Remove table tempempincome...
+DROP TABLE IF EXISTS `tempempincome`;
+<br># Add necessary Tables...
+# Add necessary Tables...
+<br># Add table tblcompensatory_timeoff...
+# Add table tblcompensatory_timeoff...
+CREATE TABLE IF NOT EXISTS `tblcompensatory_timeoff` (`cto_id` int(11) NOT NULL  auto_increment,`empnumber` varchar(20) NOT NULL  ,`dtr_id` int(11) NOT NULL  ,`cto_date` date NULL  ,`cto_timefrom` time NULL  ,`cto_timeto` time NULL  ,`process_by` varchar(20) NULL  ,`process_date` datetime NULL  ,`process_ip` varchar(20) NULL  ,PRIMARY KEY  (`cto_id`));
+<br># Add table tblcompensatory_timeoff
+# Add table tblcompensatory_timeoff
+CREATE TABLE IF NOT EXISTS `tblcompensatory_timeoff` (`cto_id` int(11) NOT NULL  auto_increment,`empnumber` varchar(20) NOT NULL  ,`dtr_id` int(11) NOT NULL  ,`cto_date` date NULL  ,`cto_timefrom` time NULL  ,`cto_timeto` time NULL  ,`process_by` varchar(20) NULL  ,`process_date` datetime NULL  ,`process_ip` varchar(20) NULL  ,PRIMARY KEY  (`cto_id`));
+<br># Add table tbloverride...
+# Add table tbloverride...
+CREATE TABLE IF NOT EXISTS `tbloverride` (`override_id` int(11) NOT NULL  auto_increment,`override_type` int(11) NOT NULL  ,`office_type` varchar(20) NOT NULL  ,`office` varchar(20) NOT NULL  ,`appt_status` varchar(20) NOT NULL  ,`created_date` datetime NULL  ,`created_by` varchar(20) NOT NULL  ,`lastupdated_date` datetime NULL  ,`lastupdate_dby` varchar(20) NULL  ,PRIMARY KEY  (`override_id`));
+<br># Add table tbloverride
+# Add table tbloverride
+CREATE TABLE IF NOT EXISTS `tbloverride` (`override_id` int(11) NOT NULL  auto_increment,`override_type` int(11) NOT NULL  ,`office_type` varchar(20) NOT NULL  ,`office` varchar(20) NOT NULL  ,`appt_status` varchar(20) NOT NULL  ,`created_date` datetime NULL  ,`created_by` varchar(20) NOT NULL  ,`lastupdated_date` datetime NULL  ,`lastupdate_dby` varchar(20) NULL  ,PRIMARY KEY  (`override_id`));
+<br># Set Global Variable
+# Set Global Variable
+set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+Comparing Databases...
+# Remove unused Tables that does not exist in updated schema
+<br>
+# Remove unused Tables...
+<br>
+# Remove table tblattendancescheme_online_dtr...
+<br>
+DROP TABLE IF EXISTS `tblattendancescheme_online_dtr`;
+<br>
+# Remove table tbleventsatt...
+<br>
+DROP TABLE IF EXISTS `tbleventsatt`;
+<br>
+# Remove table tblnonpermcomputationx...
+<br>
+DROP TABLE IF EXISTS `tblnonpermcomputationx`;
+<br>
+# Remove table tblofficex...
+<br>
+DROP TABLE IF EXISTS `tblofficex`;
+<br>
+# Remove table tbltempnotification...
+<br>
+DROP TABLE IF EXISTS `tbltempnotification`;
+<br>
+# Remove table tempempdeduct...
+<br>
+DROP TABLE IF EXISTS `tempempdeduct`;
+<br>
+# Remove table tempempincome...
+<br>
+DROP TABLE IF EXISTS `tempempincome`;
+<br>
+# Add necessary Tables...
+<br>
+# Add table tblcompensatory_timeoff...
+<br>
+# Add table tblcompensatory_timeoff
+<br>
+CREATE TABLE IF NOT EXISTS `tblcompensatory_timeoff` (`cto_id` int(11) NOT NULL  auto_increment,`empnumber` varchar(20) NOT NULL  ,`dtr_id` int(11) NOT NULL  ,`cto_date` date NULL  ,`cto_timefrom` time NULL  ,`cto_timeto` time NULL  ,`process_by` varchar(20) NULL  ,`process_date` datetime NULL  ,`process_ip` varchar(20) NULL  ,PRIMARY KEY  (`cto_id`));
+<br>
+# Add table tbloverride...
+<br>
+# Add table tbloverride
+<br>
+CREATE TABLE IF NOT EXISTS `tbloverride` (`override_id` int(11) NOT NULL  auto_increment,`override_type` int(11) NOT NULL  ,`office_type` varchar(20) NOT NULL  ,`office` varchar(20) NOT NULL  ,`appt_status` varchar(20) NOT NULL  ,`created_date` datetime NULL  ,`created_by` varchar(20) NOT NULL  ,`lastupdated_date` datetime NULL  ,`lastupdate_dby` varchar(20) NULL  ,PRIMARY KEY  (`override_id`));
+<br>
+# Set Global Variable
+<br>
+set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+<br>
+set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+<br>
+<br>Database Modified Successfully!!...
+Fixed datetime fields...
+<br># Fix Time for Holidays 
+# Fix Time for Holidays 
+ALTER TABLE `tblHolidayYear` CHANGE  `holidayTime`  `holidayTime_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';
+ALTER TABLE `tblHolidayYear` ADD  `holidayTime` TIME NULL AFTER  `holidayTime_old_data`;
+ALTER TABLE `tblHolidayYear` ADD  `htime` VARCHAR(20) NULL AFTER  `holidayTime`;
+ALTER TABLE `tblHolidayYear` ADD  `hmed` VARCHAR(20) NULL AFTER  `htime`;
+UPDATE `tblHolidayYear` SET htime = SUBSTRING_INDEX(holidayTime_old_data,' ',1);
+UPDATE `tblHolidayYear` SET hmed = SUBSTRING_INDEX(holidayTime_old_data,' ',-1);
+UPDATE `tblHolidayYear` SET `holidayTime` = CASE WHEN (hmed = 'AM') THEN CONCAT(htime,':00') WHEN (hmed = 'PM') THEN (TIME(STR_TO_DATE(concat(`holidayDate`,' ',`holidayTime_old_data`),'%Y-%m-%d  %h:%i %p'))) ELSE NULL END;
+ALTER TABLE `tblHolidayYear` DROP `holidayTime_old_data`, DROP `htime`, DROP `hmed`;
+<br># Fix Time for Holidays 
+# Fix Time for Holidays 
+ALTER TABLE `tblHolidayYear` CHANGE  `holidayTime`  `holidayTime_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';
+ALTER TABLE `tblHolidayYear` ADD  `holidayTime` TIME NULL AFTER  `holidayTime_old_data`;
+ALTER TABLE `tblHolidayYear` ADD  `htime` VARCHAR(20) NULL AFTER  `holidayTime`;
+ALTER TABLE `tblHolidayYear` ADD  `hmed` VARCHAR(20) NULL AFTER  `htime`;
+UPDATE `tblHolidayYear` SET htime = SUBSTRING_INDEX(holidayTime_old_data,' ',1);
+UPDATE `tblHolidayYear` SET hmed = SUBSTRING_INDEX(holidayTime_old_data,' ',-1);
+UPDATE `tblHolidayYear` SET `holidayTime` = CASE WHEN (hmed = 'AM') THEN CONCAT(htime,':00') WHEN (hmed = 'PM') THEN (TIME(STR_TO_DATE(concat(`holidayDate`,' ',`holidayTime_old_data`),'%Y-%m-%d  %h:%i %p'))) ELSE NULL END;
+ALTER TABLE `tblHolidayYear` DROP `holidayTime_old_data`, DROP `htime`, DROP `hmed`;
+INSERT INTO `tblRequestType` (`requestCode`, `requestDesc`) VALUES ('CTO', 'Compensatory Time Off');
+ALTER TABLE `tblIncome` ADD `income_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`income_id`);
+ALTER TABLE `tblDeductionGroup` ADD `deduct_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`deduct_id`);
+ALTER TABLE `tblPayrollProcess` ADD `process_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`process_id`);
+ALTER TABLE `tblEmpDeductionRemit` ADD `remitt_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`remitt_id`);
+<br><br>##DATETIME
+<br># Fix DateTime field in table tblagency
+# Fix DateTime field in table tblagency
+ALTER TABLE `tblagency` CHANGE `expirationCTO` `expirationCTO` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblagency` SET `expirationCTO` = NULL WHERE `expirationCTO` LIKE '0000%' OR `expirationCTO` LIKE '%-00-%' OR `expirationCTO` LIKE '%-00';
+ALTER TABLE `tblagency` CHANGE `expirationCTO` `expirationCTO` DATETIME DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblbrokensched
+# Fix DateTime field in table tblbrokensched
+ALTER TABLE `tblbrokensched` CHANGE `dateFrom` `dateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `dateTo` `dateTo` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblbrokensched` SET `dateFrom` = NULL WHERE `dateFrom` LIKE '0000%' OR `dateFrom` LIKE '%-00-%' OR `dateFrom` LIKE '%-00';
+UPDATE `tblbrokensched` SET `dateTo` = NULL WHERE `dateTo` LIKE '0000%' OR `dateTo` LIKE '%-00-%' OR `dateTo` LIKE '%-00';
+ALTER TABLE `tblbrokensched` CHANGE `dateFrom` `dateFrom` DATE DEFAULT NULL,CHANGE `dateTo` `dateTo` DATE DEFAULT NULL;
+<br><br>##DATETIME
+<br># Fix DateTime field in table tblchangelog
+# Fix DateTime field in table tblchangelog
+ALTER TABLE `tblchangelog` CHANGE `date_time` `date_time` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblchangelog` SET `date_time` = NULL WHERE `date_time` LIKE '0000%' OR `date_time` LIKE '%-00-%' OR `date_time` LIKE '%-00';
+ALTER TABLE `tblchangelog` CHANGE `date_time` `date_time` DATETIME DEFAULT NULL;
+<br><br>##DATETIME
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblcompensatory_timeoff
+# Fix DateTime field in table tblcompensatory_timeoff
+ALTER TABLE `tblcompensatory_timeoff` CHANGE `process_date` `process_date` VARCHAR(20) DEFAULT NULL,CHANGE `cto_date` `cto_date` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblcompensatory_timeoff` SET `process_date` = NULL WHERE `process_date` LIKE '0000%' OR `process_date` LIKE '%-00-%' OR `process_date` LIKE '%-00';
+UPDATE `tblcompensatory_timeoff` SET `cto_date` = NULL WHERE `cto_date` LIKE '0000%' OR `cto_date` LIKE '%-00-%' OR `cto_date` LIKE '%-00';
+ALTER TABLE `tblcompensatory_timeoff` CHANGE `process_date` `process_date` DATETIME DEFAULT NULL,CHANGE `cto_date` `cto_date` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempappointment
+# Fix DateTime field in table tblempappointment
+ALTER TABLE `tblempappointment` CHANGE `dateIssued` `dateIssued` VARCHAR(20) DEFAULT NULL,CHANGE `datePublished` `datePublished` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempappointment` SET `dateIssued` = NULL WHERE `dateIssued` LIKE '0000%' OR `dateIssued` LIKE '%-00-%' OR `dateIssued` LIKE '%-00';
+UPDATE `tblempappointment` SET `datePublished` = NULL WHERE `datePublished` LIKE '0000%' OR `datePublished` LIKE '%-00-%' OR `datePublished` LIKE '%-00';
+ALTER TABLE `tblempappointment` CHANGE `dateIssued` `dateIssued` DATE DEFAULT NULL,CHANGE `datePublished` `datePublished` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempchild
+# Fix DateTime field in table tblempchild
+ALTER TABLE `tblempchild` CHANGE `childBirthDate` `childBirthDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempchild` SET `childBirthDate` = NULL WHERE `childBirthDate` LIKE '0000%' OR `childBirthDate` LIKE '%-00-%' OR `childBirthDate` LIKE '%-00';
+ALTER TABLE `tblempchild` CHANGE `childBirthDate` `childBirthDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempdeductionremit
+# Fix DateTime field in table tblempdeductionremit
+ALTER TABLE `tblempdeductionremit` CHANGE `orDate` `orDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempdeductionremit` SET `orDate` = NULL WHERE `orDate` LIKE '0000%' OR `orDate` LIKE '%-00-%' OR `orDate` LIKE '%-00';
+ALTER TABLE `tblempdeductionremit` CHANGE `orDate` `orDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempdeductions
+# Fix DateTime field in table tblempdeductions
+ALTER TABLE `tblempdeductions` CHANGE `dateGranted` `dateGranted` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempdeductions` SET `dateGranted` = NULL WHERE `dateGranted` LIKE '0000%' OR `dateGranted` LIKE '%-00-%' OR `dateGranted` LIKE '%-00';
+ALTER TABLE `tblempdeductions` CHANGE `dateGranted` `dateGranted` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempdeductloan
+# Fix DateTime field in table tblempdeductloan
+ALTER TABLE `tblempdeductloan` CHANGE `dateGranted` `dateGranted` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempdeductloan` SET `dateGranted` = NULL WHERE `dateGranted` LIKE '0000%' OR `dateGranted` LIKE '%-00-%' OR `dateGranted` LIKE '%-00';
+ALTER TABLE `tblempdeductloan` CHANGE `dateGranted` `dateGranted` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempdtr
+# Fix DateTime field in table tblempdtr
+ALTER TABLE `tblempdtr` CHANGE `dtrDate` `dtrDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempdtr` SET `dtrDate` = NULL WHERE `dtrDate` LIKE '0000%' OR `dtrDate` LIKE '%-00-%' OR `dtrDate` LIKE '%-00';
+ALTER TABLE `tblempdtr` CHANGE `dtrDate` `dtrDate` DATE DEFAULT NULL;
+<br><br>##DATETIME
+<br># Fix DateTime field in table tblempdtr_log
+# Fix DateTime field in table tblempdtr_log
+ALTER TABLE `tblempdtr_log` CHANGE `log_date` `log_date` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempdtr_log` SET `log_date` = NULL WHERE `log_date` LIKE '0000%' OR `log_date` LIKE '%-00-%' OR `log_date` LIKE '%-00';
+ALTER TABLE `tblempdtr_log` CHANGE `log_date` `log_date` DATETIME DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempexam
+# Fix DateTime field in table tblempexam
+ALTER TABLE `tblempexam` CHANGE `examDate` `examDate` VARCHAR(20) DEFAULT NULL,CHANGE `dateRelease` `dateRelease` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempexam` SET `examDate` = NULL WHERE `examDate` LIKE '0000%' OR `examDate` LIKE '%-00-%' OR `examDate` LIKE '%-00';
+UPDATE `tblempexam` SET `dateRelease` = NULL WHERE `dateRelease` LIKE '0000%' OR `dateRelease` LIKE '%-00-%' OR `dateRelease` LIKE '%-00';
+ALTER TABLE `tblempexam` CHANGE `examDate` `examDate` DATE DEFAULT NULL,CHANGE `dateRelease` `dateRelease` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempleave
+# Fix DateTime field in table tblempleave
+ALTER TABLE `tblempleave` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `leaveFrom` `leaveFrom` VARCHAR(20) DEFAULT NULL,CHANGE `leaveTo` `leaveTo` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempleave` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+UPDATE `tblempleave` SET `leaveFrom` = NULL WHERE `leaveFrom` LIKE '0000%' OR `leaveFrom` LIKE '%-00-%' OR `leaveFrom` LIKE '%-00';
+UPDATE `tblempleave` SET `leaveTo` = NULL WHERE `leaveTo` LIKE '0000%' OR `leaveTo` LIKE '%-00-%' OR `leaveTo` LIKE '%-00';
+ALTER TABLE `tblempleave` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `leaveFrom` `leaveFrom` DATE DEFAULT NULL,CHANGE `leaveTo` `leaveTo` DATE DEFAULT NULL;
+<br><br>##DATETIME
+<br># Fix DateTime field in table tblempleavebalance
+# Fix DateTime field in table tblempleavebalance
+ALTER TABLE `tblempleavebalance` CHANGE `processDate` `processDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempleavebalance` SET `processDate` = NULL WHERE `processDate` LIKE '0000%' OR `processDate` LIKE '%-00-%' OR `processDate` LIKE '%-00';
+ALTER TABLE `tblempleavebalance` CHANGE `processDate` `processDate` DATETIME DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblemplongevity
+# Fix DateTime field in table tblemplongevity
+ALTER TABLE `tblemplongevity` CHANGE `longiDate` `longiDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblemplongevity` SET `longiDate` = NULL WHERE `longiDate` LIKE '0000%' OR `longiDate` LIKE '%-00-%' OR `longiDate` LIKE '%-00';
+ALTER TABLE `tblemplongevity` CHANGE `longiDate` `longiDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempmeeting
+# Fix DateTime field in table tblempmeeting
+ALTER TABLE `tblempmeeting` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `meetingDate` `meetingDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempmeeting` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+UPDATE `tblempmeeting` SET `meetingDate` = NULL WHERE `meetingDate` LIKE '0000%' OR `meetingDate` LIKE '%-00-%' OR `meetingDate` LIKE '%-00';
+ALTER TABLE `tblempmeeting` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `meetingDate` `meetingDate` DATE DEFAULT NULL;
+<br><br>##DATETIME
+<br># Fix DateTime field in table tblempmonetization
+# Fix DateTime field in table tblempmonetization
+ALTER TABLE `tblempmonetization` CHANGE `processDate` `processDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempmonetization` SET `processDate` = NULL WHERE `processDate` LIKE '0000%' OR `processDate` LIKE '%-00-%' OR `processDate` LIKE '%-00';
+ALTER TABLE `tblempmonetization` CHANGE `processDate` `processDate` DATETIME DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempob
+# Fix DateTime field in table tblempob
+ALTER TABLE `tblempob` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `obDateFrom` `obDateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `obDateTo` `obDateTo` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempob` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+UPDATE `tblempob` SET `obDateFrom` = NULL WHERE `obDateFrom` LIKE '0000%' OR `obDateFrom` LIKE '%-00-%' OR `obDateFrom` LIKE '%-00';
+UPDATE `tblempob` SET `obDateTo` = NULL WHERE `obDateTo` LIKE '0000%' OR `obDateTo` LIKE '%-00-%' OR `obDateTo` LIKE '%-00';
+ALTER TABLE `tblempob` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `obDateFrom` `obDateFrom` DATE DEFAULT NULL,CHANGE `obDateTo` `obDateTo` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempothersched
+# Fix DateTime field in table tblempothersched
+ALTER TABLE `tblempothersched` CHANGE `fromDate` `fromDate` VARCHAR(20) DEFAULT NULL,CHANGE `toDate` `toDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempothersched` SET `fromDate` = NULL WHERE `fromDate` LIKE '0000%' OR `fromDate` LIKE '%-00-%' OR `fromDate` LIKE '%-00';
+UPDATE `tblempothersched` SET `toDate` = NULL WHERE `toDate` LIKE '0000%' OR `toDate` LIKE '%-00-%' OR `toDate` LIKE '%-00';
+ALTER TABLE `tblempothersched` CHANGE `fromDate` `fromDate` DATE DEFAULT NULL,CHANGE `toDate` `toDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempovertime
+# Fix DateTime field in table tblempovertime
+ALTER TABLE `tblempovertime` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `otDateFrom` `otDateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `otDateTo` `otDateTo` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempovertime` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+UPDATE `tblempovertime` SET `otDateFrom` = NULL WHERE `otDateFrom` LIKE '0000%' OR `otDateFrom` LIKE '%-00-%' OR `otDateFrom` LIKE '%-00';
+UPDATE `tblempovertime` SET `otDateTo` = NULL WHERE `otDateTo` LIKE '0000%' OR `otDateTo` LIKE '%-00-%' OR `otDateTo` LIKE '%-00';
+ALTER TABLE `tblempovertime` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `otDateFrom` `otDateFrom` DATE DEFAULT NULL,CHANGE `otDateTo` `otDateTo` DATE DEFAULT NULL;
+<br><br>##DATETIME
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblemprequest
+# Fix DateTime field in table tblemprequest
+ALTER TABLE `tblemprequest` CHANGE `Sig1DateTime` `Sig1DateTime` VARCHAR(20) DEFAULT NULL,CHANGE `Sig2DateTime` `Sig2DateTime` VARCHAR(20) DEFAULT NULL,CHANGE `Sig3DateTime` `Sig3DateTime` VARCHAR(20) DEFAULT NULL,CHANGE `SigFinDateTime` `SigFinDateTime` VARCHAR(20) DEFAULT NULL,CHANGE `requestDate` `requestDate` VARCHAR(20) DEFAULT NULL,CHANGE `statusDate` `statusDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblemprequest` SET `Sig1DateTime` = NULL WHERE `Sig1DateTime` LIKE '0000%' OR `Sig1DateTime` LIKE '%-00-%' OR `Sig1DateTime` LIKE '%-00';
+UPDATE `tblemprequest` SET `Sig2DateTime` = NULL WHERE `Sig2DateTime` LIKE '0000%' OR `Sig2DateTime` LIKE '%-00-%' OR `Sig2DateTime` LIKE '%-00';
+UPDATE `tblemprequest` SET `Sig3DateTime` = NULL WHERE `Sig3DateTime` LIKE '0000%' OR `Sig3DateTime` LIKE '%-00-%' OR `Sig3DateTime` LIKE '%-00';
+UPDATE `tblemprequest` SET `SigFinDateTime` = NULL WHERE `SigFinDateTime` LIKE '0000%' OR `SigFinDateTime` LIKE '%-00-%' OR `SigFinDateTime` LIKE '%-00';
+UPDATE `tblemprequest` SET `requestDate` = NULL WHERE `requestDate` LIKE '0000%' OR `requestDate` LIKE '%-00-%' OR `requestDate` LIKE '%-00';
+UPDATE `tblemprequest` SET `statusDate` = NULL WHERE `statusDate` LIKE '0000%' OR `statusDate` LIKE '%-00-%' OR `statusDate` LIKE '%-00';
+ALTER TABLE `tblemprequest` CHANGE `Sig1DateTime` `Sig1DateTime` DATETIME DEFAULT NULL,CHANGE `Sig2DateTime` `Sig2DateTime` DATETIME DEFAULT NULL,CHANGE `Sig3DateTime` `Sig3DateTime` DATETIME DEFAULT NULL,CHANGE `SigFinDateTime` `SigFinDateTime` DATETIME DEFAULT NULL,CHANGE `requestDate` `requestDate` DATE DEFAULT NULL,CHANGE `statusDate` `statusDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblemptraining
+# Fix DateTime field in table tblemptraining
+ALTER TABLE `tblemptraining` CHANGE `trainingContractDate` `trainingContractDate` VARCHAR(20) DEFAULT NULL,CHANGE `trainingStartDate` `trainingStartDate` VARCHAR(20) DEFAULT NULL,CHANGE `trainingEndDate` `trainingEndDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblemptraining` SET `trainingContractDate` = NULL WHERE `trainingContractDate` LIKE '0000%' OR `trainingContractDate` LIKE '%-00-%' OR `trainingContractDate` LIKE '%-00';
+UPDATE `tblemptraining` SET `trainingStartDate` = NULL WHERE `trainingStartDate` LIKE '0000%' OR `trainingStartDate` LIKE '%-00-%' OR `trainingStartDate` LIKE '%-00';
+UPDATE `tblemptraining` SET `trainingEndDate` = NULL WHERE `trainingEndDate` LIKE '0000%' OR `trainingEndDate` LIKE '%-00-%' OR `trainingEndDate` LIKE '%-00';
+ALTER TABLE `tblemptraining` CHANGE `trainingContractDate` `trainingContractDate` DATE DEFAULT NULL,CHANGE `trainingStartDate` `trainingStartDate` DATE DEFAULT NULL,CHANGE `trainingEndDate` `trainingEndDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblemptravelorder
+# Fix DateTime field in table tblemptravelorder
+ALTER TABLE `tblemptravelorder` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `toDateFrom` `toDateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `toDateTo` `toDateTo` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblemptravelorder` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+UPDATE `tblemptravelorder` SET `toDateFrom` = NULL WHERE `toDateFrom` LIKE '0000%' OR `toDateFrom` LIKE '%-00-%' OR `toDateFrom` LIKE '%-00';
+UPDATE `tblemptravelorder` SET `toDateTo` = NULL WHERE `toDateTo` LIKE '0000%' OR `toDateTo` LIKE '%-00-%' OR `toDateTo` LIKE '%-00';
+ALTER TABLE `tblemptravelorder` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `toDateFrom` `toDateFrom` DATE DEFAULT NULL,CHANGE `toDateTo` `toDateTo` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblemptripticket
+# Fix DateTime field in table tblemptripticket
+ALTER TABLE `tblemptripticket` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `ttDateFrom` `ttDateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `ttDateTo` `ttDateTo` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblemptripticket` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+UPDATE `tblemptripticket` SET `ttDateFrom` = NULL WHERE `ttDateFrom` LIKE '0000%' OR `ttDateFrom` LIKE '%-00-%' OR `ttDateFrom` LIKE '%-00';
+UPDATE `tblemptripticket` SET `ttDateTo` = NULL WHERE `ttDateTo` LIKE '0000%' OR `ttDateTo` LIKE '%-00-%' OR `ttDateTo` LIKE '%-00';
+ALTER TABLE `tblemptripticket` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `ttDateFrom` `ttDateFrom` DATE DEFAULT NULL,CHANGE `ttDateTo` `ttDateTo` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblempvoluntarywork
+# Fix DateTime field in table tblempvoluntarywork
+ALTER TABLE `tblempvoluntarywork` CHANGE `vwDateFrom` `vwDateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `vwDateTo` `vwDateTo` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblempvoluntarywork` SET `vwDateFrom` = NULL WHERE `vwDateFrom` LIKE '0000%' OR `vwDateFrom` LIKE '%-00-%' OR `vwDateFrom` LIKE '%-00';
+UPDATE `tblempvoluntarywork` SET `vwDateTo` = NULL WHERE `vwDateTo` LIKE '0000%' OR `vwDateTo` LIKE '%-00-%' OR `vwDateTo` LIKE '%-00';
+ALTER TABLE `tblempvoluntarywork` CHANGE `vwDateFrom` `vwDateFrom` DATE DEFAULT NULL,CHANGE `vwDateTo` `vwDateTo` DATE DEFAULT NULL;
+<br><br>##DATETIME
+<br># Fix DateTime field in table tblflagceremony
+# Fix DateTime field in table tblflagceremony
+ALTER TABLE `tblflagceremony` CHANGE `flag_datetime` `flag_datetime` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblflagceremony` SET `flag_datetime` = NULL WHERE `flag_datetime` LIKE '0000%' OR `flag_datetime` LIKE '%-00-%' OR `flag_datetime` LIKE '%-00';
+ALTER TABLE `tblflagceremony` CHANGE `flag_datetime` `flag_datetime` DATETIME DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblholidayyear
+# Fix DateTime field in table tblholidayyear
+ALTER TABLE `tblholidayyear` CHANGE `holidayDate` `holidayDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblholidayyear` SET `holidayDate` = NULL WHERE `holidayDate` LIKE '0000%' OR `holidayDate` LIKE '%-00-%' OR `holidayDate` LIKE '%-00';
+ALTER TABLE `tblholidayyear` CHANGE `holidayDate` `holidayDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tbllocalholiday
+# Fix DateTime field in table tbllocalholiday
+ALTER TABLE `tbllocalholiday` CHANGE `holidayDate` `holidayDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tbllocalholiday` SET `holidayDate` = NULL WHERE `holidayDate` LIKE '0000%' OR `holidayDate` LIKE '%-00-%' OR `holidayDate` LIKE '%-00';
+ALTER TABLE `tbllocalholiday` CHANGE `holidayDate` `holidayDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblnonpermcomputationinstance
+# Fix DateTime field in table tblnonpermcomputationinstance
+ALTER TABLE `tblnonpermcomputationinstance` CHANGE `startDate` `startDate` VARCHAR(20) DEFAULT NULL,CHANGE `endDate` `endDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblnonpermcomputationinstance` SET `startDate` = NULL WHERE `startDate` LIKE '0000%' OR `startDate` LIKE '%-00-%' OR `startDate` LIKE '%-00';
+UPDATE `tblnonpermcomputationinstance` SET `endDate` = NULL WHERE `endDate` LIKE '0000%' OR `endDate` LIKE '%-00-%' OR `endDate` LIKE '%-00';
+ALTER TABLE `tblnonpermcomputationinstance` CHANGE `startDate` `startDate` DATE DEFAULT NULL,CHANGE `endDate` `endDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblonlinedtr_hcd
+# Fix DateTime field in table tblonlinedtr_hcd
+ALTER TABLE `tblonlinedtr_hcd` CHANGE `dtrDate` `dtrDate` VARCHAR(20) DEFAULT NULL,CHANGE `signatureDate` `signatureDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblonlinedtr_hcd` SET `dtrDate` = NULL WHERE `dtrDate` LIKE '0000%' OR `dtrDate` LIKE '%-00-%' OR `dtrDate` LIKE '%-00';
+UPDATE `tblonlinedtr_hcd` SET `signatureDate` = NULL WHERE `signatureDate` LIKE '0000%' OR `signatureDate` LIKE '%-00-%' OR `signatureDate` LIKE '%-00';
+ALTER TABLE `tblonlinedtr_hcd` CHANGE `dtrDate` `dtrDate` DATE DEFAULT NULL,CHANGE `signatureDate` `signatureDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblotcomputationinstance
+# Fix DateTime field in table tblotcomputationinstance
+ALTER TABLE `tblotcomputationinstance` CHANGE `startDate` `startDate` VARCHAR(20) DEFAULT NULL,CHANGE `endDate` `endDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblotcomputationinstance` SET `startDate` = NULL WHERE `startDate` LIKE '0000%' OR `startDate` LIKE '%-00-%' OR `startDate` LIKE '%-00';
+UPDATE `tblotcomputationinstance` SET `endDate` = NULL WHERE `endDate` LIKE '0000%' OR `endDate` LIKE '%-00-%' OR `endDate` LIKE '%-00';
+ALTER TABLE `tblotcomputationinstance` CHANGE `startDate` `startDate` DATE DEFAULT NULL,CHANGE `endDate` `endDate` DATE DEFAULT NULL;
+<br><br>##DATETIME
+<br># Fix DateTime field in table tbloverride
+# Fix DateTime field in table tbloverride
+ALTER TABLE `tbloverride` CHANGE `created_date` `created_date` VARCHAR(20) DEFAULT NULL,CHANGE `lastupdated_date` `lastupdated_date` VARCHAR(20) DEFAULT NULL;
+UPDATE `tbloverride` SET `created_date` = NULL WHERE `created_date` LIKE '0000%' OR `created_date` LIKE '%-00-%' OR `created_date` LIKE '%-00';
+UPDATE `tbloverride` SET `lastupdated_date` = NULL WHERE `lastupdated_date` LIKE '0000%' OR `lastupdated_date` LIKE '%-00-%' OR `lastupdated_date` LIKE '%-00';
+ALTER TABLE `tbloverride` CHANGE `created_date` `created_date` DATETIME DEFAULT NULL,CHANGE `lastupdated_date` `lastupdated_date` DATETIME DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblprocess
+# Fix DateTime field in table tblprocess
+ALTER TABLE `tblprocess` CHANGE `processDate` `processDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblprocess` SET `processDate` = NULL WHERE `processDate` LIKE '0000%' OR `processDate` LIKE '%-00-%' OR `processDate` LIKE '%-00';
+ALTER TABLE `tblprocess` CHANGE `processDate` `processDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblprocessedemployees
+# Fix DateTime field in table tblprocessedemployees
+ALTER TABLE `tblprocessedemployees` CHANGE `processDate` `processDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblprocessedemployees` SET `processDate` = NULL WHERE `processDate` LIKE '0000%' OR `processDate` LIKE '%-00-%' OR `processDate` LIKE '%-00';
+ALTER TABLE `tblprocessedemployees` CHANGE `processDate` `processDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblsalaryschedversion
+# Fix DateTime field in table tblsalaryschedversion
+ALTER TABLE `tblsalaryschedversion` CHANGE `effectivity` `effectivity` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblsalaryschedversion` SET `effectivity` = NULL WHERE `effectivity` LIKE '0000%' OR `effectivity` LIKE '%-00-%' OR `effectivity` LIKE '%-00';
+ALTER TABLE `tblsalaryschedversion` CHANGE `effectivity` `effectivity` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tblservicerecord
+# Fix DateTime field in table tblservicerecord
+ALTER TABLE `tblservicerecord` CHANGE `serviceFromDate` `serviceFromDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tblservicerecord` SET `serviceFromDate` = NULL WHERE `serviceFromDate` LIKE '0000%' OR `serviceFromDate` LIKE '%-00-%' OR `serviceFromDate` LIKE '%-00';
+ALTER TABLE `tblservicerecord` CHANGE `serviceFromDate` `serviceFromDate` DATE DEFAULT NULL;
+<br># Fix Date Value 
+# Fix Date Value 
+<br># Fix DateTime field in table tbltaxdetails
+# Fix DateTime field in table tbltaxdetails
+ALTER TABLE `tbltaxdetails` CHANGE `dBirthDate` `dBirthDate` VARCHAR(20) DEFAULT NULL;
+UPDATE `tbltaxdetails` SET `dBirthDate` = NULL WHERE `dBirthDate` LIKE '0000%' OR `dBirthDate` LIKE '%-00-%' OR `dBirthDate` LIKE '%-00';
+ALTER TABLE `tbltaxdetails` CHANGE `dBirthDate` `dBirthDate` DATE DEFAULT NULL;
+# Fix DateTime field in table tblagency
+<br>
+ALTER TABLE `tblagency` CHANGE `expirationCTO` `expirationCTO` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblagency` SET `expirationCTO` = NULL WHERE `expirationCTO` LIKE '0000%' OR `expirationCTO` LIKE '%-00-%' OR `expirationCTO` LIKE '%-00';
+<br>
+ALTER TABLE `tblagency` CHANGE `expirationCTO` `expirationCTO` DATETIME DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblbrokensched
+<br>
+ALTER TABLE `tblbrokensched` CHANGE `dateFrom` `dateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `dateTo` `dateTo` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblbrokensched` SET `dateFrom` = NULL WHERE `dateFrom` LIKE '0000%' OR `dateFrom` LIKE '%-00-%' OR `dateFrom` LIKE '%-00';
+<br>
+UPDATE `tblbrokensched` SET `dateTo` = NULL WHERE `dateTo` LIKE '0000%' OR `dateTo` LIKE '%-00-%' OR `dateTo` LIKE '%-00';
+<br>
+ALTER TABLE `tblbrokensched` CHANGE `dateFrom` `dateFrom` DATE DEFAULT NULL,CHANGE `dateTo` `dateTo` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblchangelog
+<br>
+ALTER TABLE `tblchangelog` CHANGE `date_time` `date_time` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblchangelog` SET `date_time` = NULL WHERE `date_time` LIKE '0000%' OR `date_time` LIKE '%-00-%' OR `date_time` LIKE '%-00';
+<br>
+ALTER TABLE `tblchangelog` CHANGE `date_time` `date_time` DATETIME DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblcompensatory_timeoff
+<br>
+ALTER TABLE `tblcompensatory_timeoff` CHANGE `process_date` `process_date` VARCHAR(20) DEFAULT NULL,CHANGE `cto_date` `cto_date` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblcompensatory_timeoff` SET `process_date` = NULL WHERE `process_date` LIKE '0000%' OR `process_date` LIKE '%-00-%' OR `process_date` LIKE '%-00';
+<br>
+UPDATE `tblcompensatory_timeoff` SET `cto_date` = NULL WHERE `cto_date` LIKE '0000%' OR `cto_date` LIKE '%-00-%' OR `cto_date` LIKE '%-00';
+<br>
+ALTER TABLE `tblcompensatory_timeoff` CHANGE `process_date` `process_date` DATETIME DEFAULT NULL,CHANGE `cto_date` `cto_date` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempappointment
+<br>
+ALTER TABLE `tblempappointment` CHANGE `dateIssued` `dateIssued` VARCHAR(20) DEFAULT NULL,CHANGE `datePublished` `datePublished` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempappointment` SET `dateIssued` = NULL WHERE `dateIssued` LIKE '0000%' OR `dateIssued` LIKE '%-00-%' OR `dateIssued` LIKE '%-00';
+<br>
+UPDATE `tblempappointment` SET `datePublished` = NULL WHERE `datePublished` LIKE '0000%' OR `datePublished` LIKE '%-00-%' OR `datePublished` LIKE '%-00';
+<br>
+ALTER TABLE `tblempappointment` CHANGE `dateIssued` `dateIssued` DATE DEFAULT NULL,CHANGE `datePublished` `datePublished` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempchild
+<br>
+ALTER TABLE `tblempchild` CHANGE `childBirthDate` `childBirthDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempchild` SET `childBirthDate` = NULL WHERE `childBirthDate` LIKE '0000%' OR `childBirthDate` LIKE '%-00-%' OR `childBirthDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblempchild` CHANGE `childBirthDate` `childBirthDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempdeductionremit
+<br>
+ALTER TABLE `tblempdeductionremit` CHANGE `orDate` `orDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempdeductionremit` SET `orDate` = NULL WHERE `orDate` LIKE '0000%' OR `orDate` LIKE '%-00-%' OR `orDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblempdeductionremit` CHANGE `orDate` `orDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempdeductions
+<br>
+ALTER TABLE `tblempdeductions` CHANGE `dateGranted` `dateGranted` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempdeductions` SET `dateGranted` = NULL WHERE `dateGranted` LIKE '0000%' OR `dateGranted` LIKE '%-00-%' OR `dateGranted` LIKE '%-00';
+<br>
+ALTER TABLE `tblempdeductions` CHANGE `dateGranted` `dateGranted` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempdeductloan
+<br>
+ALTER TABLE `tblempdeductloan` CHANGE `dateGranted` `dateGranted` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempdeductloan` SET `dateGranted` = NULL WHERE `dateGranted` LIKE '0000%' OR `dateGranted` LIKE '%-00-%' OR `dateGranted` LIKE '%-00';
+<br>
+ALTER TABLE `tblempdeductloan` CHANGE `dateGranted` `dateGranted` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempdtr
+<br>
+ALTER TABLE `tblempdtr` CHANGE `dtrDate` `dtrDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempdtr` SET `dtrDate` = NULL WHERE `dtrDate` LIKE '0000%' OR `dtrDate` LIKE '%-00-%' OR `dtrDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblempdtr` CHANGE `dtrDate` `dtrDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempdtr_log
+<br>
+ALTER TABLE `tblempdtr_log` CHANGE `log_date` `log_date` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempdtr_log` SET `log_date` = NULL WHERE `log_date` LIKE '0000%' OR `log_date` LIKE '%-00-%' OR `log_date` LIKE '%-00';
+<br>
+ALTER TABLE `tblempdtr_log` CHANGE `log_date` `log_date` DATETIME DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempexam
+<br>
+ALTER TABLE `tblempexam` CHANGE `examDate` `examDate` VARCHAR(20) DEFAULT NULL,CHANGE `dateRelease` `dateRelease` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempexam` SET `examDate` = NULL WHERE `examDate` LIKE '0000%' OR `examDate` LIKE '%-00-%' OR `examDate` LIKE '%-00';
+<br>
+UPDATE `tblempexam` SET `dateRelease` = NULL WHERE `dateRelease` LIKE '0000%' OR `dateRelease` LIKE '%-00-%' OR `dateRelease` LIKE '%-00';
+<br>
+ALTER TABLE `tblempexam` CHANGE `examDate` `examDate` DATE DEFAULT NULL,CHANGE `dateRelease` `dateRelease` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempleave
+<br>
+ALTER TABLE `tblempleave` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `leaveFrom` `leaveFrom` VARCHAR(20) DEFAULT NULL,CHANGE `leaveTo` `leaveTo` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempleave` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+<br>
+UPDATE `tblempleave` SET `leaveFrom` = NULL WHERE `leaveFrom` LIKE '0000%' OR `leaveFrom` LIKE '%-00-%' OR `leaveFrom` LIKE '%-00';
+<br>
+UPDATE `tblempleave` SET `leaveTo` = NULL WHERE `leaveTo` LIKE '0000%' OR `leaveTo` LIKE '%-00-%' OR `leaveTo` LIKE '%-00';
+<br>
+ALTER TABLE `tblempleave` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `leaveFrom` `leaveFrom` DATE DEFAULT NULL,CHANGE `leaveTo` `leaveTo` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempleavebalance
+<br>
+ALTER TABLE `tblempleavebalance` CHANGE `processDate` `processDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempleavebalance` SET `processDate` = NULL WHERE `processDate` LIKE '0000%' OR `processDate` LIKE '%-00-%' OR `processDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblempleavebalance` CHANGE `processDate` `processDate` DATETIME DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblemplongevity
+<br>
+ALTER TABLE `tblemplongevity` CHANGE `longiDate` `longiDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblemplongevity` SET `longiDate` = NULL WHERE `longiDate` LIKE '0000%' OR `longiDate` LIKE '%-00-%' OR `longiDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblemplongevity` CHANGE `longiDate` `longiDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempmeeting
+<br>
+ALTER TABLE `tblempmeeting` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `meetingDate` `meetingDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempmeeting` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+<br>
+UPDATE `tblempmeeting` SET `meetingDate` = NULL WHERE `meetingDate` LIKE '0000%' OR `meetingDate` LIKE '%-00-%' OR `meetingDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblempmeeting` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `meetingDate` `meetingDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempmonetization
+<br>
+ALTER TABLE `tblempmonetization` CHANGE `processDate` `processDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempmonetization` SET `processDate` = NULL WHERE `processDate` LIKE '0000%' OR `processDate` LIKE '%-00-%' OR `processDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblempmonetization` CHANGE `processDate` `processDate` DATETIME DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempob
+<br>
+ALTER TABLE `tblempob` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `obDateFrom` `obDateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `obDateTo` `obDateTo` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempob` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+<br>
+UPDATE `tblempob` SET `obDateFrom` = NULL WHERE `obDateFrom` LIKE '0000%' OR `obDateFrom` LIKE '%-00-%' OR `obDateFrom` LIKE '%-00';
+<br>
+UPDATE `tblempob` SET `obDateTo` = NULL WHERE `obDateTo` LIKE '0000%' OR `obDateTo` LIKE '%-00-%' OR `obDateTo` LIKE '%-00';
+<br>
+ALTER TABLE `tblempob` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `obDateFrom` `obDateFrom` DATE DEFAULT NULL,CHANGE `obDateTo` `obDateTo` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempothersched
+<br>
+ALTER TABLE `tblempothersched` CHANGE `fromDate` `fromDate` VARCHAR(20) DEFAULT NULL,CHANGE `toDate` `toDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempothersched` SET `fromDate` = NULL WHERE `fromDate` LIKE '0000%' OR `fromDate` LIKE '%-00-%' OR `fromDate` LIKE '%-00';
+<br>
+UPDATE `tblempothersched` SET `toDate` = NULL WHERE `toDate` LIKE '0000%' OR `toDate` LIKE '%-00-%' OR `toDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblempothersched` CHANGE `fromDate` `fromDate` DATE DEFAULT NULL,CHANGE `toDate` `toDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempovertime
+<br>
+ALTER TABLE `tblempovertime` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `otDateFrom` `otDateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `otDateTo` `otDateTo` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempovertime` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+<br>
+UPDATE `tblempovertime` SET `otDateFrom` = NULL WHERE `otDateFrom` LIKE '0000%' OR `otDateFrom` LIKE '%-00-%' OR `otDateFrom` LIKE '%-00';
+<br>
+UPDATE `tblempovertime` SET `otDateTo` = NULL WHERE `otDateTo` LIKE '0000%' OR `otDateTo` LIKE '%-00-%' OR `otDateTo` LIKE '%-00';
+<br>
+ALTER TABLE `tblempovertime` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `otDateFrom` `otDateFrom` DATE DEFAULT NULL,CHANGE `otDateTo` `otDateTo` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblemprequest
+<br>
+ALTER TABLE `tblemprequest` CHANGE `Sig1DateTime` `Sig1DateTime` VARCHAR(20) DEFAULT NULL,CHANGE `Sig2DateTime` `Sig2DateTime` VARCHAR(20) DEFAULT NULL,CHANGE `Sig3DateTime` `Sig3DateTime` VARCHAR(20) DEFAULT NULL,CHANGE `SigFinDateTime` `SigFinDateTime` VARCHAR(20) DEFAULT NULL,CHANGE `requestDate` `requestDate` VARCHAR(20) DEFAULT NULL,CHANGE `statusDate` `statusDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblemprequest` SET `Sig1DateTime` = NULL WHERE `Sig1DateTime` LIKE '0000%' OR `Sig1DateTime` LIKE '%-00-%' OR `Sig1DateTime` LIKE '%-00';
+<br>
+UPDATE `tblemprequest` SET `Sig2DateTime` = NULL WHERE `Sig2DateTime` LIKE '0000%' OR `Sig2DateTime` LIKE '%-00-%' OR `Sig2DateTime` LIKE '%-00';
+<br>
+UPDATE `tblemprequest` SET `Sig3DateTime` = NULL WHERE `Sig3DateTime` LIKE '0000%' OR `Sig3DateTime` LIKE '%-00-%' OR `Sig3DateTime` LIKE '%-00';
+<br>
+UPDATE `tblemprequest` SET `SigFinDateTime` = NULL WHERE `SigFinDateTime` LIKE '0000%' OR `SigFinDateTime` LIKE '%-00-%' OR `SigFinDateTime` LIKE '%-00';
+<br>
+UPDATE `tblemprequest` SET `requestDate` = NULL WHERE `requestDate` LIKE '0000%' OR `requestDate` LIKE '%-00-%' OR `requestDate` LIKE '%-00';
+<br>
+UPDATE `tblemprequest` SET `statusDate` = NULL WHERE `statusDate` LIKE '0000%' OR `statusDate` LIKE '%-00-%' OR `statusDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblemprequest` CHANGE `Sig1DateTime` `Sig1DateTime` DATETIME DEFAULT NULL,CHANGE `Sig2DateTime` `Sig2DateTime` DATETIME DEFAULT NULL,CHANGE `Sig3DateTime` `Sig3DateTime` DATETIME DEFAULT NULL,CHANGE `SigFinDateTime` `SigFinDateTime` DATETIME DEFAULT NULL,CHANGE `requestDate` `requestDate` DATE DEFAULT NULL,CHANGE `statusDate` `statusDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblemptraining
+<br>
+ALTER TABLE `tblemptraining` CHANGE `trainingContractDate` `trainingContractDate` VARCHAR(20) DEFAULT NULL,CHANGE `trainingStartDate` `trainingStartDate` VARCHAR(20) DEFAULT NULL,CHANGE `trainingEndDate` `trainingEndDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblemptraining` SET `trainingContractDate` = NULL WHERE `trainingContractDate` LIKE '0000%' OR `trainingContractDate` LIKE '%-00-%' OR `trainingContractDate` LIKE '%-00';
+<br>
+UPDATE `tblemptraining` SET `trainingStartDate` = NULL WHERE `trainingStartDate` LIKE '0000%' OR `trainingStartDate` LIKE '%-00-%' OR `trainingStartDate` LIKE '%-00';
+<br>
+UPDATE `tblemptraining` SET `trainingEndDate` = NULL WHERE `trainingEndDate` LIKE '0000%' OR `trainingEndDate` LIKE '%-00-%' OR `trainingEndDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblemptraining` CHANGE `trainingContractDate` `trainingContractDate` DATE DEFAULT NULL,CHANGE `trainingStartDate` `trainingStartDate` DATE DEFAULT NULL,CHANGE `trainingEndDate` `trainingEndDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblemptravelorder
+<br>
+ALTER TABLE `tblemptravelorder` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `toDateFrom` `toDateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `toDateTo` `toDateTo` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblemptravelorder` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+<br>
+UPDATE `tblemptravelorder` SET `toDateFrom` = NULL WHERE `toDateFrom` LIKE '0000%' OR `toDateFrom` LIKE '%-00-%' OR `toDateFrom` LIKE '%-00';
+<br>
+UPDATE `tblemptravelorder` SET `toDateTo` = NULL WHERE `toDateTo` LIKE '0000%' OR `toDateTo` LIKE '%-00-%' OR `toDateTo` LIKE '%-00';
+<br>
+ALTER TABLE `tblemptravelorder` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `toDateFrom` `toDateFrom` DATE DEFAULT NULL,CHANGE `toDateTo` `toDateTo` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblemptripticket
+<br>
+ALTER TABLE `tblemptripticket` CHANGE `dateFiled` `dateFiled` VARCHAR(20) DEFAULT NULL,CHANGE `ttDateFrom` `ttDateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `ttDateTo` `ttDateTo` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblemptripticket` SET `dateFiled` = NULL WHERE `dateFiled` LIKE '0000%' OR `dateFiled` LIKE '%-00-%' OR `dateFiled` LIKE '%-00';
+<br>
+UPDATE `tblemptripticket` SET `ttDateFrom` = NULL WHERE `ttDateFrom` LIKE '0000%' OR `ttDateFrom` LIKE '%-00-%' OR `ttDateFrom` LIKE '%-00';
+<br>
+UPDATE `tblemptripticket` SET `ttDateTo` = NULL WHERE `ttDateTo` LIKE '0000%' OR `ttDateTo` LIKE '%-00-%' OR `ttDateTo` LIKE '%-00';
+<br>
+ALTER TABLE `tblemptripticket` CHANGE `dateFiled` `dateFiled` DATE DEFAULT NULL,CHANGE `ttDateFrom` `ttDateFrom` DATE DEFAULT NULL,CHANGE `ttDateTo` `ttDateTo` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblempvoluntarywork
+<br>
+ALTER TABLE `tblempvoluntarywork` CHANGE `vwDateFrom` `vwDateFrom` VARCHAR(20) DEFAULT NULL,CHANGE `vwDateTo` `vwDateTo` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblempvoluntarywork` SET `vwDateFrom` = NULL WHERE `vwDateFrom` LIKE '0000%' OR `vwDateFrom` LIKE '%-00-%' OR `vwDateFrom` LIKE '%-00';
+<br>
+UPDATE `tblempvoluntarywork` SET `vwDateTo` = NULL WHERE `vwDateTo` LIKE '0000%' OR `vwDateTo` LIKE '%-00-%' OR `vwDateTo` LIKE '%-00';
+<br>
+ALTER TABLE `tblempvoluntarywork` CHANGE `vwDateFrom` `vwDateFrom` DATE DEFAULT NULL,CHANGE `vwDateTo` `vwDateTo` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblflagceremony
+<br>
+ALTER TABLE `tblflagceremony` CHANGE `flag_datetime` `flag_datetime` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblflagceremony` SET `flag_datetime` = NULL WHERE `flag_datetime` LIKE '0000%' OR `flag_datetime` LIKE '%-00-%' OR `flag_datetime` LIKE '%-00';
+<br>
+ALTER TABLE `tblflagceremony` CHANGE `flag_datetime` `flag_datetime` DATETIME DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblholidayyear
+<br>
+ALTER TABLE `tblholidayyear` CHANGE `holidayDate` `holidayDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblholidayyear` SET `holidayDate` = NULL WHERE `holidayDate` LIKE '0000%' OR `holidayDate` LIKE '%-00-%' OR `holidayDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblholidayyear` CHANGE `holidayDate` `holidayDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tbllocalholiday
+<br>
+ALTER TABLE `tbllocalholiday` CHANGE `holidayDate` `holidayDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tbllocalholiday` SET `holidayDate` = NULL WHERE `holidayDate` LIKE '0000%' OR `holidayDate` LIKE '%-00-%' OR `holidayDate` LIKE '%-00';
+<br>
+ALTER TABLE `tbllocalholiday` CHANGE `holidayDate` `holidayDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblnonpermcomputationinstance
+<br>
+ALTER TABLE `tblnonpermcomputationinstance` CHANGE `startDate` `startDate` VARCHAR(20) DEFAULT NULL,CHANGE `endDate` `endDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblnonpermcomputationinstance` SET `startDate` = NULL WHERE `startDate` LIKE '0000%' OR `startDate` LIKE '%-00-%' OR `startDate` LIKE '%-00';
+<br>
+UPDATE `tblnonpermcomputationinstance` SET `endDate` = NULL WHERE `endDate` LIKE '0000%' OR `endDate` LIKE '%-00-%' OR `endDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblnonpermcomputationinstance` CHANGE `startDate` `startDate` DATE DEFAULT NULL,CHANGE `endDate` `endDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblonlinedtr_hcd
+<br>
+ALTER TABLE `tblonlinedtr_hcd` CHANGE `dtrDate` `dtrDate` VARCHAR(20) DEFAULT NULL,CHANGE `signatureDate` `signatureDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblonlinedtr_hcd` SET `dtrDate` = NULL WHERE `dtrDate` LIKE '0000%' OR `dtrDate` LIKE '%-00-%' OR `dtrDate` LIKE '%-00';
+<br>
+UPDATE `tblonlinedtr_hcd` SET `signatureDate` = NULL WHERE `signatureDate` LIKE '0000%' OR `signatureDate` LIKE '%-00-%' OR `signatureDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblonlinedtr_hcd` CHANGE `dtrDate` `dtrDate` DATE DEFAULT NULL,CHANGE `signatureDate` `signatureDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblotcomputationinstance
+<br>
+ALTER TABLE `tblotcomputationinstance` CHANGE `startDate` `startDate` VARCHAR(20) DEFAULT NULL,CHANGE `endDate` `endDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblotcomputationinstance` SET `startDate` = NULL WHERE `startDate` LIKE '0000%' OR `startDate` LIKE '%-00-%' OR `startDate` LIKE '%-00';
+<br>
+UPDATE `tblotcomputationinstance` SET `endDate` = NULL WHERE `endDate` LIKE '0000%' OR `endDate` LIKE '%-00-%' OR `endDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblotcomputationinstance` CHANGE `startDate` `startDate` DATE DEFAULT NULL,CHANGE `endDate` `endDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tbloverride
+<br>
+ALTER TABLE `tbloverride` CHANGE `created_date` `created_date` VARCHAR(20) DEFAULT NULL,CHANGE `lastupdated_date` `lastupdated_date` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tbloverride` SET `created_date` = NULL WHERE `created_date` LIKE '0000%' OR `created_date` LIKE '%-00-%' OR `created_date` LIKE '%-00';
+<br>
+UPDATE `tbloverride` SET `lastupdated_date` = NULL WHERE `lastupdated_date` LIKE '0000%' OR `lastupdated_date` LIKE '%-00-%' OR `lastupdated_date` LIKE '%-00';
+<br>
+ALTER TABLE `tbloverride` CHANGE `created_date` `created_date` DATETIME DEFAULT NULL,CHANGE `lastupdated_date` `lastupdated_date` DATETIME DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblprocess
+<br>
+ALTER TABLE `tblprocess` CHANGE `processDate` `processDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblprocess` SET `processDate` = NULL WHERE `processDate` LIKE '0000%' OR `processDate` LIKE '%-00-%' OR `processDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblprocess` CHANGE `processDate` `processDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblprocessedemployees
+<br>
+ALTER TABLE `tblprocessedemployees` CHANGE `processDate` `processDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblprocessedemployees` SET `processDate` = NULL WHERE `processDate` LIKE '0000%' OR `processDate` LIKE '%-00-%' OR `processDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblprocessedemployees` CHANGE `processDate` `processDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblsalaryschedversion
+<br>
+ALTER TABLE `tblsalaryschedversion` CHANGE `effectivity` `effectivity` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblsalaryschedversion` SET `effectivity` = NULL WHERE `effectivity` LIKE '0000%' OR `effectivity` LIKE '%-00-%' OR `effectivity` LIKE '%-00';
+<br>
+ALTER TABLE `tblsalaryschedversion` CHANGE `effectivity` `effectivity` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tblservicerecord
+<br>
+ALTER TABLE `tblservicerecord` CHANGE `serviceFromDate` `serviceFromDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tblservicerecord` SET `serviceFromDate` = NULL WHERE `serviceFromDate` LIKE '0000%' OR `serviceFromDate` LIKE '%-00-%' OR `serviceFromDate` LIKE '%-00';
+<br>
+ALTER TABLE `tblservicerecord` CHANGE `serviceFromDate` `serviceFromDate` DATE DEFAULT NULL;
+<br>
+# Fix DateTime field in table tbltaxdetails
+<br>
+ALTER TABLE `tbltaxdetails` CHANGE `dBirthDate` `dBirthDate` VARCHAR(20) DEFAULT NULL;
+<br>
+UPDATE `tbltaxdetails` SET `dBirthDate` = NULL WHERE `dBirthDate` LIKE '0000%' OR `dBirthDate` LIKE '%-00-%' OR `dBirthDate` LIKE '%-00';
+<br>
+ALTER TABLE `tbltaxdetails` CHANGE `dBirthDate` `dBirthDate` DATE DEFAULT NULL;
+<br>
+<br>Database Modified Successfully!!...
+Time successfully Fixed...
+<br># Fix DateTime field in table tblEmpDTR
+# Fix DateTime field in table tblEmpDTR
+ALTER TABLE  `tblEmpDTR` CHANGE  `dtrDate`  `dtrDate` VARCHAR( 20 ) NULL DEFAULT NULL;
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate = '0000-00-00';
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '%-00-%';
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '0000-%';
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '%-00';
+ALTER TABLE  `tblEmpDTR` CHANGE  `dtrDate`  `dtrDate` DATE NULL DEFAULT NULL;
+ALTER TABLE `tblEmpDTR` CHANGE `inAM` `inAM` TIME NULL;
+ALTER TABLE `tblEmpDTR` CHANGE `outAM` `outAM` TIME NULL;
+# Fix DateTime field in table tblEmpDTR
+<br>
+ALTER TABLE  `tblEmpDTR` CHANGE  `dtrDate`  `dtrDate` VARCHAR( 20 ) NULL DEFAULT NULL;
+<br>
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate = '0000-00-00';
+<br>
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '%-00-%';
+<br>
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '0000-%';
+<br>
+UPDATE `tblEmpDTR` SET `dtrDate` = NULL WHERE dtrDate LIKE '%-00';
+<br>
+ALTER TABLE  `tblEmpDTR` CHANGE  `dtrDate`  `dtrDate` DATE NULL DEFAULT NULL;
+<br>
+ALTER TABLE `tblEmpDTR` CHANGE `inAM` `inAM` TIME NULL;
+<br>
+ALTER TABLE `tblEmpDTR` CHANGE `outAM` `outAM` TIME NULL;
+<br>
+<br>Database Modified Successfully!!...
+DateTime field in table Dtr successfully fixed...
+# Fix Time for Holidays 
+<br>
+ALTER TABLE `tblHolidayYear` CHANGE  `holidayTime`  `holidayTime_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';
+<br>
+ALTER TABLE `tblHolidayYear` ADD  `holidayTime` TIME NULL AFTER  `holidayTime_old_data`;
+<br>
+ALTER TABLE `tblHolidayYear` ADD  `htime` VARCHAR(20) NULL AFTER  `holidayTime`;
+<br>
+ALTER TABLE `tblHolidayYear` ADD  `hmed` VARCHAR(20) NULL AFTER  `htime`;
+<br>
+UPDATE `tblHolidayYear` SET htime = SUBSTRING_INDEX(holidayTime_old_data,' ',1);
+<br>
+UPDATE `tblHolidayYear` SET hmed = SUBSTRING_INDEX(holidayTime_old_data,' ',-1);
+<br>
+UPDATE `tblHolidayYear` SET `holidayTime` = CASE WHEN (hmed = 'AM') THEN CONCAT(htime,':00') WHEN (hmed = 'PM') THEN (TIME(STR_TO_DATE(concat(`holidayDate`,' ',`holidayTime_old_data`),'%Y-%m-%d  %h:%i %p'))) ELSE NULL END;
+<br>
+ALTER TABLE `tblHolidayYear` DROP `holidayTime_old_data`, DROP `htime`, DROP `hmed`;
+<br>
+# Fix Time for Holidays 
+<br>
+ALTER TABLE `tblHolidayYear` CHANGE  `holidayTime`  `holidayTime_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';
+<br>
+ALTER TABLE `tblHolidayYear` ADD  `holidayTime` TIME NULL AFTER  `holidayTime_old_data`;
+<br>
+ALTER TABLE `tblHolidayYear` ADD  `htime` VARCHAR(20) NULL AFTER  `holidayTime`;
+<br>
+ALTER TABLE `tblHolidayYear` ADD  `hmed` VARCHAR(20) NULL AFTER  `htime`;
+<br>
+UPDATE `tblHolidayYear` SET htime = SUBSTRING_INDEX(holidayTime_old_data,' ',1);
+<br>
+UPDATE `tblHolidayYear` SET hmed = SUBSTRING_INDEX(holidayTime_old_data,' ',-1);
+<br>
+UPDATE `tblHolidayYear` SET `holidayTime` = CASE WHEN (hmed = 'AM') THEN CONCAT(htime,':00') WHEN (hmed = 'PM') THEN (TIME(STR_TO_DATE(concat(`holidayDate`,' ',`holidayTime_old_data`),'%Y-%m-%d  %h:%i %p'))) ELSE NULL END;
+<br>
+ALTER TABLE `tblHolidayYear` DROP `holidayTime_old_data`, DROP `htime`, DROP `hmed`;
+<br>
+INSERT INTO `tblRequestType` (`requestCode`, `requestDesc`) VALUES ('CTO', 'Compensatory Time Off');
+<br>
+ALTER TABLE `tblIncome` ADD `income_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`income_id`);
+<br>
+ALTER TABLE `tblDeductionGroup` ADD `deduct_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`deduct_id`);
+<br>
+ALTER TABLE `tblPayrollProcess` ADD `process_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`process_id`);
+<br>
+ALTER TABLE `tblEmpDeductionRemit` ADD `remitt_id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`remitt_id`);
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+# Fix Date Value 
+<br>
+<br>Database Modified Successfully!!...
+Update Fields...
+<br># Drop index for tblappointment  
+DROP INDEX `PRIMARY` ON tblappointment;
+# Drop index for tblappointment  
+DROP INDEX `PRIMARY` ON tblappointment;
+<br># Add new field/s for table tblappointment
+# Add new field/s for table tblappointment
+ALTER TABLE `tblappointment` ADD `appointmentId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`appointmentId`);
+<br># Add new field/s for table tblattendancescheme
+# Add new field/s for table tblattendancescheme
+ALTER TABLE `tblattendancescheme` ADD `allow30` char(1) NOT NULL  ,ADD `strict` char(1) NOT NULL  ;
+<br># Drop index for tblcourse  
+DROP INDEX `PRIMARY` ON tblcourse;
+# Drop index for tblcourse  
+DROP INDEX `PRIMARY` ON tblcourse;
+<br># Add new field/s for table tblcourse
+# Add new field/s for table tblcourse
+ALTER TABLE `tblcourse` ADD `courseId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`courseId`);
+<br># Drop index for tbldeduction  
+DROP INDEX `PRIMARY` ON tbldeduction;
+# Drop index for tbldeduction  
+DROP INDEX `PRIMARY` ON tbldeduction;
+<br># Add new field/s for table tbldeduction
+# Add new field/s for table tbldeduction
+ALTER TABLE `tbldeduction` ADD `deduction_id` int(11) NOT NULL  auto_increment,ADD `agency_field` varchar(50) NULL  ,ADD `is_mandatory` int(11) NOT NULL default '0' , ADD PRIMARY KEY (`deduction_id`);
+<br># Add new field/s for table tblduties
+# Add new field/s for table tblduties
+ALTER TABLE `tblduties` ADD `duties_index` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`duties_index`);
+<br># Drop index for tbleducationallevel  
+DROP INDEX `PRIMARY` ON tbleducationallevel;
+# Drop index for tbleducationallevel  
+DROP INDEX `PRIMARY` ON tbleducationallevel;
+<br># Add new field/s for table tbleducationallevel
+# Add new field/s for table tbleducationallevel
+ALTER TABLE `tbleducationallevel` ADD `levelId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`levelId`);
+<br># Add new field/s for table tblempbenefits
+# Add new field/s for table tblempbenefits
+ALTER TABLE `tblempbenefits` ADD `incomeYear` int(11) NULL  ;
+<br># Add new field/s for table tblempduties
+# Add new field/s for table tblempduties
+ALTER TABLE `tblempduties` ADD `empduties_index` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`empduties_index`);
+<br># Add new field/s for table tblempob
+# Add new field/s for table tblempob
+ALTER TABLE `tblempob` ADD `override_id` int(11) NULL  ;
+<br># Add new field/s for table tblempposition
+# Add new field/s for table tblempposition
+ALTER TABLE `tblempposition` ADD `is_override` int(11) NULL  ,ADD `override_id` int(11) NULL  ;
+<br># Drop index for tblexamtype  
+DROP INDEX `PRIMARY` ON tblexamtype;
+# Drop index for tblexamtype  
+DROP INDEX `PRIMARY` ON tblexamtype;
+<br># Add new field/s for table tblexamtype
+# Add new field/s for table tblexamtype
+ALTER TABLE `tblexamtype` ADD `examId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`examId`);
+<br># Drop index for tblleave  
+DROP INDEX `PRIMARY` ON tblleave;
+# Drop index for tblleave  
+DROP INDEX `PRIMARY` ON tblleave;
+<br># Add new field/s for table tblleave
+# Add new field/s for table tblleave
+ALTER TABLE `tblleave` ADD `leave_id` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`leave_id`);
+<br># Drop index for tblpayrollgroup  
+DROP INDEX `PRIMARY` ON tblpayrollgroup;
+# Drop index for tblpayrollgroup  
+DROP INDEX `PRIMARY` ON tblpayrollgroup;
+<br># Add new field/s for table tblpayrollgroup
+# Add new field/s for table tblpayrollgroup
+ALTER TABLE `tblpayrollgroup` ADD `payrollGroupId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`payrollGroupId`);
+<br># Add new field/s for table tblphilhealthrange
+# Add new field/s for table tblphilhealthrange
+ALTER TABLE `tblphilhealthrange` ADD `philHealthId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`philHealthId`);
+<br># Add new field/s for table tblplantilladuties
+# Add new field/s for table tblplantilladuties
+ALTER TABLE `tblplantilladuties` ADD `plantilla_duties_index` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`plantilla_duties_index`);
+<br># Add new field/s for table tblplantillagroup
+# Add new field/s for table tblplantillagroup
+ALTER TABLE `tblplantillagroup` ADD `plantillaGroupId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`plantillaGroupId`);
+<br># Drop index for tblposition  
+DROP INDEX `PRIMARY` ON tblposition;
+# Drop index for tblposition  
+DROP INDEX `PRIMARY` ON tblposition;
+<br># Add new field/s for table tblposition
+# Add new field/s for table tblposition
+ALTER TABLE `tblposition` ADD `positionId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`positionId`);
+<br># Drop index for tblproject  
+DROP INDEX `PRIMARY` ON tblproject;
+# Drop index for tblproject  
+DROP INDEX `PRIMARY` ON tblproject;
+<br># Add new field/s for table tblproject
+# Add new field/s for table tblproject
+ALTER TABLE `tblproject` ADD `projectId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`projectId`);
+<br># Add new field/s for table tblrequestapplicant
+# Add new field/s for table tblrequestapplicant
+ALTER TABLE `tblrequestapplicant` ADD `appid` int(11) NOT NULL  ,ADD `group` varchar(100) NOT NULL  ;
+<br># Add new field/s for table tblrequestsignatory
+# Add new field/s for table tblrequestsignatory
+ALTER TABLE `tblrequestsignatory` ADD `group` int(2) NULL  ;
+<br># Drop index for tblservicecode  
+DROP INDEX `PRIMARY` ON tblservicecode;
+# Drop index for tblservicecode  
+DROP INDEX `PRIMARY` ON tblservicecode;
+<br># Add new field/s for table tblservicecode
+# Add new field/s for table tblservicecode
+ALTER TABLE `tblservicecode` ADD `serviceId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`serviceId`);
+UPDATE `tblRequestSignatory` SET `group` = '1' WHERE `tblRequestSignatory`.`SignCode` IN ('SECHEAD','UNSEC','EXECUTIVE');
+UPDATE `tblRequestSignatory` SET `group` = '2' WHERE `tblRequestSignatory`.`SignCode` = 'SERVICE';
+UPDATE `tblRequestSignatory` SET `group` = '3' WHERE `tblRequestSignatory`.`SignCode` = 'DIVISION';
+UPDATE `tblRequestSignatory` SET `group` = '4' WHERE `tblRequestSignatory`.`SignCode` = 'SECTION';
+UPDATE `tblEmpAccount` SET `userPermission` = 'hr' WHERE LOWER(userPermission) like 'hr%officer';
+UPDATE `tblEmpAccount` SET `userPermission` = 'hr' WHERE LOWER(userPermission) like 'hr%assistant';
+UPDATE `tblEmpAccount` SET `userPermission` = 'finance' WHERE LOWER(userPermission) like 'cashier%officer';
+UPDATE `tblEmpAccount` SET `userPermission` = 'finance' WHERE LOWER(userPermission) like 'cashier%assistant';
+UPDATE `tblEmpAccount` SET `userPermission` = 'officer' WHERE LOWER(userPermission) like 'chief';
+UPDATE `tblEmpAccount` SET `userPermission` = 'executive' WHERE LOWER(userPermission) like 'director';
+UPDATE `tblEmpAccount` SET `userPermission` = 'employee' WHERE LOWER(userPermission) like 'employee';
+<br>Fix DTR inPM to 24-H Time..
+<br># Drop old field with old data 
+# Drop old field with old data 
+<br># Change inPM to 24-H Time
+# Change inPM to 24-H Time
+ALTER TABLE `tblEmpDTR` CHANGE `inPM` `inPM_old_data` VARCHAR(11);
+ALTER TABLE `tblEmpDTR` ADD `inPM` TIME NULL;
+UPDATE `tblEmpDTR` SET `inPM` = CASE WHEN (`inPM_old_data` > '00:59:59' AND `inPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inPM_old_data` = '00:00:00') THEN NULL ELSE `inPM_old_data` END;
+<br># Drop old field with old data 
+# Drop old field with old data 
+<br># Fix Attendance Scheme
+# Fix Attendance Scheme
+ALTER TABLE `tblAttendanceScheme` CHANGE `pmTimeoutFrom` `pmTimeoutFrom_old_data` VARCHAR(11);
+ALTER TABLE `tblAttendanceScheme` ADD `pmTimeoutFrom` TIME NULL;
+UPDATE `tblAttendanceScheme` SET `pmTimeoutFrom` = CASE WHEN (`pmTimeoutFrom_old_data` > '00:59:59' AND `pmTimeoutFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`pmTimeoutFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`pmTimeoutFrom_old_data` = '00:00:00') THEN NULL ELSE `pmTimeoutFrom_old_data` END;
+ALTER TABLE `tblAttendanceScheme` CHANGE `pmTimeoutTo` `pmTimeoutTo_old_data` VARCHAR(11);
+ALTER TABLE `tblAttendanceScheme` ADD `pmTimeoutTo` TIME NULL;
+UPDATE `tblAttendanceScheme` SET `pmTimeoutTo` = CASE WHEN (`pmTimeoutTo_old_data` > '00:59:59' AND `pmTimeoutTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`pmTimeoutTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`pmTimeoutTo_old_data` = '00:00:00') THEN NULL ELSE `pmTimeoutTo_old_data` END;
+ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeinTo` `nnTimeinTo_old_data` VARCHAR(11);
+ALTER TABLE `tblAttendanceScheme` ADD `nnTimeinTo` TIME NULL;
+UPDATE `tblAttendanceScheme` SET `nnTimeinTo` = CASE WHEN (`nnTimeinTo_old_data` > '00:59:59' AND `nnTimeinTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeinTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeinTo_old_data` = '00:00:00') THEN NULL ELSE `nnTimeinTo_old_data` END;
+ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeoutFrom` `nnTimeoutFrom_old_data` VARCHAR(11);
+ALTER TABLE `tblAttendanceScheme` ADD `nnTimeoutFrom` TIME NULL;
+UPDATE `tblAttendanceScheme` SET `nnTimeoutFrom` = CASE WHEN (`nnTimeoutFrom_old_data` > '00:59:59' AND `nnTimeoutFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeoutFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeoutFrom_old_data` = '00:00:00') THEN NULL ELSE `nnTimeoutFrom_old_data` END;
+ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeoutTo` `nnTimeoutTo_old_data` VARCHAR(11);
+ALTER TABLE `tblAttendanceScheme` ADD `nnTimeoutTo` TIME NULL;
+UPDATE `tblAttendanceScheme` SET `nnTimeoutTo` = CASE WHEN (`nnTimeoutTo_old_data` > '00:59:59' AND `nnTimeoutTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeoutTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeoutTo_old_data` = '00:00:00') THEN NULL ELSE `nnTimeoutTo_old_data` END;
+ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeinFrom` `nnTimeinFrom_old_data` VARCHAR(11);
+ALTER TABLE `tblAttendanceScheme` ADD `nnTimeinFrom` TIME NULL;
+UPDATE `tblAttendanceScheme` SET `nnTimeinFrom` = CASE WHEN (`nnTimeinFrom_old_data` > '00:59:59' AND `nnTimeinFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeinFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeinFrom_old_data` = '00:00:00') THEN NULL ELSE `nnTimeinFrom_old_data` END;
+<br># Create Attendance Scheme Online DTR
+# Create Attendance Scheme Online DTR
+DROP TABLE IF EXISTS `tblAttendanceScheme_Online_DTR`;
+CREATE TABLE `tblAttendanceScheme_Online_DTR` AS SELECT * FROM `tblAttendanceScheme`;
+ALTER TABLE `tblAttendanceScheme_Online_DTR` ADD PRIMARY KEY (`schemeCode`);
+# Change inPM to 24-H Time
+<br>
+ALTER TABLE `tblEmpDTR` CHANGE `inPM` `inPM_old_data` VARCHAR(11);
+<br>
+ALTER TABLE `tblEmpDTR` ADD `inPM` TIME NULL;
+<br>
+UPDATE `tblEmpDTR` SET `inPM` = CASE WHEN (`inPM_old_data` > '00:59:59' AND `inPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inPM_old_data` = '00:00:00') THEN NULL ELSE `inPM_old_data` END;
+<br>
+# Drop old field with old data 
+<br>
+# Fix Attendance Scheme
+<br>
+ALTER TABLE `tblAttendanceScheme` CHANGE `pmTimeoutFrom` `pmTimeoutFrom_old_data` VARCHAR(11);
+<br>
+ALTER TABLE `tblAttendanceScheme` ADD `pmTimeoutFrom` TIME NULL;
+<br>
+UPDATE `tblAttendanceScheme` SET `pmTimeoutFrom` = CASE WHEN (`pmTimeoutFrom_old_data` > '00:59:59' AND `pmTimeoutFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`pmTimeoutFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`pmTimeoutFrom_old_data` = '00:00:00') THEN NULL ELSE `pmTimeoutFrom_old_data` END;
+<br>
+ALTER TABLE `tblAttendanceScheme` CHANGE `pmTimeoutTo` `pmTimeoutTo_old_data` VARCHAR(11);
+<br>
+ALTER TABLE `tblAttendanceScheme` ADD `pmTimeoutTo` TIME NULL;
+<br>
+UPDATE `tblAttendanceScheme` SET `pmTimeoutTo` = CASE WHEN (`pmTimeoutTo_old_data` > '00:59:59' AND `pmTimeoutTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`pmTimeoutTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`pmTimeoutTo_old_data` = '00:00:00') THEN NULL ELSE `pmTimeoutTo_old_data` END;
+<br>
+ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeinTo` `nnTimeinTo_old_data` VARCHAR(11);
+<br>
+ALTER TABLE `tblAttendanceScheme` ADD `nnTimeinTo` TIME NULL;
+<br>
+UPDATE `tblAttendanceScheme` SET `nnTimeinTo` = CASE WHEN (`nnTimeinTo_old_data` > '00:59:59' AND `nnTimeinTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeinTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeinTo_old_data` = '00:00:00') THEN NULL ELSE `nnTimeinTo_old_data` END;
+<br>
+ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeoutFrom` `nnTimeoutFrom_old_data` VARCHAR(11);
+<br>
+ALTER TABLE `tblAttendanceScheme` ADD `nnTimeoutFrom` TIME NULL;
+<br>
+UPDATE `tblAttendanceScheme` SET `nnTimeoutFrom` = CASE WHEN (`nnTimeoutFrom_old_data` > '00:59:59' AND `nnTimeoutFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeoutFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeoutFrom_old_data` = '00:00:00') THEN NULL ELSE `nnTimeoutFrom_old_data` END;
+<br>
+ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeoutTo` `nnTimeoutTo_old_data` VARCHAR(11);
+<br>
+ALTER TABLE `tblAttendanceScheme` ADD `nnTimeoutTo` TIME NULL;
+<br>
+UPDATE `tblAttendanceScheme` SET `nnTimeoutTo` = CASE WHEN (`nnTimeoutTo_old_data` > '00:59:59' AND `nnTimeoutTo_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeoutTo_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeoutTo_old_data` = '00:00:00') THEN NULL ELSE `nnTimeoutTo_old_data` END;
+<br>
+ALTER TABLE `tblAttendanceScheme` CHANGE `nnTimeinFrom` `nnTimeinFrom_old_data` VARCHAR(11);
+<br>
+ALTER TABLE `tblAttendanceScheme` ADD `nnTimeinFrom` TIME NULL;
+<br>
+UPDATE `tblAttendanceScheme` SET `nnTimeinFrom` = CASE WHEN (`nnTimeinFrom_old_data` > '00:59:59' AND `nnTimeinFrom_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(DATE_FORMAT(NOW(), '%Y-%m-%d'),' ',`nnTimeinFrom_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`nnTimeinFrom_old_data` = '00:00:00') THEN NULL ELSE `nnTimeinFrom_old_data` END;
+<br>
+# Create Attendance Scheme Online DTR
+<br>
+DROP TABLE IF EXISTS `tblAttendanceScheme_Online_DTR`;
+<br>
+CREATE TABLE `tblAttendanceScheme_Online_DTR` AS SELECT * FROM `tblAttendanceScheme`;
+<br>
+ALTER TABLE `tblAttendanceScheme_Online_DTR` ADD PRIMARY KEY (`schemeCode`);
+<br>
+<br>Database Modified Successfully!!...
+Change tblEmpDTR.inPM to 24-H Time...
+<br># Drop old field with old data 
+# Drop old field with old data 
+<br># Change outPM to 24-H Time
+# Change outPM to 24-H Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `outPM`  `outPM_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `outPM` TIME NULL;
+UPDATE `tblEmpDTR` SET `outPM` = CASE WHEN (`outPM_old_data` > '00:59:59' AND `outPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outPM_old_data` = '00:00:00') THEN NULL ELSE `outPM_old_data` END;
+# Change outPM to 24-H Time
+<br>
+ALTER TABLE  `tblEmpDTR` CHANGE  `outPM`  `outPM_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';
+<br>
+ALTER TABLE  `tblEmpDTR` ADD  `outPM` TIME NULL;
+<br>
+UPDATE `tblEmpDTR` SET `outPM` = CASE WHEN (`outPM_old_data` > '00:59:59' AND `outPM_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outPM_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outPM_old_data` = '00:00:00') THEN NULL ELSE `outPM_old_data` END;
+<br>
+<br>Database Modified Successfully!!...
+Change tblEmpDTR.outPM to 24-H Time...
+<br># Drop old field with old data 
+# Drop old field with old data 
+<br># Change inOT to 24-H Time
+# Change inOT to 24-H Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `inOT`  `inOT_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `inOT` TIME NULL;
+UPDATE `tblEmpDTR` SET `inOT` = CASE WHEN (`inOT_old_data` > '00:59:59' AND `inOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inOT_old_data` = '00:00:00') THEN NULL ELSE `inOT_old_data` END;
+# Change inOT to 24-H Time
+<br>
+ALTER TABLE  `tblEmpDTR` CHANGE  `inOT`  `inOT_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';
+<br>
+ALTER TABLE  `tblEmpDTR` ADD  `inOT` TIME NULL;
+<br>
+UPDATE `tblEmpDTR` SET `inOT` = CASE WHEN (`inOT_old_data` > '00:59:59' AND `inOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`inOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`inOT_old_data` = '00:00:00') THEN NULL ELSE `inOT_old_data` END;
+<br>
+<br>Database Modified Successfully!!...
+Change tblEmpDTR.inOT to 24-H Time...
+<br># Drop old field with old data 
+# Drop old field with old data 
+<br># Change outOT to 24-H Time
+# Change outOT to 24-H Time
+ALTER TABLE  `tblEmpDTR` CHANGE  `outOT`  `outOT_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';
+ALTER TABLE  `tblEmpDTR` ADD  `outOT` TIME NULL;
+UPDATE `tblEmpDTR` SET `outOT` = CASE WHEN (`outOT_old_data` > '00:59:59' AND `outOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outOT_old_data` = '00:00:00') THEN NULL ELSE `outOT_old_data` END;
+# Change outOT to 24-H Time
+<br>
+ALTER TABLE  `tblEmpDTR` CHANGE  `outOT`  `outOT_old_data` VARCHAR(20) NULL DEFAULT  '00:00:00';
+<br>
+ALTER TABLE  `tblEmpDTR` ADD  `outOT` TIME NULL;
+<br>
+UPDATE `tblEmpDTR` SET `outOT` = CASE WHEN (`outOT_old_data` > '00:59:59' AND `outOT_old_data` <= '11:59:59') THEN (TIME(STR_TO_DATE(concat(`dtrDate`,' ',`outOT_old_data`,' PM'),'%Y-%m-%d  %h:%i:%s %p'))) WHEN (`outOT_old_data` = '00:00:00') THEN NULL ELSE `outOT_old_data` END;
+<br>
+<br>Database Modified Successfully!!...
+Change tblEmpDTR.outOT to 24-H Time...
+<br># Drop old field with old data 
+# Drop old field with old data 
+DTR table successfully fixed...
+# Drop index for tblappointment  
+<br>
+DROP INDEX `PRIMARY` ON tblappointment;
+<br>
+# Add new field/s for table tblappointment
+<br>
+ALTER TABLE `tblappointment` ADD `appointmentId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`appointmentId`);
+<br>
+# Add new field/s for table tblattendancescheme
+<br>
+ALTER TABLE `tblattendancescheme` ADD `allow30` char(1) NOT NULL  ,ADD `strict` char(1) NOT NULL  ;
+<br>
+# Drop index for tblcourse  
+<br>
+DROP INDEX `PRIMARY` ON tblcourse;
+<br>
+# Add new field/s for table tblcourse
+<br>
+ALTER TABLE `tblcourse` ADD `courseId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`courseId`);
+<br>
+# Drop index for tbldeduction  
+<br>
+DROP INDEX `PRIMARY` ON tbldeduction;
+<br>
+# Add new field/s for table tbldeduction
+<br>
+ALTER TABLE `tbldeduction` ADD `deduction_id` int(11) NOT NULL  auto_increment,ADD `agency_field` varchar(50) NULL  ,ADD `is_mandatory` int(11) NOT NULL default '0' , ADD PRIMARY KEY (`deduction_id`);
+<br>
+# Add new field/s for table tblduties
+<br>
+ALTER TABLE `tblduties` ADD `duties_index` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`duties_index`);
+<br>
+# Drop index for tbleducationallevel  
+<br>
+DROP INDEX `PRIMARY` ON tbleducationallevel;
+<br>
+# Add new field/s for table tbleducationallevel
+<br>
+ALTER TABLE `tbleducationallevel` ADD `levelId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`levelId`);
+<br>
+# Add new field/s for table tblempbenefits
+<br>
+ALTER TABLE `tblempbenefits` ADD `incomeYear` int(11) NULL  ;
+<br>
+# Add new field/s for table tblempduties
+<br>
+ALTER TABLE `tblempduties` ADD `empduties_index` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`empduties_index`);
+<br>
+# Add new field/s for table tblempob
+<br>
+ALTER TABLE `tblempob` ADD `override_id` int(11) NULL  ;
+<br>
+# Add new field/s for table tblempposition
+<br>
+ALTER TABLE `tblempposition` ADD `is_override` int(11) NULL  ,ADD `override_id` int(11) NULL  ;
+<br>
+# Drop index for tblexamtype  
+<br>
+DROP INDEX `PRIMARY` ON tblexamtype;
+<br>
+# Add new field/s for table tblexamtype
+<br>
+ALTER TABLE `tblexamtype` ADD `examId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`examId`);
+<br>
+# Drop index for tblleave  
+<br>
+DROP INDEX `PRIMARY` ON tblleave;
+<br>
+# Add new field/s for table tblleave
+<br>
+ALTER TABLE `tblleave` ADD `leave_id` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`leave_id`);
+<br>
+# Drop index for tblpayrollgroup  
+<br>
+DROP INDEX `PRIMARY` ON tblpayrollgroup;
+<br>
+# Add new field/s for table tblpayrollgroup
+<br>
+ALTER TABLE `tblpayrollgroup` ADD `payrollGroupId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`payrollGroupId`);
+<br>
+# Add new field/s for table tblphilhealthrange
+<br>
+ALTER TABLE `tblphilhealthrange` ADD `philHealthId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`philHealthId`);
+<br>
+# Add new field/s for table tblplantilladuties
+<br>
+ALTER TABLE `tblplantilladuties` ADD `plantilla_duties_index` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`plantilla_duties_index`);
+<br>
+# Add new field/s for table tblplantillagroup
+<br>
+ALTER TABLE `tblplantillagroup` ADD `plantillaGroupId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`plantillaGroupId`);
+<br>
+# Drop index for tblposition  
+<br>
+DROP INDEX `PRIMARY` ON tblposition;
+<br>
+# Add new field/s for table tblposition
+<br>
+ALTER TABLE `tblposition` ADD `positionId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`positionId`);
+<br>
+# Drop index for tblproject  
+<br>
+DROP INDEX `PRIMARY` ON tblproject;
+<br>
+# Add new field/s for table tblproject
+<br>
+ALTER TABLE `tblproject` ADD `projectId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`projectId`);
+<br>
+# Add new field/s for table tblrequestapplicant
+<br>
+ALTER TABLE `tblrequestapplicant` ADD `appid` int(11) NOT NULL  ,ADD `group` varchar(100) NOT NULL  ;
+<br>
+# Add new field/s for table tblrequestsignatory
+<br>
+ALTER TABLE `tblrequestsignatory` ADD `group` int(2) NULL  ;
+<br>
+# Drop index for tblservicecode  
+<br>
+DROP INDEX `PRIMARY` ON tblservicecode;
+<br>
+# Add new field/s for table tblservicecode
+<br>
+ALTER TABLE `tblservicecode` ADD `serviceId` int(11) NOT NULL  auto_increment, ADD PRIMARY KEY (`serviceId`);
+<br>
+UPDATE `tblRequestSignatory` SET `group` = '1' WHERE `tblRequestSignatory`.`SignCode` IN ('SECHEAD','UNSEC','EXECUTIVE');
+<br>
+UPDATE `tblRequestSignatory` SET `group` = '2' WHERE `tblRequestSignatory`.`SignCode` = 'SERVICE';
+<br>
+UPDATE `tblRequestSignatory` SET `group` = '3' WHERE `tblRequestSignatory`.`SignCode` = 'DIVISION';
+<br>
+UPDATE `tblRequestSignatory` SET `group` = '4' WHERE `tblRequestSignatory`.`SignCode` = 'SECTION';
+<br>
+UPDATE `tblEmpAccount` SET `userPermission` = 'hr' WHERE LOWER(userPermission) like 'hr%officer';
+<br>
+UPDATE `tblEmpAccount` SET `userPermission` = 'hr' WHERE LOWER(userPermission) like 'hr%assistant';
+<br>
+UPDATE `tblEmpAccount` SET `userPermission` = 'finance' WHERE LOWER(userPermission) like 'cashier%officer';
+<br>
+UPDATE `tblEmpAccount` SET `userPermission` = 'finance' WHERE LOWER(userPermission) like 'cashier%assistant';
+<br>
+UPDATE `tblEmpAccount` SET `userPermission` = 'officer' WHERE LOWER(userPermission) like 'chief';
+<br>
+UPDATE `tblEmpAccount` SET `userPermission` = 'executive' WHERE LOWER(userPermission) like 'director';
+<br>
+UPDATE `tblEmpAccount` SET `userPermission` = 'employee' WHERE LOWER(userPermission) like 'employee';
+<br>
+<br>Database Modified Successfully!!...
+Update Data Type...
+hrmisv10_table_list = 122||hrmis_table_list = 123
+<br>hrmisv10_table_list:
+<br>0 .tblagency
+<br>1 .tblagencyimages
+<br>2 .tblappointment
+<br>3 .tblattendancecode
+<br>4 .tblattendancescheme
+<br>5 .tblbackup
+<br>6 .tblbackupconfig
+<br>7 .tblbackupscheduler
+<br>8 .tblbrokensched
+<br>9 .tblchangelog
+<br>10 .tblcompensatory_timeoff
+<br>11 .tblcomputation
+<br>12 .tblcomputationdetails
+<br>13 .tblcomputationinstance
+<br>14 .tblcontact
+<br>15 .tblcountry
+<br>16 .tblcourse
+<br>17 .tblcustodian
+<br>18 .tbldailyquote
+<br>19 .tbldeduction
+<br>20 .tbldeductiongroup
+<br>21 .tblduties
+<br>22 .tbleducationallevel
+<br>23 .tblempaccount
+<br>24 .tblempaddincome
+<br>25 .tblempappointment
+<br>26 .tblempbenefits
+<br>27 .tblempchild
+<br>28 .tblempdeductionremit
+<br>29 .tblempdeductions
+<br>30 .tblempdeductloan
+<br>31 .tblempdeductloanconadjust
+<br>32 .tblempdtr
+<br>33 .tblempdtr_log
+<br>34 .tblempduties
+<br>35 .tblempexam
+<br>36 .tblempincome
+<br>37 .tblempincomeadjust
+<br>38 .tblempincomerata
+<br>39 .tblempleave
+<br>40 .tblempleavebalance
+<br>41 .tblemplocalholiday
+<br>42 .tblemplongevity
+<br>43 .tblempmealdetails
+<br>44 .tblempmeeting
+<br>45 .tblempmonetization
+<br>46 .tblempnetpay
+<br>47 .tblempob
+<br>48 .tblempotdetails
+<br>49 .tblempothersched
+<br>50 .tblempovertime
+<br>51 .tblemppersonal
+<br>52 .tblempposition
+<br>53 .tblempreference
+<br>54 .tblemprequest
+<br>55 .tblempscholarship
+<br>56 .tblempschool
+<br>57 .tblemptraining
+<br>58 .tblemptravelorder
+<br>59 .tblemptripticket
+<br>60 .tblempvoluntarywork
+<br>61 .tblexamtype
+<br>62 .tblflagceremony
+<br>63 .tblgroup
+<br>64 .tblgroup1
+<br>65 .tblgroup2
+<br>66 .tblgroup3
+<br>67 .tblgroup4
+<br>68 .tblgroup5
+<br>69 .tblholiday
+<br>70 .tblholidayyear
+<br>71 .tblid
+<br>72 .tblincome
+<br>73 .tblleave
+<br>74 .tbllocalholiday
+<br>75 .tblmanualdtr
+<br>76 .tblnonpermcomputation
+<br>77 .tblnonpermcomputationinstance
+<br>78 .tblonlinedtr_hcd
+<br>79 .tblotcomputation
+<br>80 .tblotcomputationinstance
+<br>81 .tbloverride
+<br>82 .tblpayrollgroup
+<br>83 .tblpayrollofficer
+<br>84 .tblpayrollprocess
+<br>85 .tblpayrolregister
+<br>86 .tblpayrolregisterzone
+<br>87 .tblphilhealthrange
+<br>88 .tblplantilla
+<br>89 .tblplantilladuties
+<br>90 .tblplantillagroup
+<br>91 .tblposition
+<br>92 .tblprocess
+<br>93 .tblprocessedemployees
+<br>94 .tblprocessedpayrollgroup
+<br>95 .tblprocessedproject
+<br>96 .tblproject
+<br>97 .tblraffle
+<br>98 .tblrata
+<br>99 .tblreports
+<br>100 .tblreporttype
+<br>101 .tblrequestapplicant
+<br>102 .tblrequestflow
+<br>103 .tblrequestsignatory
+<br>104 .tblrequestsignatoryaction
+<br>105 .tblrequesttype
+<br>106 .tblsalarysched
+<br>107 .tblsalaryschedversion
+<br>108 .tblscheduler_logs
+<br>109 .tblscholarship
+<br>110 .tblsecuritycode
+<br>111 .tblsecurityquestion
+<br>112 .tblseparationcause
+<br>113 .tblservicecode
+<br>114 .tblservicerecord
+<br>115 .tblsignatory
+<br>116 .tblspecificleave
+<br>117 .tbltaxdetails
+<br>118 .tbltaxexempt
+<br>119 .tbltaxrange
+<br>120 .tblworkzone
+<br>121 .tblzone
+<br>tblagency .0
+<br>tblagencyimages .0
+<br>tblappointment .0
+<br>tblattendancecode .0
+<br>tblattendancescheme .0
+<br>tblattendancescheme_online_dtr .0
+<br>tblbackup .0
+<br>tblbackupconfig .0
+<br>tblbackupscheduler .0
+<br>tblbrokensched .0
+<br>tblchangelog .0
+<br>tblcompensatory_timeoff .0
+<br>tblcomputation .0
+<br>tblcomputationdetails .0
+<br>tblcomputationinstance .0
+<br>tblcontact .0
+<br>tblcountry .0
+<br>tblcourse .0
+<br>tblcustodian .0
+<br>tbldailyquote .0
+<br>tbldeduction .0
+<br>tbldeductiongroup .0
+<br>tblduties .0
+<br>tbleducationallevel .0
+<br>tblempaccount .0
+<br>tblempaddincome .0
+<br>tblempappointment .0
+<br>tblempbenefits .0
+<br>tblempchild .0
+<br>tblempdeductionremit .0
+<br>tblempdeductions .0
+<br>tblempdeductloan .0
+<br>tblempdeductloanconadjust .0
+<br>tblempdtr .0
+<br>tblempdtr_log .0
+<br>tblempduties .0
+<br>tblempexam .0
+<br>tblempincome .0
+<br>tblempincomeadjust .0
+<br>tblempincomerata .0
+<br>tblempleave .0
+<br>tblempleavebalance .0
+<br>tblemplocalholiday .0
+<br>tblemplongevity .0
+<br>tblempmealdetails .0
+<br>tblempmeeting .0
+<br>tblempmonetization .0
+<br>tblempnetpay .0
+<br>tblempob .0
+<br>tblempotdetails .0
+<br>tblempothersched .0
+<br>tblempovertime .0
+<br>tblemppersonal .0
+<br>tblempposition .0
+<br>tblempreference .0
+<br>tblemprequest .0
+<br>tblempscholarship .0
+<br>tblempschool .0
+<br>tblemptraining .0
+<br>tblemptravelorder .0
+<br>tblemptripticket .0
+<br>tblempvoluntarywork .0
+<br>tblexamtype .0
+<br>tblflagceremony .0
+<br>tblgroup .0
+<br>tblgroup1 .0
+<br>tblgroup2 .0
+<br>tblgroup3 .0
+<br>tblgroup4 .0
+<br>tblgroup5 .0
+<br>tblholiday .0
+<br>tblholidayyear .0
+<br>tblid .0
+<br>tblincome .0
+<br>tblleave .0
+<br>tbllocalholiday .0
+<br>tblmanualdtr .0
+<br>tblnonpermcomputation .0
+<br>tblnonpermcomputationinstance .0
+<br>tblonlinedtr_hcd .0
+<br>tblotcomputation .0
+<br>tblotcomputationinstance .0
+<br>tbloverride .0
+<br>tblpayrollgroup .0
+<br>tblpayrollofficer .0
+<br>tblpayrollprocess .0
+<br>tblpayrolregister .0
+<br>tblpayrolregisterzone .0
+<br>tblphilhealthrange .0
+<br>tblplantilla .0
+<br>tblplantilladuties .0
+<br>tblplantillagroup .0
+<br>tblposition .0
+<br>tblprocess .0
+<br>tblprocessedemployees .0
+<br>tblprocessedpayrollgroup .0
+<br>tblprocessedproject .0
+<br>tblproject .0
+<br>tblraffle .0
+<br>tblrata .0
+<br>tblreports .0
+<br>tblreporttype .0
+<br>tblrequestapplicant .0
+<br>tblrequestflow .0
+<br>tblrequestsignatory .0
+<br>tblrequestsignatoryaction .0
+<br>tblrequesttype .0
+<br>tblsalarysched .0
+<br>tblsalaryschedversion .0
+<br>tblscheduler_logs .0
+<br>tblscholarship .0
+<br>tblsecuritycode .0
+<br>tblsecurityquestion .0
+<br>tblseparationcause .0
+<br>tblservicecode .0
+<br>tblservicerecord .0
+<br>tblsignatory .0
+<br>tblspecificleave .0
+<br>tbltaxdetails .0
+<br>tbltaxexempt .0
+<br>tbltaxrange .0
+<br>tblworkzone .0
+<br>tblzone .0
+There is error in migrating table, please try again.
+Database successfully updated... Migration log is added in <a href="http://localhost/hrmis/schema/data/migration/schema/migrate.log">http://localhost/hrmis/schema/data/migration/schema/migrate.log</a>.. Click here to <u><b><a class="btn btn-xs" href="login"> Login </a></b></u>
