@@ -130,7 +130,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td>Study Leave</td>
                                                     <td align="center" class="sdl_prev"></td>
                                                     <td align="center" class="sdl_filed"></td>
@@ -168,7 +168,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
 
