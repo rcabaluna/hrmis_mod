@@ -106,7 +106,7 @@
                             <div class="content">
                                 <video id="preview" class="w-100"></video>
                             <!-- <video id="video" width="400" height="400" autoplay></video> -->
-                            <canvas id="canvas" width="200" height="200"></canvas>
+                            <canvas id="canvas" width="200" height="200" hidden></canvas>
                             <!-- <button onclick="capture()">Capture</button> -->
                             </div>
                         </div>
@@ -123,13 +123,13 @@
                                 </div>
                                 <?=form_open('dtr', array('method' => 'post', 'id' =>'dtr_form'))?>
                                     <div class="form-group">
-                                        <label class="control-label visible-ie8 visible-ie9">Username</label>
-                                        <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="strUsername" id="txtusername" /> 
+                                        <label class="control-label visible-ie8 visible-ie9">Employee ID</label>
+                                        <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Employee ID" name="strUsername" id="txtusername" /> 
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="control-label visible-ie8 visible-ie9">Password</label>
                                         <input class="form-control form-control-solid placeholder-no-fix" type="password" id="txtpassword" autocomplete="off" placeholder="Password" name="strPassword" /> 
-                                    </div>
+                                    </div> -->
                                     <!-- <div class="form-group row">
 
                                         <input id="wfh-toggle" checked type="checkbox">WFH
@@ -152,7 +152,7 @@
                                     <div class="form-actions" style="border: none;text-align: right;">
                                         
                                         <input type="text" name="txttime" id="txttime" hidden>
-                                        <button type="button" onclick="hcdForm()" class="btn green uppercase" >Submit</button>
+                                        <button type="button" onclick="checkqr_details(this)" class="btn green uppercase" >Submit</button>
                                         <!-- <button type="button" onclick="deleteDTR()" class="btn red uppercase" >Delete DTR today</button> -->
                                     </div> 
                                 <?=form_close()?>
@@ -195,10 +195,10 @@
                                         </tr>
                                         <tr> 
                                             <td><?=$_SESSION['empNumber']?></td> 
-                                            <td><?=$_SESSION['inAM']?></td>
-                                            <td><?=$_SESSION['outAM']?></td>
-                                            <td><?=$_SESSION['inPM']?></td>
-                                            <td><?=$_SESSION['outPM']?></td>
+                                            <td><?=$_SESSION['inAM'] ? date('h:i A', strtotime($_SESSION['inAM'])) : ''?></td>
+                                            <td><?=$_SESSION['outAM'] ? date('h:i A', strtotime($_SESSION['outAM'])) : ''?></td>
+                                            <td><?=$_SESSION['inPM'] ? date('h:i A', strtotime($_SESSION['inPM'])) : ''?></td>
+                                            <td><?=$_SESSION['outPM'] ? date('h:i A', strtotime($_SESSION['outPM'])) : ''?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -218,18 +218,10 @@
                 const video = document.getElementById('preview');
                     const canvas = document.getElementById('canvas');
                     const ctx = canvas.getContext('2d');
-
-                    // // Start video stream
-                    // navigator.mediaDevices.getUserMedia({ video: true })
-                    // .then(stream => {
-                    //     video.srcObject = stream;
-                    // })
-                    // .catch(err => {
-                    //     console.log("Error accessing the camera: ", err);
-                    // });
-
                     // // Function to capture and draw on the canvas
                     function draw_image() {
+                    $("#preview").hide();
+                    $("#canvas").show();
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                     }
 
@@ -439,11 +431,16 @@
                     });
                 }
 
-                function checkqr_details(content){
-                    draw_image();
-                    $("#txtusername").val(content);
-                    $("#txtpassword").val(123);
-                    $("#dtr_form").submit();
+                function checkqr_details(content) {
+                    var empNo = '';
+                    if (typeof content !== "string") {
+                        empNo = $("#txtusername").val();
+                        $("#dtr_form").submit();
+                    }else{
+                        var empNo = content.match(/empNo=([^&]+)/)[1];
+                        $("#txtusername").val(empNo);
+                        $("#dtr_form").submit();
+                    }
                 }
             </script>
         </body>

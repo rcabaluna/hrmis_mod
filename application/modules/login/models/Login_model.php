@@ -7,6 +7,20 @@ class Login_model extends CI_Model {
 		//$this->db->initialize();	
 	}
 	
+	public function authenticate2($strUsername)
+	{
+
+		$this->db->select('tblempaccount.*, tblempposition.*, tblemppersonal.*');
+		$this->db->from('tblempaccount');
+		$this->db->join('tblempposition', 'tblempposition.empNumber = tblempaccount.empNumber', 'inner'); // Changed to INNER JOIN
+		$this->db->join('tblemppersonal', 'tblemppersonal.empNumber = tblempaccount.empNumber', 'left');
+		$this->db->where('tblempaccount.empNumber', $strUsername);
+		$this->db->where('tblempposition.statusOfAppointment', 'In-Service');
+
+		$query = $this->db->get();
+		return $query->result_array(); // Returns an array of results
+	}		
+
 	public function authenticate($strUsername,$strPassword)
 	{
 
@@ -25,7 +39,8 @@ class Login_model extends CI_Model {
 		endif;
 
 		return array();
-	}		
+	}	
+	
 }
 /* End of file login_model.php */
 /* Location: ./application/modules/login/models/login_model.php */

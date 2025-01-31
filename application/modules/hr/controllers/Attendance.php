@@ -1499,7 +1499,7 @@ class Attendance extends MY_Controller
 		$empNumber = $this->uri->segment(4);
 
 		$qr_image = $empNumber . '.png';
-		$strData = 'http://hrmis.dost.gov.ph/scanqr/index.php?empNo=' . $empNumber;
+		$strData = 'http://hrmis.region10.dost.gov.ph/qr?empNo=' . $empNumber;
 		$params['data'] = $strData;
 		$params['level'] = 'H';
 		$params['size'] = 8;

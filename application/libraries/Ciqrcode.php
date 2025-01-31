@@ -10,14 +10,12 @@
  * 
  * @version		1.0
  */
-
-	namespace App\Libraries;
-
+ 
 class Ciqrcode
 {
 	var $cacheable = true;
-	var $cachedir = 'app/cache/';
-	var $errorlog = 'app/logs/';
+	var $cachedir = 'application/cache/';
+	var $errorlog = 'application/logs/';
 	var $quality = true;
 	var $size = 1024;
 	
@@ -56,22 +54,19 @@ class Ciqrcode
 		if (!defined('QR_PNG_MAXIMUM_SIZE')) define('QR_PNG_MAXIMUM_SIZE',  $this->size);
 	
 		// call original library
-		include APPPATH."Libraries/qrcode/qrconst.php";
-		include APPPATH."Libraries/qrcode/qrtools.php";
-		include APPPATH."Libraries/qrcode/qrspec.php";
-		include APPPATH."Libraries/qrcode/qrimage.php";
-		include APPPATH."Libraries/qrcode/qrinput.php";
-		include APPPATH."Libraries/qrcode/qrbitstream.php";
-		include APPPATH."Libraries/qrcode/qrsplit.php";
-		include APPPATH."Libraries/qrcode/qrrscode.php";
-		include APPPATH."Libraries/qrcode/qrmask.php";
-		include APPPATH."Libraries/qrcode/qrencode.php";
-
+		include "qrcode/qrconst.php";
+		include "qrcode/qrtools.php";
+		include "qrcode/qrspec.php";
+		include "qrcode/qrimage.php";
+		include "qrcode/qrinput.php";
+		include "qrcode/qrbitstream.php";
+		include "qrcode/qrsplit.php";
+		include "qrcode/qrrscode.php";
+		include "qrcode/qrmask.php";
+		include "qrcode/qrencode.php";
 	}
 	
 	public function generate($params = array()) {
-
-		
 		if (isset($params['black']) 
 			&& is_array($params['black']) 
 			&& count($params['black']) == 3 

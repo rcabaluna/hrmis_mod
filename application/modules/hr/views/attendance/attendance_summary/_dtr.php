@@ -98,7 +98,7 @@ $offset_wkends = 0;
                         <th class="no-sort">OT</th>
                         <th class="no-sort">UT</th>
                         <th class="no-sort">LOGS</th>
-                        <th class="no-sort">HCD</th>
+                        <!-- <th class="no-sort">HCD</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -248,7 +248,7 @@ $offset_wkends = 0;
                                         <i class="fa fa-info"></i></a>
                                 <?php endif; ?>
                             </td>
-                            <td>
+                            <!-- <td>
                                 <?php
 
                                 $djson['empNumber']   = $dtr['dtrdate'] <= date("Y-m-d") ? $empNum : '';
@@ -257,7 +257,7 @@ $offset_wkends = 0;
                                     <a id="btnhcd" class="btn btn-xs blue hashcd" data-json="<?= htmlspecialchars(json_encode($djson)) ?>" style="display: none;">
                                         <i class="fa fa-info"></i></a>
                                 <?php endif; ?>
-                            </td>
+                            </td> -->
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
