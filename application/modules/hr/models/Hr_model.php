@@ -83,6 +83,7 @@ class Hr_model extends CI_Model {
 	//for QRCode
 	public function getData($strEmpNo="",$strSearch="",$strAppStatus="")
 	{
+
 		$this->db->select('tblemppersonal.*,tblempposition.*,tblposition.positionDesc,tblappointment.appointmentDesc');
 		$where='';
 		if($strEmpNo!="")

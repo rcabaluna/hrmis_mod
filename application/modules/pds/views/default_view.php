@@ -74,7 +74,6 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>  
                     </div>
                 </div>
-
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblemployees"  style="display: none">
                     <thead>
@@ -103,7 +102,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                          echo '<td>'.$row['surname'].', '.$row['firstname'].' '.$row['middleInitial']?><?=strpos($row['middleInitial'], '.') !== false?'':'.'.' '.$row['nameExtension'].'</td>'; ?>
                                     <?php } ?>
                            
-                                    <td> <?=employee_office($row['empNumber'])?> </td>
+                                    <td> <?=employee_office_desc($row['empNumber'])?> </td>
                                     <td> <?=$row['positionDesc']?></td>
                                     <td> <?=$row['appointmentDesc']?></td>
                                     <td> <?=$row['statusOfAppointment']?></td>

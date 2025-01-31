@@ -109,6 +109,35 @@ if (!function_exists('employee_office')) {
     }
 }
 
+
+if (!function_exists('employee_office_desc')) {
+    function employee_office_desc($strEmpNo)
+    {
+
+        $rsx = array();
+        $CI = &get_instance();
+        // $CI->load->model('employees/employees_model');
+        $rs = $CI->db->select('group1,group2,group3,group4,group5')->where('empNumber', $strEmpNo)->get('tblempposition')->result_array();
+
+        for ($i=5; $i >= 1 ; $i--) { 
+            if ($rs[0]['group'.$i] != '') {
+                $rsx = $CI->db->select('group'.$i.'Name')->where('group'.$i.'Code', $rs[0]['group'.$i])->get('tblgroup'.$i)->row_array();
+                return $rsx['group'.$i.'Name'];
+            }
+        }
+
+        
+        
+        // foreach ($rs as $row) :
+        //     if ($row['group5'] != '') return $row['group5'];
+        //     if ($row['group4'] != '') return $row['group4'];
+        //     if ($row['group3'] != '') return $row['group3'];
+        //     if ($row['group2'] != '') return $row['group2'];
+        //     if ($row['group1'] != '') return $row['group1'];
+        // endforeach;
+    }
+}
+
 if (!function_exists('office_name')) {
     function office_name($code)
     {
