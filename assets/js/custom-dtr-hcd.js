@@ -190,6 +190,7 @@ function hcdForm(){
     
 }
 
+
 var stopClick = false; 
 function submitHCD(){
     var err = 0;

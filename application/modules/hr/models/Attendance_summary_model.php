@@ -36,7 +36,7 @@ class Attendance_summary_model extends CI_Model {
 
 	function edit_dtrkios($arrData, $dtrid)
 	{
-		$arrData = $this->convert_to_standardtime($arrData); //comment if v10
+		// $arrData = $this->convert_to_standardtime($arrData); //comment if v10
 
 		$this->db->where('id', $dtrid);
 		$this->db->update('tblempdtr', $arrData);
@@ -52,7 +52,7 @@ class Attendance_summary_model extends CI_Model {
 
 	public function add_dtrkios($arrData)
 	{
-		$arrData = $this->convert_to_standardtime($arrData); //comment if v10
+		// $arrData = $this->convert_to_standardtime($arrData); //comment if v10
 
 		$this->db->insert('tblempdtr', $arrData);
 		return $this->db->last_query();
@@ -73,7 +73,7 @@ class Attendance_summary_model extends CI_Model {
 			$this->db->where("dtrDate BETWEEN '".$sdate."' AND '".$edate."'");
 		}
 		$res = $this->db->get('tblempdtr')->result_array();
-		$res = $this->convert_to_militarytime($res); //comment if v10
+		// $res = $this->convert_to_militarytime($res); //comment if v10
 		
 		if(count($res) > 0){
 			return $res;
@@ -88,7 +88,7 @@ class Attendance_summary_model extends CI_Model {
 		$this->db->order_by('id', 'DESC');
 		$this->db->limit(1);
 		$res = $this->db->get('tblempdtr')->row_array(); //from result_array();
-		$res = $this->convert_to_militarytime($res); //comment if v10
+		// $res = $this->convert_to_militarytime($res); //comment if v10
 
 		return $res;
 	}

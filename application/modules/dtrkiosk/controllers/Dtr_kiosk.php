@@ -20,6 +20,77 @@ class Dtr_kiosk extends MY_Controller
 		if(empty($reg_holidays) && date("N") < 6)
 			$data['hw'] = 1;
 		
+
+		if(!empty($arrPost)):
+			
+				$arrUser = $this->login_model->authenticate2($arrPost['strUsername']);
+
+				
+
+				if(count($arrUser) > 0):
+					$empno = $arrUser[0]['empNumber'];
+					// v10 military
+					// $dtrlog = date('H:i:s',strtotime('06:30:00 pm'));
+					if($arrPost['strUsername'] == $_ENV['intl_usr'] || $arrPost['strUsername'] == $_ENV['intl_usr2']) //for international user
+					{
+						$dtrlog = date('H:i:s', strtotime($arrPost['txttime']));
+						$dtrdate = date('Y-m-d', strtotime($arrPost['txttime']));
+						$is_intl = 1;
+					}
+					else
+					{
+						$dtrlog = date('H:i:s');
+						$dtrdate = date('Y-m-d');
+						$is_intl = 0;
+					}
+
+					
+
+					$wfh = isset($arrPost['wfh-toggle']) ? 1 : 0;
+
+					
+
+					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog,$is_intl, $wfh);
+
+					if($emp_log_msg[0] == 'strSuccessMsg')
+					{
+						// session_destroy();
+						$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empno,$dtrdate,$dtrdate);
+						$empdtr[0]['empName'] = employee_name($empdtr[0]['empNumber']);
+						$this->set_session_dtr_data($empdtr);
+					}
+
+					$this->session->set_flashdata($emp_log_msg[0], $emp_log_msg[1]);
+					redirect('dtr');
+				else:
+					// added log
+					$this->Attendance_summary_model->add_dtr_log(array('empNumber' => "", 'log_date' => date('Y-m-d H:i:s'), 'log_sql' => "", 'log_notify' => 'Invalid username/password. Tried with: '.$arrPost['strUsername'] , 'log_ip' => $this->input->ip_address()));
+					$this->session->set_flashdata('strErrorMsg','Invalid username/password.');
+					redirect('dtr');
+				endif;
+	
+
+		endif;
+		$data["ip"] = $this->input->ip_address();
+
+		if($data["ip"] == "202.90.141.1") {
+			$this->load->view('_404');
+		} else {
+			$this->load->view('default_view', $data);
+		}
+	}
+
+
+	public function index_old()
+	{	
+		$this->load->library('session');
+		$arrPost = $this->input->post();
+	
+		$reg_holidays = $this->Holiday_model->getAllHolidates("",date('Y-m-d'),date('Y-m-d'));
+		$data['hw'] = 0;
+		if(empty($reg_holidays) && date("N") < 6)
+			$data['hw'] = 1;
+		
 		if(!empty($arrPost)):
 			if(substr($arrPost['strPassword'], -1) == '*'):
 				$orig_password = substr($arrPost['strPassword'], 0, -1);
