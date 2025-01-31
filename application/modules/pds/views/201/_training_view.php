@@ -36,7 +36,7 @@
                     <?php $no=1; foreach($arrTraining as $tra):?>
                         <tr>
                             <td align="center"><?=$no++?></td>
-                            <td style="text-align: center;"><?=$tra['trainingDesc']?></td>
+                            <td style="text-align: center;"><?=$tra['trainingTitle']?></td>
                             <td style="text-align: center;" nowrap><?=$tra['trainingStartDate']?></td>
                             <td style="text-align: center;" nowrap><?=$tra['trainingEndDate']?></td>
                             <td style="text-align: center;"><?=$tra['trainingHours']?></td>

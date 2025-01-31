@@ -208,7 +208,7 @@
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
-                                                    <div class="scroller" style="height:350px;" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;">
                                                         <?php $this->load->view('_personal_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -216,7 +216,7 @@
 
                                                 <!-- begin Family Background -->
                                                 <div class="tab-pane " id="family_background">
-                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;" data-always-visible="1">
                                                         <?php $this->load->view('_family_background_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -224,7 +224,7 @@
 
                                                 <!-- begin Education Bacgkround -->
                                                 <div class="tab-pane " id="education">
-                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;" data-always-visible="1">
                                                         <?php $this->load->view('_education_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -232,7 +232,7 @@
 
                                                 <!-- begin Examination -->
                                                 <div class="tab-pane " id="examination">
-                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;" data-always-visible="1">
                                                         <?php $this->load->view('_examination_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -240,7 +240,7 @@
 
                                                 <!-- begin Work Experience -->
                                                 <div class="tab-pane " id="work_experience">
-                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;" data-always-visible="1">
                                                         <?php $this->load->view('_work_experience_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -248,7 +248,7 @@
 
                                                 <!-- begin Voluntary Work -->
                                                 <div class="tab-pane " id="voluntary_work">
-                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;" data-always-visible="1">
                                                         <?php $this->load->view('_voluntary_work_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -256,7 +256,7 @@
 
                                                 <!-- begin Trainings -->
                                                 <div class="tab-pane " id="trainings">
-                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;" data-always-visible="1">
                                                         <?php $this->load->view('_training_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -264,7 +264,7 @@
 
                                                 <!-- begin other info -->
                                                 <div class="tab-pane " id="other_info">
-                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;" data-always-visible="1">
                                                         <?php $this->load->view('_other_info_view.php'); ?>
                                                     </div>
                                                     </div>
@@ -273,7 +273,7 @@
 
                                                 <!-- begin position details -->
                                                 <div class="tab-pane " id="position_details">
-                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;" data-always-visible="1">
                                                         <?php $this->load->view('_position_details_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -281,7 +281,7 @@
 
                                                 <!-- begin duties and responsibilities -->
                                                 <div class="tab-pane " id="duties">
-                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;" data-always-visible="1">
                                                         <?php $this->load->view('_duties_responsiblities_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -289,7 +289,7 @@
 
                                                 <!-- begin appointment issued -->
                                                 <div class="tab-pane " id="appoint_issued">
-                                                    <div class="scroller" style="height:350px;" data-always-visible="1" data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                                    <div class="scroller" style="height:100%;" data-always-visible="1">
                                                         <?php $this->load->view('_appointment_issue_view.php'); ?>
                                                     </div>
                                                 </div>
@@ -297,14 +297,14 @@
 
                                                 <!-- begin employee number -->
                                                 <div class="tab-pane " id="emp_number">
-                                                    <div style="height:350px;">
+                                                    <div style="height:100%;">
                                                         <?php $this->load->view('_empnumber_view.php'); ?>
                                                     </div>
                                                 </div>
                                                 <!-- end employee number -->
                                                 <!-- begin employee number -->
                                                 <div class="tab-pane " id="esignature_tab">
-                                                    <div style="height:350px;">
+                                                    <div style="height:100%;">
                                                         <?php $this->load->view('_esignature_view.php'); ?>
                                                     </div>
                                                 </div>

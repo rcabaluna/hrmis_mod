@@ -66,6 +66,7 @@ class Hr extends MY_Controller {
 		$this->arrData['arrService'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_SERVICE);
 		# Trainings
 		$this->arrData['arrTraining'] = $this->Hr_model->getEmployeeDetails($strEmpNo,'*',TABLE_TRAINING);
+
 		# Other Information
 		$this->arrData['arrReferences'] = $this->Hr_model->get_character_references($strEmpNo);
 		# Position Details

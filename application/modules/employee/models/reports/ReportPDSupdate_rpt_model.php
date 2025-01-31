@@ -998,7 +998,7 @@ class ReportPDSupdate_rpt_model extends CI_Model {
 					$startDate = $strDate[1]."/".$strDate[2]."/".$strDate[0];		
 					$strDate2 = explode("-",$training['trainingEndDate']);
 					$endDate = $strDate2[1]."/".$strDate2[2]."/".$strDate2[0];		
-					$this->fpdf->FancyRow(array(($training['trainingDesc']), $startDate, $endDate, $training['trainingHours'], $training['trainingTypeofLD'], ($training['trainingConductedBy'])),array(1,1,1,1,1,1),1);		
+					$this->fpdf->FancyRow(array(($training['trainingTitle']), $startDate, $endDate, $training['trainingHours'], $training['trainingTypeofLD'], ($training['trainingConductedBy'])),array(1,1,1,1,1,1),1);		
 				}
 				while($total_training<$limit_training)
 					{
