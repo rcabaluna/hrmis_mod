@@ -471,11 +471,36 @@ class ReportLeave_rpt_model extends CI_Model {
 
 
 
-        $this->fpdf->Cell(25,6,$vldays,"RLTB",0,"C");
-        $this->fpdf->Cell(26,6,$sldays,"RLTB",0,"C");
+        $this->fpdf->Cell(25,6,number_format($vldays,3,'.',''),"RLTB",0,"C");
+        $this->fpdf->Cell(26,6,number_format($sldays,3,'.',''),"RLTB",0,"C");
         $this->fpdf->Cell(8,6,'',"",0,"C");
         $this->fpdf->Cell(82,6,'            __________________________________________',"RL",0,"L");
 
+        $this->fpdf->Ln(6);
+        $this->fpdf->SetFont('Arial', "I", 8);	
+        $this->fpdf->Cell(7,6,'',"L",0,"C");
+        $this->fpdf->Cell(32,6,'Remaining',"RLTB",0,"C");
+
+        $vldays = $sldays = '';
+
+        if ($requestDetails[0] == 'VL') {
+            $vldays = $requestDetails[3];
+        }else{
+            $vldays = 0.00;
+        }
+
+        if ($requestDetails[0] == 'SL') {
+            $sldays = $requestDetails[3];
+        }else{
+            $sldays = 0.00;
+        }
+
+
+
+        $this->fpdf->Cell(25,6,number_format($latestBalance['vlBalance']-$vldays, 3, '.', ''),"RLTB",0,"C");
+        $this->fpdf->Cell(26,6,number_format($latestBalance['slBalance']-$sldays, 3, '.', ''),"RLTB",0,"C");
+        $this->fpdf->Cell(8,6,'',"",0,"C");
+        $this->fpdf->Cell(82,6,'',"RL",0,"L");
 
         $this->fpdf->Ln(6);
         $approver1 = $this->get_signatory($leaveDetails['Signatory1']);
