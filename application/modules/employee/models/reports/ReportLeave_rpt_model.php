@@ -17,8 +17,13 @@ class ReportLeave_rpt_model extends CI_Model {
 	{
 		$this->db->where("empNumber",$empNumber);
 		$this->db->order_by('lb_id DESC');
-		$res = $this->db->get('tblempleavebalance')->row_array();
-		return $res;
+		$res = $this->db->get('tblempleavebalance')->result_array();
+		
+        if (count($res) > 1) {
+            return $res[1];
+        }else{
+            return $res[0];
+        }
 	}
 
     public function getleave_details($requestid){
@@ -184,7 +189,6 @@ class ReportLeave_rpt_model extends CI_Model {
             $vl_w = $vl_a = $vl_w_remarks = $vl_a_remarks = $sl_i = $sl_o = $sl_i_remarks = $sl_o_remarks = $check_slw_remarks = '';
 
             
-
             if($requestDetails[8] == 'within the country'){
                 $vl_w = "4";
                 $vl_w_remarks = $requestDetails[6];
