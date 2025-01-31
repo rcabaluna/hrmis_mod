@@ -82,10 +82,10 @@
                                                     // $strImage = base_url('uploads/employees/'.$arrData['empNumber'].'.jpg');?>
                                                 <img src="<?=$strImage?>" class="img-responsive pic-bordered" width="200px" alt="" />
                                                 
-                                                <?php if(check_module() == 'hr'): ?>
+                                                <?php // if(check_module() == 'hr'): ?>
                                                     <a href="<?=base_url('hr/edit_image/'.$arrData['empNumber'])?>" class="btn dark btn-sm">
                                                             <i class="icon-ban"> </i> Edit Image</a>
-                                                <?php endif; ?>
+                                                <?php // endif; ?>
                                             </li>
                                         </ul>
                                     </div>
