@@ -95,8 +95,6 @@ class ReportOB_rpt_model extends CI_Model {
 	function generate($requestid)
 	{
 		$reqdetails = $this->getrequest_details($requestid);
-
-		var_dump($reqdetails);
         $obdetails = explode(';', $reqdetails['requestDetails']);
 
 		$requestSignatories = $this->get_request_signatories($reqdetails['requestflowid']);
