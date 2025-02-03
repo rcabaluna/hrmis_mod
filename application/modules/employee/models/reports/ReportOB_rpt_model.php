@@ -97,6 +97,8 @@ class ReportOB_rpt_model extends CI_Model {
 		$reqdetails = $this->getrequest_details($requestid);
         $obdetails = explode(';', $reqdetails['requestDetails']);
 
+		var_dump($obdetails);
+
 		$requestSignatories = $this->get_request_signatories($reqdetails['requestflowid']);
 
 		// $strOBtype=$arrData['strOBtype'];
