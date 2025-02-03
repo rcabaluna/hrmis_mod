@@ -138,6 +138,10 @@ $(document).ready(function() {
                 var link = baseUrl+"employee/reports/generate/?rpt=reportLeave&req_id="+requestid;
             }
 
+            if (requesttype == "OB") {
+                var link = baseUrl+"employee/reports/generate/?rpt=reportOB&req_id="+requestid;
+            }
+
             
 
             $('#leave-embed').attr('src',link);

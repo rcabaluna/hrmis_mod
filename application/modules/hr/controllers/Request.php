@@ -328,7 +328,8 @@ class Request extends MY_Controller
 
 		$arrob_signatory = array(
 			'requestStatus'	=> strtoupper($optstatus),
-			'statusDate'	=> date('Y-m-d'),
+			'statusDate'	=> date('Y-m-d H:i:s'),
+			'approveRequest'	=> 'Y',
 			'remarks'		=> $txtremarks,
 			'signatory'		=> $_SESSION['sessEmpNo']
 		);
@@ -340,7 +341,7 @@ class Request extends MY_Controller
 			$this->session->set_flashdata('strSuccessMsg', 'Request successfully ' . strtolower($optstatus) . '.');
 		endif;
 
-		redirect('hr/request?request=ob');
+		redirect('hr/request?request=ob&status=All');
 	}
 
 	public function update_leave()

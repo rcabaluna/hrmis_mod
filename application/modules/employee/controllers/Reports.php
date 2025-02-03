@@ -81,8 +81,7 @@ class Reports extends MY_Controller {
 		{
 			case 'reportOB': 
 				$this->load->model(array('reports/ReportOB_rpt_model'));	
-				$arrData=array('strOBtype'=>$arrGet['obtype'],'dtmOBrequestdate'=>$arrGet['reqdate'],'dtmOBdatefrom'=>$arrGet['obdatefrom'],'dtmOBdateto'=>$arrGet['obdateto'],'dtmTimeFrom'=>$arrGet['obtimefrom'],'dtmTimeTo'=>$arrGet['obtimeto'],'strDestination'=>$arrGet['desti'],'strMeal'=>$arrGet['meal'],'strPurpose'=>$arrGet['purpose'],'strEmpNum'=>$arrGet['empnum']);
-				$this->ReportOB_rpt_model->generate($arrData);
+				$this->ReportOB_rpt_model->generate($arrGet['req_id']);
 				echo $this->fpdf->Output();	
 			break;
 			case 'reportTO': 

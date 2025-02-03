@@ -1,19 +1,9 @@
 <script>
     $(document).ready(function() {
         $('#table-ob').on('click','a#printreport',function(){
-            var req_details = $(this).data('rdetails');
-            var obtype      = req_details[0];
-            var reqdate     = $(this).data('rdate');
-            var obdatefrom  = req_details[2];
-            var obdateto    = req_details[3];
-            var obtimefrom  = req_details[4];
-            var obtimeto    = req_details[5];
-            var desti       = req_details[6];
-            var meal        = req_details[8];
-            var purpose     = req_details[7];
-            var empnum      = $(this).data('empnum');
+            var req_details = $(this).data('rid');
             
-            var link = "<?=base_url('employee/reports/generate/?rpt=reportOB')?>"+"&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose+"&empnum="+empnum;
+            var link = "<?=base_url('employee/reports/generate/?rpt=reportOB')?>"+"&req_id="+req_details;
             $('div#attachments').html('');
             var json_file = $(this).data('rattach');
             $('div#attachments').append('<ul>');

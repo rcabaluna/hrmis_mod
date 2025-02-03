@@ -62,6 +62,8 @@ class Official_business extends MY_Controller {
 		$this->arrData['arrob'] = $arrob;
 
 		$arrPost = $this->input->post();
+
+		
 		if(!empty($arrPost)):
 			$strEmpNum 		  = $_SESSION['sessEmpNo'];
 			$strOBtype		  = $arrPost['strOBtype'];
@@ -173,10 +175,12 @@ class Official_business extends MY_Controller {
     {
     	$arrPost = $this->input->post();
 		$requestflowid = '';
+
+		
 		if(!empty($arrPost)):
 			$strEmpNum 		  = $_SESSION['sessEmpNo'];
 			$strOBtype		  = $arrPost['strOBtype'];
-			$dtmOBrequestdate = $arrPost['dtmOBrequestdate'];
+			$dtmOBrequestdate = $arrPost['hdtmOBrequestdate'];
 			$dtmOBdatefrom	  = $arrPost['dtmOBdatefrom'];
 			$dtmOBdateto	  = $arrPost['dtmOBdateto'];
 			$dtmTimeFrom	  = $arrPost['dtmTimeFrom'];
@@ -187,11 +191,16 @@ class Official_business extends MY_Controller {
 			$strStatus		  = $arrPost['strStatus'];
 			$strCode		  = $arrPost['strCode'];
 
+
 			// GET APPROVER
 			$empid = $this->session->userdata('sessEmpNo');
 			$office = employee_office($empid);
 
+			
+
+
 			$requestflowid = $this->Request_model->get_approver_id($office,'OB');
+
 
 			if (!$requestflowid) {
 				$this->session->set_flashdata('strErrorMsg','Request flow not found. Please contact HR.');

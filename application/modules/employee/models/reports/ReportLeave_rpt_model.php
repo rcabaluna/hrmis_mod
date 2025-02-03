@@ -86,6 +86,8 @@ class ReportLeave_rpt_model extends CI_Model {
 
         $requestDetails = explode(';', $leaveDetails['requestDetails']);
 
+        $office = employee_office_desc($leaveDetails['empNumber']);
+
         $this->fpdf->SetTitle('Application for Form');
 		$this->fpdf->SetLeftMargin(18);
 		$this->fpdf->SetRightMargin(15);
@@ -126,28 +128,28 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->Ln(6);
         $this->fpdf->SetFont('Arial', "B", 8);
 
-		$this->fpdf->Cell(70,6,'',"L",0,"L");
+		$this->fpdf->Cell(70,6,strtoupper("  ".$office),"L",0,"L");
 		$this->fpdf->Cell(20,6,'',"",0,"L");
-        $this->fpdf->Cell(20,6,$leaveDetails['surname'],"",0,"C");
-        $this->fpdf->Cell(30,6,$leaveDetails['firstname'],"",0,"C");
-        $this->fpdf->Cell(40,6,$leaveDetails['middlename'],"R",0,"C");
+        $this->fpdf->Cell(20,6,strtoupper($leaveDetails['surname']),"",0,"C");
+        $this->fpdf->Cell(30,6,strtoupper($leaveDetails['firstname'].' '.$leaveDetails['nameExtension']),"",0,"C");
+        $this->fpdf->Cell(40,6,strtoupper($leaveDetails['middlename']),"R",0,"C");
 
         $this->fpdf->Ln(6);
         $this->fpdf->SetFont('Arial', "", 8.5);	
 		$this->fpdf->Cell(30,6,'3. DATE OF FILING   ',"LT",0,"L");
         $this->fpdf->SetFont('Arial', "BU", 8.5);	
-		$this->fpdf->Cell(23,6,date('M d, Y',strtotime($leaveDetails['requestDate'])),"T",0,"L");
+		$this->fpdf->Cell(23,6,strtoupper(date('M d, Y',strtotime($leaveDetails['requestDate']))),"T",0,"L");
 
         $this->fpdf->SetFont('Arial', "", 8.5);	
 		$this->fpdf->Cell(20,6,'4. POSITION',"T",0,"L");
 
         $this->fpdf->SetFont('Arial', "BU", 8);	
-        $this->fpdf->Cell(62,6,$leaveDetails['positionDesc'],"T",0,"C");
+        $this->fpdf->Cell(62,6,strtoupper($leaveDetails['positionDesc']),"T",0,"C");
         $this->fpdf->SetFont('Arial', "", 8.5);	
         $this->fpdf->Cell(15,6,'5. SALARY',"T",0,"L");
 
         $this->fpdf->SetFont('Arial', "BU", 8.5);	
-        $this->fpdf->Cell(30,6,"P ".$leaveDetails['actualSalary'],"TR",0,"C");
+        $this->fpdf->Cell(30,6,"P ".number_format($leaveDetails['actualSalary'],2,'.',','),"TR",0,"C");
 
         $this->fpdf->Ln(6);
         $this->fpdf->SetFont('Arial', "B", 12);	
@@ -334,9 +336,11 @@ class ReportLeave_rpt_model extends CI_Model {
 
         // NO OF DAYS
         $this->fpdf->Ln(6);
-        $this->fpdf->SetFont('Arial', "BU", 8.5);	
-        $this->fpdf->Cell(98, 6, $requestDetails[3] . ' ' . ($requestDetails[3] > 1 ? 'days' : 'day'), "RL", 0, "C");
+        $this->fpdf->SetFont('Arial', "B", 8.5);	
+        $this->fpdf->Cell(98, 6,"              ".$requestDetails[3] . ' ' . ($requestDetails[3] > 1 ? 'days' : 'day'), "RL", 0, "L");
 
+        $this->fpdf->Ln(0);
+        $this->fpdf->Cell(98, 6,"       __________________________________________", "RL", 0, "L");
 
         $check_commutation_r = $check_commutation_nr = '';
         if ($requestDetails[13] == "requested") {
@@ -367,8 +371,10 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->SetFont('Arial', "", 8.5);	
         $this->fpdf->Cell(78.9,6,'         Requested',"R",0,"L");
         $this->fpdf->Ln(6);
-        $this->fpdf->SetFont('Arial', "BU", 8.5);	
-        $this->fpdf->Cell(98,6,date("M d, Y",strtotime($requestDetails[1]))." - ".date("M d, Y",strtotime($requestDetails[2])),"RL",0,"C");
+        $this->fpdf->SetFont('Arial', "B", 8.5);	
+        $this->fpdf->Cell(98,6,"              ".strtoupper(date("F d, Y",strtotime($requestDetails[1]))." - ".date("F d, Y",strtotime($requestDetails[2]))),"RL",0,"L");
+        $this->fpdf->Ln(0);
+        $this->fpdf->Cell(98, 6,"       __________________________________________", "RL", 0, "L");
         if ($leaveDetails['empNumber']) {
             $image = "uploads/employees/esignature/".$leaveDetails['empNumber'].".png";
             $this->fpdf->SetFont('Arial', "I", 8);	
@@ -383,10 +389,10 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->Cell(98,6,'',"RL",0,"C");
         $this->fpdf->SetFont('Arial', "BU", 8.5);	
         $applicant_sig = $this->get_signatory($leaveDetails['empNumber']);
-        $this->fpdf->Cell(82,6,$applicant_sig['firstname'] . ' ' . 
+        $this->fpdf->Cell(82,6,strtoupper($applicant_sig['firstname'] . ' ' . 
         (!empty($applicant_sig['middleInitial']) ? $applicant_sig['middleInitial'] . '.' : '') . ' ' . 
         $applicant_sig['surname'] . ' ' . 
-        $applicant_sig['nameExtension']
+        $applicant_sig['nameExtension'])
         ,"RL",0,"C");
         $this->fpdf->Ln(6);
         $this->fpdf->SetFont('Arial', "", 8.5);	
@@ -414,8 +420,8 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->Ln(6);
         $this->fpdf->SetFont('Arial', "", 8.5);	
         $this->fpdf->Cell(40,6,'AS of',"L",0,"R");
-        $this->fpdf->SetFont('Arial', "U", 9);	
-        $this->fpdf->Cell(58,6,date('F Y',strtotime( $latestBalance['periodYear'].'-'.$latestBalance['periodMonth'].'-01')),"R",0,"L");
+        $this->fpdf->SetFont('Arial', "BU", 9);	
+        $this->fpdf->Cell(58,6,strtoupper(date('F Y',strtotime( $latestBalance['periodYear'].'-'.$latestBalance['periodMonth'].'-01'))),"R",0,"L");
 
         $this->fpdf->SetFont('Arial', "", 8.5);	
         $this->fpdf->Cell(82,6,'    For approval',"RL",0,"L");
@@ -528,33 +534,33 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->Ln(6);
         $this->fpdf->SetFont('Arial', "BU", 8.5);	
         if (!$approver1) {
-            $this->fpdf->Cell(98,6,$requestSignatories['Signatory1firstname'] . ' ' . 
+            $this->fpdf->Cell(98,6,strtoupper($requestSignatories['Signatory1firstname'] . ' ' . 
             (!empty($requestSignatories['Signatory1middleInitial']) ? $requestSignatories['Signatory1middleInitial'] . '.' : '') . ' ' . 
             $requestSignatories['Signatory1surname'] . ' ' . 
-            $requestSignatories['Signatory1Extension']
+            $requestSignatories['Signatory1Extension'])
             ,"RL",0,"C");
         }
         else{
 
-            $this->fpdf->Cell(98,6,$approver1['firstname'] . ' ' . 
+            $this->fpdf->Cell(98,6,strtoupper($approver1['firstname'] . ' ' . 
             (!empty($approver1['middleInitial']) ? $approver1['middleInitial'] . '.' : '') . ' ' . 
             $approver1['surname'] . ' ' . 
-            $approver1['nameExtension']
+            $approver1['nameExtension'])
             ,"RL",0,"C");
         }
         
         if (!$approver2) {
-            $this->fpdf->Cell(82,6,$requestSignatories['Signatory2firstname'] . ' ' . 
+            $this->fpdf->Cell(82,6,strtoupper($requestSignatories['Signatory2firstname'] . ' ' . 
             (!empty($requestSignatories['Signatory2middleInitial']) ? $requestSignatories['Signatory2middleInitial'] . '.' : '') . ' ' . 
             $requestSignatories['Signatory2surname'] . ' ' . 
-            $requestSignatories['Signatory2Extension']
+            $requestSignatories['Signatory2Extension'])
             ,"RL",0,"C");
         }
         else{
-            $this->fpdf->Cell(82,6,$approver2['firstname'] . ' ' . 
+            $this->fpdf->Cell(82,6,strtoupper($approver2['firstname'] . ' ' . 
             (!empty($approver2['middleInitial']) ? $approver2['middleInitial'] . '.' : '') . ' ' . 
             $approver2['surname'] . ' ' . 
-            $approver2['nameExtension']
+            $approver2['nameExtension'])
             ,"RL",0,"C");
         }
         $this->fpdf->Ln(6);
@@ -631,16 +637,16 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->SetFont('Arial', "BU", 9);	
         $this->fpdf->Ln(5);
         if (!$approver3) {
-            $this->fpdf->Cell(180,6,$requestSignatories['Signatory3firstname'] . ' ' . 
+            $this->fpdf->Cell(180,6,strtoupper($requestSignatories['Signatory3firstname'] . ' ' . 
             (!empty($requestSignatories['Signatory3middleInitial']) ? $requestSignatories['Signatory3middleInitial'] . '.' : '') . ' ' . 
             $requestSignatories['Signatory3surname'] . ' ' . 
-            $requestSignatories['Signatory3Extension']
+            $requestSignatories['Signatory3Extension'])
             ,"RL",0,"C");
         }else{
-            $this->fpdf->Cell(180,6,$approver3['firstname'] . ' ' . 
+            $this->fpdf->Cell(180,6,strtoupper($approver3['firstname'] . ' ' . 
             (!empty($approver3['middleInitial']) ? $approver3['middleInitial'] . '.' : '') . ' ' . 
             $approver3['surname'] . ' ' . 
-            $approver3['nameExtension']
+            $approver3['nameExtension'])
             ,"RL",0,"C");
         }
         

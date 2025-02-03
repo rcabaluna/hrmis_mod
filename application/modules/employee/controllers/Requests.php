@@ -80,15 +80,23 @@ class Requests extends MY_Controller
 		$arrdata = [];
 		$arrpost = $this->input->post();
 		$arrget = $this->input->get();
+	
+
+
+		// $officer_empid = $this->session->userdata('sessEmpNo');
+		// $office = employee_office($officer_empid);
+		// $requestFlow = $this->Request_model->getRequestFlow($office);
 
 		$officer_empid = $this->session->userdata('sessEmpNo');
-		$office = employee_office($officer_empid);
-		$requestFlow = $this->Request_model->getRequestFlow($office);
-		
+		$requestFlow = $this->Request_model->getRequestFlow($officer_empid);
 		$requestdetails = $this->Request_model->getSelectedRequest($arrpost['txtob_id']);
-		
 		$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $requestdetails);
+
+		
+
 		$req = array_shift($arrRequest);
+
+		
 		
 		if ((strpos($req['req_nextsign'], $officer_empid) !== false)) :
 			$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
@@ -124,7 +132,7 @@ class Requests extends MY_Controller
 		$this->Request_model->update_employeeRequest($arrdata, $requestid);
 
 		$this->session->set_flashdata('strSuccessMsg', 'Request has been '.strtolower($arrpost['selob_stat']).'!');
-		redirect('officer/tasks?month='.$arrget['month'].'&yr='.$arrget['year']);
+		redirect('officer/tasks?month='.$arrget['month'].'&yr='.$arrget['yr']);
 
 	}
 
@@ -183,7 +191,6 @@ class Requests extends MY_Controller
 	
 
 		if (isset($arrdata['Signatory1'])) {
-			echo "<pre>";
 			$reqx['requestDetails'] = $reqx['requestDetails'].';'.$arrpost['dayswpay'].';'.$arrpost['dayswopay'].';'.$arrpost['dayspayothers'];
 			$this->Request_model->update_employeeRequest($reqx, $requestid);
 		}

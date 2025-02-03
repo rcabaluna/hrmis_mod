@@ -121,7 +121,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" id="btncertify" class="btn btn-sm green"><i class="icon-check"> </i> Certify</button>
+                <button type="submit" id="btncertify" class="btn btn-sm green"><i class="icon-check"> </i> Submit</button>
                 <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
             </div>
             <?= form_close() ?>
@@ -234,7 +234,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" id="btnobcertify" class="btn btn-sm green"><i class="icon-check"> </i> Certify</button>
+                <button type="submit" id="btnobcertify" class="btn btn-sm green"><i class="icon-check"> </i> Submit</button>
                 <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
             </div>
             <?= form_close() ?>
@@ -329,7 +329,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" id="btntocertify" class="btn btn-sm green"><i class="icon-check"> </i> Certify</button>
+                <button type="submit" id="btntocertify" class="btn btn-sm green"><i class="icon-check"> </i> Submit</button>
                 <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal"><i class="icon-ban"> </i> Cancel</button>
             </div>
             <?= form_close() ?>

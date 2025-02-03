@@ -73,7 +73,9 @@ endif;
                                 <label class="control-label">Request Date :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                   <input type="text" class="form-control date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" value="<?=count($obdetails)>0 ? $obdetails[1]:date('Y-m-d')?>" data-date-format="yyyy-mm-dd" autocomplete="of" <?=$hrmodule ? 'disabled' : ''?>>   
+                                   <input type="text" class="form-control date-picker" name="dtmOBrequestdate" id="dtmOBrequestdate" value="<?=count($obdetails)>0 ? $obdetails[1]:date('Y-m-d')?>" data-date-format="yyyy-mm-dd" autocomplete="of" disabled>   
+
+                                   <input type="hidden" class="form-control date-picker" name="hdtmOBrequestdate" id="hdtmOBrequestdate" value="<?=count($obdetails)>0 ? $obdetails[1]:date('Y-m-d')?>" data-date-format="yyyy-mm-dd" autocomplete="of"> 
                                 </div>
                             </div>
                         </div>
