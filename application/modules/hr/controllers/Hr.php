@@ -424,9 +424,8 @@ class Hr extends MY_Controller {
 			$this->session->set_flashdata('upload_status','Upload successfully saved.');
 			
 		}
-		print_r($error);
-		print_r($data);
-		exit(1);
-		// redirect('hr/profile/'.$strEmpNum);
+		// print_r($data);
+		// exit(1);
+		redirect('hr/profile/'.$strEmpNum);
 	}
 }
