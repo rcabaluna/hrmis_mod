@@ -409,8 +409,6 @@ class Hr extends MY_Controller {
 		{
 			echo $this->upload->display_errors();
 			$error = array('error' => $this->upload->display_errors());
-			print_r($error);
-			exit(1);
 			$this->session->set_flashdata('upload_status','Please try again!');
 		}
 		else
@@ -426,9 +424,9 @@ class Hr extends MY_Controller {
 			$this->session->set_flashdata('upload_status','Upload successfully saved.');
 			
 		}
-		// print_r($error);
-		// print_r($data);
-		// exit(1);
-		redirect('hr/profile/'.$strEmpNum);
+		print_r($error);
+		print_r($data);
+		exit(1);
+		// redirect('hr/profile/'.$strEmpNum);
 	}
 }
