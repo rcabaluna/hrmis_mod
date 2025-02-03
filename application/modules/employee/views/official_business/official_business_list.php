@@ -126,7 +126,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                     endif; ?></td>
                             <td width="150px" style="white-space: nowrap;text-align: center;">
                                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>"
-                                    data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>
+                                    data-rdetails='<?=$row['requestID']?>' data-rattach='<?=$row['file_location']?>'>
                                     <span class="icon-magnifier" title="View"></span> Print Preview</a>
                                 <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
                                     <a class="btn btn-sm green" href="<?=base_url('employee/official_business/edit?req_id='.$row['requestID'])?>">
@@ -228,21 +228,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
         });
 
         $('#table-ob').on('click','a#printreport',function(){
-            var req_details = $(this).data('rdetails');
+            var req_id = $(this).data('rdetails');
 
-            console.log(req_details);
-            var obtype      = req_details[0];
-            var reqdate     = $(this).data('rdate');
-            var obdatefrom  = req_details[2];
-            var obdateto    = req_details[3];
-            var obtimefrom  = req_details[4];
-            var obtimeto    = req_details[5];
-            var desti       = req_details[6];
-            var meal        = req_details[8];
-            var purpose     = req_details[7];
-            var empnum      = '<?=$_SESSION['sessEmpNo']?>';
-
-            var link = "<?=base_url('employee/reports/generate/?rpt=reportOB')?>"+"&obtype="+obtype+"&reqdate="+reqdate+"&obdatefrom="+obdatefrom+"&obdateto="+obdateto+"&obtimefrom="+obtimefrom+"&obtimeto="+obtimeto+"&desti="+desti+"&meal="+meal+"&purpose="+purpose+"&empnum="+empnum;
+            var link = "<?=base_url('employee/reports/generate/?rpt=reportOB')?>"+"&req_id="+req_id;
             $('div#attachments').html('');
             var json_file = $(this).data('rattach');
             $('div#attachments').append('<ul>');
