@@ -24,10 +24,20 @@ class Notification extends MY_Controller
 			$strEmpNo = $_SESSION['sessEmpNo'];
 			$arrempRequest = array();
 			//CHANGE PARAMETER TO "HR"
-			$requestFlow = $this->Request_model->getRequestFlow('ALLEMP');
-			
-			$arremp_request = $this->Request_model->getEmployeeRequest2($strEmpNo);
-			$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $arremp_request);
+			// $requestFlow = $this->Request_model->getRequestFlow('ALLEMP');
+			$requestFlow = $this->Request_model->getRequestFlow();
+
+			$arremp_request = $this->Request_model->getEmployeeRequest2($strEmpNo);  
+			$updated_requests = [];
+
+			foreach ($arremp_request as $arremp_requestRow) {
+				$destination = $this->Request_model->get_next_signatory_notif($arremp_requestRow, '', $arremp_requestRow['requestflowid']);
+				$arremp_requestRow['destination'] = $destination; // Add destination to the row
+				$updated_requests[] = $arremp_requestRow; // Push updated row into new array
+			}
+
+			$arrRequest = $updated_requests;
+
 		endif;
 
 		if (check_module() == 'officer') :
@@ -39,7 +49,16 @@ class Notification extends MY_Controller
 			$requestFlow = $this->Request_model->getRequestFlow($strEmpNo);
 			$arremp_request = $this->Request_model->getEmployeeRequest2($strEmpNo);
 
-			$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $arremp_request);
+			$arremp_request = $this->Request_model->getEmployeeRequest2($strEmpNo);  
+			$updated_requests = [];
+
+			foreach ($arremp_request as $arremp_requestRow) {
+				$destination = $this->Request_model->get_next_signatory_notif($arremp_requestRow, '', $arremp_requestRow['requestflowid']);
+				$arremp_requestRow['destination'] = $destination; // Add destination to the row
+				$updated_requests[] = $arremp_requestRow; // Push updated row into new array
+			}
+
+			$arrRequest = $updated_requests;
 		endif;
 
 		$this->arrData['arrRequest'] = $arrRequest;

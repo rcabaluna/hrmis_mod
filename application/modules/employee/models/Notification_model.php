@@ -169,12 +169,17 @@ class Notification_model extends CI_Model
 
 		$arrRequestFlow = array();
 		$arr_rflow = array();
+
+
         
 		foreach($arrflow as $flow):
 			if($flow['reqID'] == $requestID):
 				array_push($arrRequestFlow,$flow);
 			endif;
 		endforeach;
+
+       
+        
 
 		if(count($arrRequestFlow) > 1):
 			foreach($arrRequestFlow as $rflow):
@@ -198,6 +203,10 @@ class Notification_model extends CI_Model
         $arrRequest = [];
         foreach ($emp_requests as $request): 
             $request['code'] = $request['requestCode'];
+
+            // echo "<pre>";
+            // var_dump($requestFlow);
+            // var_dump($request['requestflowid']);
 
             $rflow = $this->Notification_model->getrequestflow(
                 $requestFlow,

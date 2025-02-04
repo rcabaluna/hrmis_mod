@@ -51,32 +51,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $no=1; foreach($arrRequest as $request): ?>
-                                    <tr class="<?=strtolower($request['req_status']) == 'cancelled'? 'cancelled':''?> <?=strtolower($request['req_status']) == 'disapproved'? 'disapproved':''?>">
+                                <?php $no=1; foreach($arrRequest as $request):
+                                    ?>
+                                    <tr class="<?=strtolower($request['requestStatus']) == 'cancelled'? 'cancelled':''?> <?=strtolower($request['requestStatus']) == 'disapproved'? 'disapproved':''?>">
                                         <td align="center"><?=$no++?></td>
-                                        <td align="center"><?=$request['req_date']?></td>
-                                        <td align="center"><?=$request['req_type']?></td>
-                                        <td align="center"><?=$request['req_status']?></td>
-                                        <td align="center"><?=$request['req_remarks']?></td>
-                                        <td><?=$request['req_nextsign']?></td>
+                                        <td align="center"><?=$request['requestDate']?></td>
+                                        <td align="center"><?=$request['requestCode']?></td>
+                                        <td align="center"><?=$request['requestStatus']?></td>
+                                        <td align="center"><?=$request['remarks']?></td>
+                                        <td><?=$request['destination']['next_sign']?></td>
                                         <td nowrap style="vertical-align: middle;text-align: left;">
                                             <?php
-                                                if ($request['req_type'] == '201') {
+                                                if ($request['requestCode'] == '201') {
                                                     ?>
-                                                    <a href="<?=base_url('/employee/pds_update/view?req_id=').$request['req_id'] ?>" class="btn btn-sm blue">
+                                                    <a href="<?=base_url('/employee/pds_update/view?req_id=').$request['requestID'] ?>" class="btn btn-sm blue">
                                                 <i class="icon-magnifier"></i> View </a>
                                                     <?php
                                                 }
                                                 else{
                                                     ?>
                                                     <a href="javascript:;" class="btn btn-sm blue" id="btnview"
-                                                data-type="<?=$request['req_type']?>" data-json='<?=json_encode($request)?>'>
+                                                data-type="<?=$request['requestCode']?>" data-json='<?=json_encode($request)?>'>
                                                 <i class="icon-magnifier"></i> View </a>
                                                     <?php
                                                 }
                                             ?>
-                                            <?php if(!in_array(strtolower($request['req_status']), array('cancelled', 'disapproved','certified'))): ?>
-                                                <button data-id="<?=$request['req_id']?>" class="btn btn-sm red btn-cancel"> <i class="icon-close"></i> Cancel </button>
+                                            <?php if(!in_array(strtolower($request['requestStatus']), array('cancelled', 'disapproved','certified'))): ?>
+                                                <button data-id="<?=$request['requestID']?>" class="btn btn-sm red btn-cancel"> <i class="icon-close"></i> Cancel </button>
                                             <?php endif; ?>
                                         </td>
                                     </tr>
@@ -173,9 +174,8 @@
                 to_details = json.req_details.split(';');
                 replink = 'employee/reports/generate/?rpt=reportTO&desti='+ to_details[0] +'&todatefrom='+ json.req_date +'&todateto='+ to_details[2] +'&purpose='+ to_details[3] +'&strMeal='+ to_details[4] +'&meal='+ to_details[5];
             }
-            if(json.req_code=='Leave'){
-                console.log(json);
-                replink = 'employee/reports/generate/?rpt=reportLeave&req_id='+ json.req_id;
+            if(json.requestCode=='Leave'){
+                replink = 'employee/reports/generate/?rpt=reportLeave&req_id='+ json.requestID;
             }
             if(json.req_code=='DTR'){
                 dtr_details = json.req_details.split(';');
