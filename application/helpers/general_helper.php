@@ -464,8 +464,11 @@ if (!function_exists('getaddress')) {
 
 
 if (!function_exists('sendemail_new_request')) {
-    function sendemail_new_request($CI,$recepient,$requesttype,$requestdate)
+    function sendemail_request_to_signatory($recepient,$requesttype,$requestdate)
     {
+
+        $CI = &get_instance();
+
         // Load the email library if not loaded
         $CI->load->library('email');
         
@@ -494,13 +497,13 @@ if (!function_exists('sendemail_new_request')) {
         $subject = "[HRMIS] New ".$requesttype ." Request for Your Action";
         $message = "<p>Hello,</p>
     
-                        <p>A new request from the HRMIS requires your action. Please review and take the necessary steps at your earliest convenience.</p>
+                        <p>A new <b>".strtolower($requesttype)." request</b> from the Human Resource Manage Information System (HRMIS) requires your action. Please review and take the necessary steps at your earliest convenience.</p>
                         
                         <p>You can access the request here: <br> <a href='".$link."')>".$link."</a></p>
-                        
+                        <br><br>
                         <p><i><strong>Note:</strong> This is an automated message. Please do not reply to this email.</></p>
                         
-                        <br><br>
+                        <br>
                         <p>Best regards,<br>
                         DOST - 10 HR Unit</p>";
 
@@ -509,7 +512,7 @@ if (!function_exists('sendemail_new_request')) {
 
         // Send email
         if ($CI->email->send()) {
-            echo "Email sent successfully.";
+            return true;
         } else {
             echo "Failed to send email.";
             echo $CI->email->print_debugger(); // Debugging output
@@ -519,8 +522,10 @@ if (!function_exists('sendemail_new_request')) {
 
 
 if (!function_exists('sendemail_update_request')) {
-    function sendemail_update_request($CI,$recepient,$requesttype,$requestdate,$status)
+    function sendemail_update_request($recepient,$requesttype,$requestdate,$status)
     {
+    $CI = &get_instance();
+
         // Load the email library if not loaded
         $CI->load->library('email');
         
@@ -549,13 +554,13 @@ if (!function_exists('sendemail_update_request')) {
         $subject = "[HRMIS] ".$requesttype ." Request Status Update";
         $message = "<p>Hello,</p>
     
-                        <p>Your Leave request submitted on ".date('F d, Y', strtotime($requestdate))." has been <b>".$status."</b>.</p>
+                        <p>Your ".$requesttype." request submitted on ".date('F d, Y', strtotime($requestdate))." has been <b>".strtoupper($status)."</b>.</p>
                         
-                        <p>For more details regarding your request, please visit the this link: <br> <a href='".$link."')>".$link."</a></p>
-                        
+                        <p>For more details regarding your request, please visit this link: <br> <a href='".$link."')>".$link."</a></p>
+                        <br><br>
                         <p><i><strong>Note:</strong> This is an automated message. Please do not reply to this email.</></p>
                         
-                        <br><br><br><br>
+                        <br>
                         <p>Best regards,<br>
                         DOST - 10 HR Unit</p>";
 
@@ -564,11 +569,21 @@ if (!function_exists('sendemail_update_request')) {
 
         // Send email
         if ($CI->email->send()) {
-            echo "Email sent successfully.";
+            return true;
         } else {
             echo "Failed to send email.";
             echo $CI->email->print_debugger(); // Debugging output
         }
     }
+
+    if (!function_exists('get_email_address')) {
+        function get_email_address($strEmpNo)
+        {
+            $CI = &get_instance();
+            $rs = $CI->db->select('email')->where('empNumber', $strEmpNo)->get('tblemppersonal')->row_array();
+
+            return $rs['email'];
+        }
 }
 
+}

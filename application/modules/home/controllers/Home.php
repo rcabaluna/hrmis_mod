@@ -253,12 +253,12 @@ class Home extends MY_Controller {
 
 
 	public function send_email_new_request() {
-		sendemail_new_request($this,'rcabalunajr@gmail.com','Leave','2025-02-04');
-       
+		sendemail_request_to_signatory('rcabalunajr@gmail.com','Leave','2025-02-04');
     }
 
 	public function sendemail_update_request() {
-		sendemail_update_request($this,'rcabalunajr@gmail.com','Leave','2025-02-04','Approved');
+		
+		sendemail_update_request('rcabalunajr@gmail.com','Leave','2025-02-04','Approved');
        
     }
 }

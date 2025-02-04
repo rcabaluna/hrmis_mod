@@ -140,11 +140,18 @@ class Leave extends MY_Controller {
 					'empNumber'		 => $arrPost['txtempno'],
 					'file_location'	 => json_encode($attachments));
 
-				$this->leave_model->add_leave_request($arrData);
+
+				$request_id = $this->leave_model->add_leave_request($arrData);
+
+				$signatory = $this->Request_model->get_next_signatory_for_email($request_id);
+
+				$recepient = get_email_address($signatory['next_sign']);
+
+				sendemail_request_to_signatory($recepient,'Leave', date('Y-m-d'));
 
 				$this->session->set_flashdata('strSuccessMsg','Leave has been submitted.');
 
-				if(count($blnReturn) > 0):
+				if(1 == 1):
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$arrPost['strDay'].' Leave',implode(';',$arrData),'');
 				endif;
 				redirect('employee/leave');

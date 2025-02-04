@@ -149,6 +149,8 @@ class Requests extends MY_Controller
 
 
 		$req = array_shift($arrRequest);
+
+		
 	
 		
 		if ((strpos($req['req_nextsign'], $officer_empid) !== false)) {
@@ -188,14 +190,22 @@ class Requests extends MY_Controller
 
 		$reqx = array_shift($requestdetails);
 
-	
-
 		if (isset($arrdata['Signatory1'])) {
 			$reqx['requestDetails'] = $reqx['requestDetails'].';'.$arrpost['dayswpay'].';'.$arrpost['dayswopay'].';'.$arrpost['dayspayothers'];
 			$this->Request_model->update_employeeRequest($reqx, $requestid);
+		}else{
+			$this->Request_model->update_employeeRequest($arrdata, $requestid);
 		}
 
-		$this->Request_model->update_employeeRequest($arrdata, $requestid);
+		$send = sendemail_update_request(get_email_address($reqx['empNumber']),'Leave',$reqx['requestDate'],$arrdata['requestStatus']);
+
+		if ($send) {
+			$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
+			$recepient = get_email_address($signatory['next_sign']);
+
+			sendemail_request_to_signatory($recepient,'Leave', date('Y-m-d'));
+		}
+		
 
 		$this->session->set_flashdata('strSuccessMsg', 'Request has been '.strtolower($arrpost['selreq_stat']).'!');
 		redirect('officer/tasks?month='.$arrget['month'].'&yr='.$arrget['year']);

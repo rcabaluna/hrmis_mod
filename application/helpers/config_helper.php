@@ -268,3 +268,13 @@ function getDestination($desti)
         endswitch;
     endif;
 }
+
+
+function getDestination_approver($desti)
+{
+    $desti = explode(';', $desti);
+    if(count($desti) > 1):
+        return $desti[2];
+
+    endif;
+}
