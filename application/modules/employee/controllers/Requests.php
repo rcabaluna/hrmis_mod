@@ -203,7 +203,7 @@ class Requests extends MY_Controller
 			$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
 			$recepient = get_email_address($signatory['next_sign']);
 
-			sendemail_request_to_signatory($recepient,'Leave', date('Y-m-d'));
+			sendemail_request_to_signatory($recepient,'Leave', $reqx['requestDate']);
 		}
 		
 
