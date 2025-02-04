@@ -461,3 +461,114 @@ if (!function_exists('getaddress')) {
         return $address;
     }
 }
+
+
+if (!function_exists('sendemail_new_request')) {
+    function sendemail_new_request($CI,$recepient,$requesttype,$requestdate)
+    {
+        // Load the email library if not loaded
+        $CI->load->library('email');
+        
+        // Email configuration
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => 'smtp.gmail.com', // Your SMTP host
+            'smtp_user' => 'rocabalunajr@region10.dost.gov.ph', // SMTP username
+            'smtp_pass' => 'wile avvt arei wcim', // SMTP password
+            'smtp_port' => 587, // Use 465 for SSL, 587 for TLS
+            'smtp_crypto' => 'tls', // Use 'ssl' for SSL
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'wordwrap'  => TRUE,
+            'newline'   => "\r\n"
+        );
+        
+        $CI->email->initialize($config);
+
+        // Set email parameters
+        $CI->email->from('hr@region10.dost.gov.ph', 'DOST 10 HR');
+        $CI->email->to($recepient);
+
+        $link = base_url('/officer/tasks?month='.date('m', strtotime($requestdate)).'&yr='.date('Y', strtotime($requestdate)));
+
+        $subject = "[HRMIS] New ".$requesttype ." Request for Your Action";
+        $message = "<p>Hello,</p>
+    
+                        <p>A new request from the HRMIS requires your action. Please review and take the necessary steps at your earliest convenience.</p>
+                        
+                        <p>You can access the request here: <br> <a href='".$link."')>".$link."</a></p>
+                        
+                        <p><i><strong>Note:</strong> This is an automated message. Please do not reply to this email.</></p>
+                        
+                        <br><br>
+                        <p>Best regards,<br>
+                        DOST - 10 HR Unit</p>";
+
+        $CI->email->subject($subject);
+        $CI->email->message($message);
+
+        // Send email
+        if ($CI->email->send()) {
+            echo "Email sent successfully.";
+        } else {
+            echo "Failed to send email.";
+            echo $CI->email->print_debugger(); // Debugging output
+        }
+    }
+}
+
+
+if (!function_exists('sendemail_update_request')) {
+    function sendemail_update_request($CI,$recepient,$requesttype,$requestdate,$status)
+    {
+        // Load the email library if not loaded
+        $CI->load->library('email');
+        
+        // Email configuration
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => 'smtp.gmail.com', // Your SMTP host
+            'smtp_user' => 'rocabalunajr@region10.dost.gov.ph', // SMTP username
+            'smtp_pass' => 'wile avvt arei wcim', // SMTP password
+            'smtp_port' => 587, // Use 465 for SSL, 587 for TLS
+            'smtp_crypto' => 'tls', // Use 'ssl' for SSL
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'wordwrap'  => TRUE,
+            'newline'   => "\r\n"
+        );
+        
+        $CI->email->initialize($config);
+
+        // Set email parameters
+        $CI->email->from('hr@region10.dost.gov.ph', 'DOST 10 HR');
+        $CI->email->to($recepient);
+
+        $link = base_url('/employee/leave');
+
+        $subject = "[HRMIS] ".$requesttype ." Request Status Update";
+        $message = "<p>Hello,</p>
+    
+                        <p>Your Leave request submitted on ".date('F d, Y', strtotime($requestdate))." has been <b>".$status."</b>.</p>
+                        
+                        <p>For more details regarding your request, please visit the this link: <br> <a href='".$link."')>".$link."</a></p>
+                        
+                        <p><i><strong>Note:</strong> This is an automated message. Please do not reply to this email.</></p>
+                        
+                        <br><br><br><br>
+                        <p>Best regards,<br>
+                        DOST - 10 HR Unit</p>";
+
+        $CI->email->subject($subject);
+        $CI->email->message($message);
+
+        // Send email
+        if ($CI->email->send()) {
+            echo "Email sent successfully.";
+        } else {
+            echo "Failed to send email.";
+            echo $CI->email->print_debugger(); // Debugging output
+        }
+    }
+}
+

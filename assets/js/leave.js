@@ -46,6 +46,7 @@ $(document).ready(function() {
 			case "val":
 			case "rpl":
 			case "sel":
+			case "sppl":
 			case "al":
 	        	$('#reason_textbox').hide();
 	            break;
