@@ -40,7 +40,7 @@ class Leave_model extends CI_Model {
     }
 
     $this->db->where('e.requestCode', 'Leave');
-    $this->db->order_by('e.requestDate', 'DESC');
+    $this->db->order_by('e.requestID', 'DESC');
     
     return $this->db->get()->result_array();
 }

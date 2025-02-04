@@ -95,11 +95,21 @@ class Request extends MY_Controller
 				else :
 
 					foreach ($arrleave_request as $key => $leave) :
+
+						
+
 						if ($leave['requestDetails'] != '') :
 							$requestDetails = explode(';', $leave['requestDetails']);
 
+							
 							$requestflowid = $leave['requestflowid'];
+
+							
+
 							$next_signatory = $this->Request_model->get_next_signatory($leave, strtoupper($requestDetails[0]),$requestflowid);
+
+						
+							// exit();
 
 							$leave['next_signatory'] = $next_signatory;
 							$leave_request[] = $leave;
@@ -405,14 +415,13 @@ class Request extends MY_Controller
 				'wopay' => $leave_details[15]
 			);
 
-			$update_leave_balance = $this->Leave_model->update_empleave_balance_from_leave($arrleave_empbalance);
-			// var_dump($arrleave_empbalance);
-			// exit();
+			// $update_leave_balance = $this->Leave_model->update_empleave_balance_from_leave($arrleave_empbalance);
+			
 
-			$addreturn = $this->leave_model->add_employeeLeave($arrleave_data);
-			if (count($addreturn) > 0) :
-				log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Add Leave', json_encode($arrob_data), '');
-			endif;
+			// $addreturn = $this->leave_model->add_employeeLeave($arrleave_data);
+			// if (count($addreturn) > 0) :
+			// 	log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Add Leave', json_encode($arrob_data), '');
+			// endif;
 		endif;
 
 		$arrleave_signatory = array(
@@ -424,12 +433,21 @@ class Request extends MY_Controller
 
 		$arrleave_signatory = array_merge($arrleave_signatory, $arremp_signature);
 		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrleave_signatory, $arrleave['requestID']);
+
+
+		$requestdetails = $this->Request_model->getSelectedRequest($_GET['req_id']);
+		
+
+
+		
+		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Leave',$requestdetails[0]['requestDate'],$requestdetails[0]['requestStatus']);
+
 		if (count($update_employeeRequest) > 0) :
 			log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Update request', json_encode($arrleave_signatory), '');
 			$this->session->set_flashdata('strSuccessMsg', 'Request successfully ' . strtolower($optstatus) . '.');
 		endif;
 
-		redirect('hr/request?request=leave');
+		redirect('hr/request?request=leave&status=All');
 	}
 
 	public function update_to()

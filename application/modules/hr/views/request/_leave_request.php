@@ -70,6 +70,7 @@
                     <span class="icon-magnifier" title="View"></span> Print Preview</a>
                 <?php
                 
+
                 if(!in_array(strtolower($row['requestStatus']), array('certified','disapproved', 'cancelled')) && $row['next_signatory']['display'] == 1): ?>
                     <a class="btn btn-sm blue" id="btncertify" data-id="<?=$row['requestID']?>"><span class="icon-check"></span> 
                         <?= strtolower($row['next_signatory']['action']) == "certified" ? "Certify" : ""; ?>

@@ -67,6 +67,23 @@ if (!function_exists('employee_name')) {
     }
 }
 
+if (!function_exists('employee_name_formal')) {
+    function employee_name_formal($strEmpNo)
+    {
+        $CI = &get_instance();
+        $res = $CI->db->select('surname, firstname, middlename, middleInitial, nameExtension')->get_where('tblemppersonal', array('empNumber' => $strEmpNo))->result_array();
+        if (count($res) > 0) {
+            $middlename = $res[0]['middlename'] == '' ? ' ' : $res[0]['middlename'];
+            $mid_ini = $res[0]['middleInitial'] != '' ? str_replace('.', '', $res[0]['middleInitial']) : ($middlename != '' ? $middlename[0] : '');
+            $mid_ini = $mid_ini != '' ? $mid_ini . '.' : '';
+            $mid_ini = strpos($mid_ini, '.') ? $mid_ini : $mid_ini . '.';
+            return $res[0]['firstname'] . ' ' . $mid_ini . ' ' . $res[0]['surname'] . ' '  . $res[0]['nameExtension'];
+        } else {
+            return '';
+        }
+    }
+}
+
 
 if (!function_exists('appstatus_name')) {
     function appstatus_name($strCode)
@@ -522,7 +539,7 @@ if (!function_exists('sendemail_new_request')) {
 
 
 if (!function_exists('sendemail_update_request')) {
-    function sendemail_update_request($recepient,$requesttype,$requestdate,$status)
+    function sendemail_update_request($empName, $recepient,$requesttype,$requestdate,$status)
     {
     $CI = &get_instance();
 
@@ -554,7 +571,7 @@ if (!function_exists('sendemail_update_request')) {
         $subject = "[HRMIS] ".$requesttype ." Request Status Update";
         $message = "<p>Hello,</p>
     
-                        <p>Your ".$requesttype." request submitted on ".date('F d, Y', strtotime($requestdate))." has been <b>".strtoupper($status)."</b>.</p>
+                        <p>Your ".$requesttype." request submitted on ".date('F d, Y', strtotime($requestdate))." has been marked as <b>".strtoupper($status)."</b> by ".employee_name_formal($empName).".</p>
                         
                         <p>For more details regarding your request, please visit this link: <br> <a href='".$link."')>".$link."</a></p>
                         <br><br>

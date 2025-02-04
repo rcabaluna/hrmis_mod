@@ -132,7 +132,7 @@ class Requests extends MY_Controller
 		$this->Request_model->update_employeeRequest($arrdata, $requestid);
 
 		$this->session->set_flashdata('strSuccessMsg', 'Request has been '.strtolower($arrpost['selob_stat']).'!');
-		redirect('officer/tasks?month='.$arrget['month'].'&yr='.$arrget['yr']);
+		redirect('officer/tasks?month='.date('m').'&yr='.date('Y'));
 
 	}
 
@@ -140,18 +140,14 @@ class Requests extends MY_Controller
 		$arrdata = [];
 		$arrpost = $this->input->post();
 		$arrget = $this->input->get();
-		
+
 		$officer_empid = $this->session->userdata('sessEmpNo');
 		$requestFlow = $this->Request_model->getRequestFlow($officer_empid);
 		$requestdetails = $this->Request_model->getSelectedRequest($arrpost['txtleave_id']);
 		$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $requestdetails);
 
-
-
 		$req = array_shift($arrRequest);
 
-		
-	
 		
 		if ((strpos($req['req_nextsign'], $officer_empid) !== false)) {
 			$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
@@ -189,28 +185,24 @@ class Requests extends MY_Controller
 		$requestid = $arrpost['txtleave_id'];
 
 		$reqx = array_shift($requestdetails);
-
+		
 		if (isset($arrdata['Signatory1'])) {
 			$reqx['requestDetails'] = $reqx['requestDetails'].';'.$arrpost['dayswpay'].';'.$arrpost['dayswopay'].';'.$arrpost['dayspayothers'];
 			$this->Request_model->update_employeeRequest($reqx, $requestid);
-		}else{
-			$this->Request_model->update_employeeRequest($arrdata, $requestid);
 		}
+		
+		$this->Request_model->update_employeeRequest($arrdata, $requestid);
 
-		$send = sendemail_update_request(get_email_address($reqx['empNumber']),'Leave',$reqx['requestDate'],$arrdata['requestStatus']);
+		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($reqx['empNumber']),'Leave',$reqx['requestDate'],$arrdata['requestStatus']);
 
 		if ($send) {
 			$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
 			$recepient = get_email_address($signatory['next_sign']);
-
 			sendemail_request_to_signatory($recepient,'Leave', $reqx['requestDate']);
 		}
-		
 
 		$this->session->set_flashdata('strSuccessMsg', 'Request has been '.strtolower($arrpost['selreq_stat']).'!');
-		redirect('officer/tasks?month='.$arrget['month'].'&yr='.$arrget['year']);
-
-
+		redirect('officer/tasks?month='.date('m').'&yr='.date('Y'));
 		
 	}
 }

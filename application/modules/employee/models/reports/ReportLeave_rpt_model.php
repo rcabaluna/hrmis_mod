@@ -463,7 +463,7 @@ class ReportLeave_rpt_model extends CI_Model {
 
         $vldays = $sldays = '';
 
-        if ($requestDetails[0] == 'VL') {
+        if ($requestDetails[0] == 'VL' || $requestDetails[0] == 'FL') {
             $vldays = $requestDetails[3];
         }else{
             $vldays = 0.00;
