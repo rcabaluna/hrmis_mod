@@ -177,11 +177,21 @@ class Request_model extends CI_Model
 		$arremp_signature = array();
 		if (count($signatories) > 0) :
 			$arremp_signature = array();
+			
+			if ($signatories['SignatoryCountersign'] != '') :
+				$signatory = explode(';', $signatories['SignatoryCountersign']);
+				if (count($signatory) > 2) :
+					if ($signatory[2] == $_SESSION['sessEmpNo']) :
+						$arremp_signature = array('SignatoryCountersign' => $_SESSION['sessEmpNo'], 'SigCDateTime' => date('Y-m-d H:i:s'));
+					endif;
+				endif;
+			endif;
+
 			if ($signatories['Signatory1'] != '') :
 				$signatory = explode(';', $signatories['Signatory1']);
 				if (count($signatory) > 2) :
 					if ($signatory[2] == $_SESSION['sessEmpNo']) :
-						$arremp_signature = array('Signatory1' => $_SESSION['sessEmpNo'], 'Sig1DateTime' => date('Y-m-d'));
+						$arremp_signature = array('Signatory1' => $_SESSION['sessEmpNo'], 'Sig1DateTime' => date('Y-m-d H:i:s'));
 					endif;
 				endif;
 			endif;
@@ -190,7 +200,7 @@ class Request_model extends CI_Model
 				$signatory = explode(';', $signatories['Signatory2']);
 				if (count($signatory) > 2) :
 					if ($signatory[2] == $_SESSION['sessEmpNo']) :
-						$arremp_signature = array('Signatory2' => $_SESSION['sessEmpNo'], 'Sig2DateTime' => date('Y-m-d'));
+						$arremp_signature = array('Signatory2' => $_SESSION['sessEmpNo'], 'Sig2DateTime' => date('Y-m-d H:i:s'));
 					endif;
 				endif;
 			endif;
@@ -199,7 +209,7 @@ class Request_model extends CI_Model
 				$signatory = explode(';', $signatories['Signatory3']);
 				if (count($signatory) > 2) :
 					if ($signatory[2] == $_SESSION['sessEmpNo']) :
-						$arremp_signature = array('Signatory3' => $_SESSION['sessEmpNo'], 'Sig3DateTime' => date('Y-m-d'));
+						$arremp_signature = array('Signatory3' => $_SESSION['sessEmpNo'], 'Sig3DateTime' => date('Y-m-d H:i:s'));
 					endif;
 				endif;
 			endif;
@@ -208,7 +218,7 @@ class Request_model extends CI_Model
 				$signatory = explode(';', $signatories['SignatoryFin']);
 				if (count($signatory) > 2) :
 					if ($signatory[2] == $_SESSION['sessEmpNo']) :
-						$arremp_signature = array('SignatoryFin' => $_SESSION['sessEmpNo'], 'SigFinDateTime' => date('Y-m-d'));
+						$arremp_signature = array('SignatoryFin' => $_SESSION['sessEmpNo'], 'SigFinDateTime' => date('Y-m-d H:i:s'));
 					endif;
 				endif;
 			endif;
@@ -217,7 +227,105 @@ class Request_model extends CI_Model
 		return $arremp_signature;
 	}
 
-	function get_next_signatory($ob, $type)
+	public function get_signatory($requestflowid){
+
+		return $this->db->where('reqID', $requestflowid)->get('tblrequestflow')->row_array();
+	}
+
+	function get_next_signatory($ob, $type,$requestflowid)
+	{
+
+		$this->load->helper('config_helper');
+		$this->load->model('Request_model');
+		$signatories = $this->Request_model->get_signatory($requestflowid);
+		
+		
+		if (count($signatories) > 0) {
+
+			$rflowsign_c = !empty($signatories['SignatoryCountersign']) ? explode(';', $signatories['SignatoryCountersign']) : array('', '', '');
+			$rflowsign_1 = !empty($signatories['Signatory1']) ? explode(';', $signatories['Signatory1']) : array('', '', '');
+			$rflowsign_2 = !empty($signatories['Signatory2']) ? explode(';', $signatories['Signatory2']) : array('', '', '');
+			$rflowsign_3 = !empty($signatories['Signatory3']) ? explode(';', $signatories['Signatory3']) : array('', '', '');
+			$rflowsign_fin = !empty($signatories['SignatoryFin']) ? explode(';', $signatories['SignatoryFin']) : array('', '', '');
+		
+			if (strtolower($ob['requestStatus']) != 'certified') {
+		
+				# BEGIN SIGNATORY COUNTERSIGN
+				if (empty($ob['SignatoryCountersign'])) {
+					if (empty($rflowsign_c[2])) {
+						if (empty($ob['Signatory1'])) {
+							if (empty($rflowsign_1[2])) {
+								if (empty($rflowsign_2[2])) {
+									if (empty($rflowsign_3[2])) {
+										$display = ($rflowsign_fin[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+										return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
+									} else {
+										$display = ($rflowsign_3[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+										return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display, 'action' => $rflowsign_3[0]);
+									}
+								} else {
+									$display = ($rflowsign_2[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+									return array('next_sign' => getDestination($signatories['Signatory2']), 'display' => $display, 'action' => $rflowsign_2[0]);
+								}
+							} else {
+								$display = ($rflowsign_1[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+								return array('next_sign' => getDestination($signatories['Signatory1']), 'display' => $display, 'action' => $rflowsign_1[0]);
+							}
+						} else {
+							# BEGIN SIGNATORY 2
+							if (empty($ob['Signatory2'])) {
+								if (empty($rflowsign_2[2])) {
+									if (empty($rflowsign_3[2])) {
+										$display = ($rflowsign_fin[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+										return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
+									} else {
+										$display = ($rflowsign_3[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+										return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display, 'action' => $rflowsign_3[0]);
+									}
+								} else {
+									$display = ($rflowsign_2[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+									return array('next_sign' => getDestination($signatories['Signatory2']), 'display' => $display, 'action' => $rflowsign_2[0]);
+								}
+							} else {
+								# BEGIN SIGNATORY 3
+								if (empty($ob['Signatory3'])) {
+									if (empty($rflowsign_3[2])) {
+										$display = ($rflowsign_fin[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+										return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
+									} else {
+										$display = ($rflowsign_3[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+										return array('next_sign' => getDestination($signatories['Signatory3']), 'display' => $display, 'action' => $rflowsign_3[0]);
+									}
+								} else {
+									# BEGIN FINAL SIGNATORY
+									if (empty($ob['SignatoryFin'])) {
+										$display = ($rflowsign_fin[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+										return array('next_sign' => getDestination($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
+									} else {
+										$display = ($rflowsign_fin[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+										return array('next_sign' => '', 'display' => $display, 'action' => $rflowsign_fin[0]);
+									}
+								}
+							}
+						}
+					} else {
+						$display = ($rflowsign_1[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+						return array('next_sign' => getDestination($signatories['SignatoryCountersign']), 'display' => $display, 'action' => $rflowsign_1[0]);
+					}
+				}
+		
+			} else {
+				$arr_signs = array($rflowsign_1[2], $rflowsign_2[2], $rflowsign_3[2], $rflowsign_fin[2]);
+				if (in_array($_SESSION['sessEmpNo'], $arr_signs)) {
+					return array('next_sign' => '', 'display' => 1, 'action' => '');
+				}
+			}
+		}
+		
+		return array('next_sign' => '', 'display' => 0, 'action' => '');
+	}
+
+	function get_next_signatory_old($ob, $type)
 	{
 
 		$this->load->helper('config_helper');
@@ -226,13 +334,22 @@ class Request_model extends CI_Model
 		$signatories = $this->Request_model->request_signatories_bytype($type);
 		
 		if (count($signatories) > 0) :
-
+			
+			$rflowsign_c = $signatories['SignatoryCountersign'] != '' ? explode(';', $signatories['SignatoryCountersign']) : array('', '', '');
 			$rflowsign_1 = $signatories['Signatory1'] != '' ? explode(';', $signatories['Signatory1']) : array('', '', '');
 			$rflowsign_2 = $signatories['Signatory2'] != '' ? explode(';', $signatories['Signatory2']) : array('', '', '');
 			$rflowsign_3 = $signatories['Signatory3'] != '' ? explode(';', $signatories['Signatory3']) : array('', '', '');
 			$rflowsign_fin = $signatories['SignatoryFin'] != '' ? explode(';', $signatories['SignatoryFin']) : array('', '', '');
 
 			if (strtolower($ob['requestStatus']) != 'certified') :
+
+				#BEGIN SIGNATORY COUNTERSIGN
+				if ($ob['SignatoryCountersign'] == '') {
+					echo "wala";
+				}else{
+					echo "wahaha";
+				}
+
 				# BEGIN SIGNATORY 1
 				# check if ob_signatory1 is null
 				if ($ob['Signatory1'] == '') :
@@ -392,7 +509,7 @@ class Request_model extends CI_Model
 	function getEmployeeRequest($yr = '', $month = '')
 	{
 
-		$this->db->order_by('requestDate', 'desc');
+		$this->db->order_by('requestID', 'desc');
 		if ($yr != '' && $month != '') :
 			if ($month == 'all') :
 				$this->db->like('requestDate', $yr . '-', 'after', false);

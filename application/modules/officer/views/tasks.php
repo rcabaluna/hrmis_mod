@@ -100,7 +100,7 @@
                                         <td align="center"><?=$request['req_remarks']?></td>
                                         <td><?=$request['req_desti']?></td>
                                         <td nowrap style="vertical-align: middle;text-align: center;">
-                                        <a class="btn btn-sm grey-cascade" id="printreport" data-requesttype="<?=$request['req_code']?>" data-rdate="<?=$request['req_date']?>"
+                                        <a class="btn btn-sm grey-cascade" onclick="print_report(this)" data-requesttype="<?=$request['req_code']?>" data-rdate="<?=$request['req_date']?>"
                                             data-requestid="<?=$request['req_id']?>">
                                                 <span class="icon-magnifier" title="View"></span> View Document</a>
                                             <a href="javascript:;" id="btnview-details" class="btn btn-sm blue" data-json='<?=json_encode($request)?>'>

@@ -131,24 +131,24 @@ $(document).ready(function() {
     });
 
     $('#printreport').click(function(){
-            var requestid = $(this).data('requestid');
-            var requesttype = $(this).data('requesttype');
-
-            if (requesttype == "Leave") {
-                var link = baseUrl+"employee/reports/generate/?rpt=reportLeave&req_id="+requestid;
-            }
-
-            if (requesttype == "OB") {
-                var link = baseUrl+"employee/reports/generate/?rpt=reportOB&req_id="+requestid;
-            }
-
-            
-
-            $('#leave-embed').attr('src',link);
-            $('#leave-embed-fullview').attr('href',link);
-            $('#leave-form').modal('show');
+        
         });
 
-        
-
 });
+
+function print_report(x){
+    var requestid = $(x).data('requestid');
+    var requesttype = $(x).data('requesttype');
+
+        if (requesttype == "Leave") {
+            var link = baseUrl+"employee/reports/generate/?rpt=reportLeave&req_id="+requestid;
+        }
+
+        if (requesttype == "OB") {
+            var link = baseUrl+"employee/reports/generate/?rpt=reportOB&req_id="+requestid;
+        }
+
+        $('#leave-embed').attr('src',link);
+        $('#leave-embed-fullview').attr('href',link);
+        $('#leave-form').modal('show');
+}

@@ -34,15 +34,9 @@ class Tasks extends MY_Controller
 
 		$allemp_request = array();
 		$arremp_request = $this->Request_model->getEmployeeRequest(curryr(), currmo());	
-
-			
-		
 		
 		$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $arremp_request,$office);
 
-		// var_dump($arrRequest);
-		// exit();
-		
 		foreach ($arrRequest as $req) :
 
 			if ((strpos($req['req_nextsign'], $officer_empid) !== false)) :

@@ -33,7 +33,7 @@
                     <td><?= $arrPosition[0]['effectiveDate'] ?></td>
                 </tr>
                 <tr>
-                    <th style="text-align: right;">First Day Agencysdsd :</th>
+                    <th style="text-align: right;">First Day Agency :</th>
                     <td><?= $arrPosition[0]['firstDayAgency'] ?></td>
                     <th style="text-align: right;">Employment Basis :</th>
                     <td><?= $arrPosition[0]['employmentBasis'] ?></td>

@@ -140,6 +140,7 @@
                                             <div class="col-lg-3 col-md-3 col-sm-12">
                                                 <input id="ot-toggle" type="checkbox" name="ot-toggle">
                                                 <input type="text" name="txthw" onChange="change_chkstatus()" id="txthw" hidden value=<?= $hw; ?>>
+                                                <input type="hidden" name="canvasImage" id="canvasImage">
                                             </div>
                                         </div>
                                         <div class='wfh-t' <?= $hw==0 ? 'style="display: none"' : '' ?>>
@@ -153,6 +154,7 @@
                                         
                                         <input type="text" name="txttime" id="txttime" hidden>
                                         <button type="button" onclick="checkqr_details(this)" class="btn green uppercase" >Submit</button>
+                                        <!-- <button type="submit" class="btn green uppercase" >Submit</button> -->
                                         <!-- <button type="button" onclick="deleteDTR()" class="btn red uppercase" >Delete DTR today</button> -->
                                     </div> 
                                 <?=form_close()?>
@@ -216,14 +218,16 @@
             <script>
 
                 const video = document.getElementById('preview');
-                    const canvas = document.getElementById('canvas');
-                    const ctx = canvas.getContext('2d');
-                    // // Function to capture and draw on the canvas
-                    function draw_image() {
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+
+                function draw_image() {
                     $("#preview").hide();
                     $("#canvas").show();
+
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    }
+                    
+                }
 
             </script>
             <!-- BEGIN CORE PLUGINS -->
@@ -433,6 +437,12 @@
 
                 function checkqr_details(content) {
                     var empNo = '';
+
+                    draw_image();
+
+                    let imageData = canvas.toDataURL('image/png');
+                    $('#canvasImage').val(imageData);
+
                     if (typeof content !== "string") {
                         empNo = $("#txtusername").val();
                         $("#dtr_form").submit();
@@ -442,6 +452,7 @@
                         $("#dtr_form").submit();
                     }
                 }
+
             </script>
         </body>
 

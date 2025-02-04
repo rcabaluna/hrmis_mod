@@ -34,7 +34,7 @@ class Official_business_model extends CI_Model {
 		if($empno!=''):
 			$this->db->where('empNumber',$empno);
 		endif;
-		return $this->db->order_by('requestDate','DESC')->get_where('tblemprequest',array('requestCode' => 'OB'))->result_array();
+		return $this->db->order_by('requestID','DESC')->get_where('tblemprequest',array('requestCode' => 'OB'))->result_array();
 	}
 
 	function submit($arrData)

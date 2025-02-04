@@ -213,7 +213,7 @@ endif;
                                 <?=$this->uri->segment(3) == 'edit' ? 'Save' : 'Submit'?></button>
 
                             <a href="<?=base_url($hrmodule ? 'hr/request?request=ob' : 'employee/official_business')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
-                            <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
+                            <!-- <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button> -->
                         </div>
                     </div>
                     <?=form_close()?>

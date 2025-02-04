@@ -36,7 +36,8 @@ class Request extends MY_Controller
 				$ob_request = array();
 				if (strtolower($_GET['status']) != 'all') :
 					foreach ($arrob_request as $key => $ob) :
-						$next_signatory = $this->Request_model->get_next_signatory($ob, 'OB');
+						$requestflowid = $ob['requestflowid'];
+						$next_signatory = $this->Request_model->get_next_signatory($ob, 'OB',$requestflowid);
 						$ob['next_signatory'] = $next_signatory;
 						if (strtolower($_GET['status']) == strtolower($ob['requestStatus'])) :
 							if ($active_menu == 'Filed Request') :
@@ -51,7 +52,9 @@ class Request extends MY_Controller
 					$arrob_request = $ob_request;
 				else :
 					foreach ($arrob_request as $key => $ob) :
-						$next_signatory = $this->Request_model->get_next_signatory($ob, 'OB');
+
+						$requestflowid = $ob['requestflowid'];
+						$next_signatory = $this->Request_model->get_next_signatory($ob, 'OB',$requestflowid);
 						$ob['next_signatory'] = $next_signatory;
 						$ob_request[] = $ob;
 					endforeach;
@@ -68,12 +71,14 @@ class Request extends MY_Controller
 
 
 			if (isset($_GET['status'])) :
+			
 				$leave_request = array();
 				if (strtolower($_GET['status']) != 'all') :
 					foreach ($arrleave_request as $key => $leave) :
 						if ($leave['requestDetails'] != '') :
 							$requestDetails = explode(';', $leave['requestDetails']);
-							$next_signatory = $this->Request_model->get_next_signatory($leave, strtoupper($requestDetails[0]));
+							$requestflowid = $leave['requestflowid'];
+							$next_signatory = $this->Request_model->get_next_signatory($leave, strtoupper($requestDetails[0]),$requestflowid);
 							$leave['next_signatory'] = $next_signatory;
 							if (strtolower($_GET['status']) == strtolower($leave['requestStatus'])) :
 								if ($active_menu == 'Filed Request') :
@@ -89,19 +94,18 @@ class Request extends MY_Controller
 					$arrleave_request = $leave_request;
 				else :
 
-
 					foreach ($arrleave_request as $key => $leave) :
 						if ($leave['requestDetails'] != '') :
 							$requestDetails = explode(';', $leave['requestDetails']);
 
-							// echo "<pre>";
-							$next_signatory = $this->Request_model->get_next_signatory($leave, strtoupper($requestDetails[0]));
-							// exit();
+							$requestflowid = $leave['requestflowid'];
+							$next_signatory = $this->Request_model->get_next_signatory($leave, strtoupper($requestDetails[0]),$requestflowid);
 
 							$leave['next_signatory'] = $next_signatory;
 							$leave_request[] = $leave;
 						endif;
 					endforeach;
+
 					$arrleave_request = $leave_request;
 				endif;
 			endif;
@@ -151,7 +155,8 @@ class Request extends MY_Controller
 				$pds_request = array();
 				if (strtolower($_GET['status']) != 'all') :
 					foreach ($arrpds_request as $key => $pds) :
-						$next_signatory = $this->Request_model->get_next_signatory($pds, '201');
+						$requestflowid = $pds['requestflowid'];
+						$next_signatory = $this->Request_model->get_next_signatory($pds, '201',$requestflowid);
 						$pds['next_signatory'] = $next_signatory;
 						if (strtolower($_GET['status']) == strtolower($pds['requestStatus'])) :
 							if ($active_menu == 'Filed Request') :
@@ -166,7 +171,8 @@ class Request extends MY_Controller
 					$arrpds_request = $pds_request;
 				else :
 					foreach ($arrpds_request as $key => $pds) :
-						$next_signatory = $this->Request_model->get_next_signatory($pds, '201');
+						$requestflowid = $pds['requestflowid'];
+						$next_signatory = $this->Request_model->get_next_signatory($pds, '201',$requestflowid);
 						$pds['next_signatory'] = $next_signatory;
 						$pds_request[] = $pds;
 					endforeach;
@@ -290,12 +296,14 @@ class Request extends MY_Controller
 		$txtremarks = '';
 		if (!empty($arrPost)) :
 			$optstatus = $arrPost['optstatus'];
-			$txtremarks = $arrPost['txtremarks'];
+			// $txtremarks = $arrPost['txtremarks'];
 		endif;
 
 		$req_id = $_GET['req_id'];
 		$arrob = $this->official_business_model->getData($_GET['req_id']);
 		$ob_details = explode(';', $arrob['requestDetails']);
+
+	
 
 		# signatories
 		$arremp_signature = $this->Request_model->get_signature($arrob['requestCode']);
@@ -313,14 +321,16 @@ class Request extends MY_Controller
 				'obMeal'		=> $ob_details[8] == '' ? 'N' : $ob_details[8],
 				'purpose'		=> $ob_details[7],
 				'official'		=> strtolower($ob_details[0]) == 'official' ? 'Y' : '',
-				'approveRequest' => '',
-				'approveChief'	=> '',
+				'approveRequest' => 'Y',
 				'approveHR'		=> check_module() == 'hr' ? strtolower($optstatus) == 'certified' ? 'Y' : '' : '',
 				// 'is_override'	=> '',
 				// 'override_id'	=> ''
 			);
 
+			
 			$addreturn = $this->official_business_model->add($arrob_data);
+			// $addreturn = array();	
+
 			if (count($addreturn) > 0) :
 				log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Add Official Business', json_encode($arrob_data), '');
 			endif;
@@ -328,14 +338,21 @@ class Request extends MY_Controller
 
 		$arrob_signatory = array(
 			'requestStatus'	=> strtoupper($optstatus),
-			'statusDate'	=> date('Y-m-d H:i:s'),
-			'approveRequest'	=> 'Y',
+			'statusDate'	=> date('Y-m-d'),
 			'remarks'		=> $txtremarks,
 			'signatory'		=> $_SESSION['sessEmpNo']
 		);
 
 		$arrob_signatory = array_merge($arrob_signatory, $arremp_signature);
+
+		// echo "<pre>";
+		// 	var_dump($arrob_signatory);
+		// 	exit();
+
 		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrob_signatory, $arrob['requestID']);
+
+		
+
 		if (count($update_employeeRequest) > 0) :
 			log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Update request', json_encode($arrob_signatory), '');
 			$this->session->set_flashdata('strSuccessMsg', 'Request successfully ' . strtolower($optstatus) . '.');

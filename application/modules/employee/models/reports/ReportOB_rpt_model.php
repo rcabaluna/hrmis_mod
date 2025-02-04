@@ -182,18 +182,17 @@ class ReportOB_rpt_model extends CI_Model {
 				$this->fpdf->Cell(70, 5, "Position", "T", 0, "C"); 
 				$this->fpdf->Ln(10);
 				$this->fpdf->SetFont('Arial', "B", 10);		
-
 				if ($reqdetails['empNumber']) {
 					$image = "uploads/employees/esignature/".$reqdetails['empNumber'].".png";
-					$this->fpdf->Cell(25, 5, "", 0, 0, "C"); 
-					$this->fpdf->Cell(40, 7, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 30), 0, 0, 'C', false );		
+					$this->fpdf->Cell(25, 7, "", 0, 0, "C"); 
+					$this->fpdf->Cell(40, 10, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 30), 0, 0, 'C', false );		
 				}
 				$this->fpdf->Cell(100, 5, "", 0, 0, "C"); 
 				$this->fpdf->Ln(1);
 				$this->fpdf->Cell(75, 5,"", 0, 0, "L"); 
 				$this->fpdf->Cell(110, 5,$dtmOBrequestdate, 0, 0, "C"); 
 
-		$this->fpdf->Ln(5);
+		$this->fpdf->Ln(8);
 		$this->fpdf->SetFont('Arial', "", 10);		
 		$this->fpdf->Cell(70, 5, "Signature", "T", 0, "C"); 
 		$this->fpdf->Cell(25, 5, "", 0, 0, "C"); 

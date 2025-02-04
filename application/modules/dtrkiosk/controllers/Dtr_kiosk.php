@@ -14,6 +14,8 @@ class Dtr_kiosk extends MY_Controller
 	{	
 		$this->load->library('session');
 		$arrPost = $this->input->post();
+
+		
 	
 		$reg_holidays = $this->Holiday_model->getAllHolidates("",date('Y-m-d'),date('Y-m-d'));
 		$data['hw'] = 0;
@@ -22,8 +24,14 @@ class Dtr_kiosk extends MY_Controller
 		
 
 		if(!empty($arrPost)):
+
+			$data = $arrPost['canvasImage'];
+
+			$data = str_replace('data:image/png;base64,', '', $data);
+			$data = str_replace(' ', '+', $data);
+			$decodedData = base64_decode($data);
 			
-				$arrUser = $this->login_model->authenticate2($arrPost['strUsername']);
+			$arrUser = $this->login_model->authenticate2($arrPost['strUsername']);
 
 				
 
