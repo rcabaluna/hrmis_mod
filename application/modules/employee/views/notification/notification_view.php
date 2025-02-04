@@ -66,7 +66,8 @@
                                                     <a href="<?=base_url('/employee/pds_update/view?req_id=').$request['req_id'] ?>" class="btn btn-sm blue">
                                                 <i class="icon-magnifier"></i> View </a>
                                                     <?php
-                                                }else{
+                                                }
+                                                else{
                                                     ?>
                                                     <a href="javascript:;" class="btn btn-sm blue" id="btnview"
                                                 data-type="<?=$request['req_type']?>" data-json='<?=json_encode($request)?>'>
@@ -173,8 +174,8 @@
                 replink = 'employee/reports/generate/?rpt=reportTO&desti='+ to_details[0] +'&todatefrom='+ json.req_date +'&todateto='+ to_details[2] +'&purpose='+ to_details[3] +'&strMeal='+ to_details[4] +'&meal='+ to_details[5];
             }
             if(json.req_code=='Leave'){
-                leave_details = json.req_details.split(';');
-                replink = 'employee/reports/generate/?rpt=reportLeave&leavetype='+ leave_details[0] +'&day='+ leave_details[8] +'&leavefrom='+ leave_details[2] +'&leaveto='+ leave_details[3] +'&daysapplied=&signatory=&signatory2=0315-CO0-2012&empname=undefined&reason='+ leave_details[4] +'&incaseSL=&incaseVL=&intVL='+ leave_details[9] +'&intSL='+ leave_details[10] +'';
+                console.log(json);
+                replink = 'employee/reports/generate/?rpt=reportLeave&req_id='+ json.req_id;
             }
             if(json.req_code=='DTR'){
                 dtr_details = json.req_details.split(';');

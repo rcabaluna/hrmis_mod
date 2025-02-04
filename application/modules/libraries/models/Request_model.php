@@ -487,7 +487,7 @@ class Request_model extends CI_Model
 
 	function getEmployeeRequest2($empnumber, $yr = '', $month = '')
 	{
-
+		$this->db->order_by('requestID', 'desc');
 		if ($yr != '' && $month != '') :
 			if ($month == 'all') :
 				$this->db->like('requestDate', $yr . '-', 'after', false);

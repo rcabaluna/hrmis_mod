@@ -36,7 +36,7 @@
         <tr class="odd gradeX">
             <td align="center"> <?=$i++?> </td>
             <td> <?=employee_name($row['empNumber'])?> </td>
-            <td align="center"> <?=$row['requestDate']?> </td>
+            <td align="center"> <?=date('F d, Y',strtotime($row['requestDate']))?> </td>
             <td align="center"> <?=$row['requestStatus']?> </td>
             <?php if(isset($_GET['status'])): if($_GET['status']=='Disapproved'): ?>
                 <td align="center"> <?=$row['remarks']?> </td>
@@ -47,14 +47,23 @@
                 <?php endif; ?>
             </td>
             <td align="center" nowrap>
-                <?php
-                    if($req_details[2]!='' && $req_details[3]!=''):
-                        echo date('M. d, Y',strtotime($req_details[2])).' <b>to</b> '.date('M. d, Y',strtotime($req_details[3]));
-                    else:
-                        echo $req_details[2]!=''?date('M. d, Y',strtotime($req_details[2])):'';
-                        echo $req_details[3]!=''?date('M. d, Y',strtotime($req_details[3])):'';
-                    endif;
-                ?></td>
+            <?php
+                $start_date = strtotime($req_details[2]);
+                $end_date = strtotime($req_details[3]);
+
+                if ($req_details[2] != $req_details[3]) {
+                    if (date('Y-m', $start_date) == date('Y-m', $end_date)) {
+                        // Same month and year, display only the month
+                        echo date('F', $start_date).' '.date('d', $start_date).'-'.date('d', $end_date).', '.date('Y', $end_date);
+                    } else {
+                        // Different month or year, display full date range
+                        echo date('F d, Y', $start_date) . ' <b>to</b> ' . date('M. d, Y', $end_date);
+                    }
+                } else {
+                    // If same exact date, show only one date
+                    echo $req_details[2] != '' ? date('F d, Y', $start_date) : '';
+                }
+            ?></td>
             <td align="center" nowrap>
                 <?php
                     if($req_details[4]!='' && $req_details[5]!=''):
