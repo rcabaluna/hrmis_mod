@@ -508,21 +508,22 @@ if (!function_exists('sendemail_new_request')) {
         // Set email parameters
         $CI->email->from('hr@region10.dost.gov.ph', 'DOST 10 HR');
         $CI->email->to($recepient);
-
-        $link = base_url('/officer/tasks?month='.date('m', strtotime($requestdate)).'&yr='.date('Y', strtotime($requestdate)));
-
-        $subject = "[HRMIS] New ".$requesttype ." Request for Your Action";
+        $link = base_url();
+        $subject = "[HRMIS] Action Required: New " . $requesttype . " Request for Processing";
         $message = "<p>Hello,</p>
-    
-                        <p>A new <b>".strtolower($requesttype)." request</b> from the Human Resource Manage Information System (HRMIS) requires your action. Please review and take the necessary steps at your earliest convenience.</p>
-                        
-                        <p>You can access the request here: <br> <a href='".$link."')>".$link."</a></p>
-                        <br><br>
-                        <p><i><strong>Note:</strong> This is an automated message. Please do not reply to this email.</></p>
-                        
-                        <br>
-                        <p>Best regards,<br>
-                        DOST - 10 HR Unit</p>";
+        
+                    <p>A new <b>" . strtolower($requesttype) . " request</b> from the system requires your attention. Please review and take the necessary actions at your earliest convenience.</p>
+                    
+                    <p>You can access the request by clicking the link below:</p>
+                    <p><a href='" . $link . "'>" . $link . "</a></p>
+                    
+                    <br>
+                    <p><i><strong>Note:</strong> This is an automated message. Please do not reply to this email.</i></p>
+        
+                    <br>
+                    <p>Best regards,<br>
+                    DOST - 10 HR Unit</p>";
+        
 
         $CI->email->subject($subject);
         $CI->email->message($message);
@@ -566,14 +567,14 @@ if (!function_exists('sendemail_update_request')) {
         $CI->email->from('hr@region10.dost.gov.ph', 'DOST 10 HR');
         $CI->email->to($recepient);
 
-        $link = base_url('/employee/leave');
-
-        $subject = "[HRMIS] ".$requesttype ." Request Status Update";
+        $link = base_url();
+    
+        $subject = "[HRMIS] Notification: ".$requesttype ." Request Status";
         $message = "<p>Hello,</p>
     
-                        <p>Your ".$requesttype." request submitted on ".date('F d, Y', strtotime($requestdate))." has been marked as <b>".strtoupper($status)."</b> by ".employee_name_formal($empName).".</p>
+                        <p>Your ".$requesttype." request, submitted on ".date('F d, Y', strtotime($requestdate)).", has been marked as <b>".strtoupper($status)."</b> by ".employee_name_formal($empName).".</p>
                         
-                        <p>For more details regarding your request, please visit this link: <br> <a href='".$link."')>".$link."</a></p>
+                        <p>For more details regarding your request, please visit: <br> <a href='".$link."')>".$link."</a></p>
                         <br><br>
                         <p><i><strong>Note:</strong> This is an automated message. Please do not reply to this email.</></p>
                         

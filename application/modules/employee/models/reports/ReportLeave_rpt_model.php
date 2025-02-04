@@ -375,16 +375,22 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->Cell(98,6,"              ".strtoupper(date("F d, Y",strtotime($requestDetails[1]))." - ".date("F d, Y",strtotime($requestDetails[2]))),"RL",0,"L");
         $this->fpdf->Ln(0);
         $this->fpdf->Cell(98, 6,"       __________________________________________", "RL", 0, "L");
-        if ($leaveDetails['empNumber']) {
-            $image = "uploads/employees/esignature/".$leaveDetails['empNumber'].".png";
-            $this->fpdf->SetFont('Arial', "I", 8);	
-            $this->fpdf->Cell(30,6,'',"L",0,"C");
-            $this->fpdf->Cell(40, 6, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 30), 0, 0, 'C', false );
-            $this->fpdf->Cell(12,6,'',"R",0,"C");
-
-        }else{
-            $this->fpdf->Cell(82,6,'',"RL",0,"C");
+        if (!empty($leaveDetails['empNumber'])) {
+            $image = "uploads/employees/esignature/" . $leaveDetails['empNumber'] . ".png";
+        
+            if (file_exists($image)) {
+                $this->fpdf->SetFont('Arial', "I", 8);
+                $this->fpdf->Cell(30, 6, '', "L", 0, "C");
+                $this->fpdf->Cell(40, 6, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 30), 0, 0, 'C', false);
+                $this->fpdf->Cell(12, 6, '', "R", 0, "C");
+            } else {
+                // If the image file doesn't exist, display an empty cell
+                $this->fpdf->Cell(82, 6, '', "RL", 0, "C");
+            }
+        } else {
+            $this->fpdf->Cell(82, 6, '', "RL", 0, "C");
         }
+        
         $this->fpdf->Ln(6);
         $this->fpdf->Cell(98,6,'',"RL",0,"C");
         $this->fpdf->SetFont('Arial', "BU", 8.5);	
@@ -476,7 +482,6 @@ class ReportLeave_rpt_model extends CI_Model {
         }
 
 
-
         $this->fpdf->Cell(25,6,number_format($vldays,3,'.',''),"RLTB",0,"C");
         $this->fpdf->Cell(26,6,number_format($sldays,3,'.',''),"RLTB",0,"C");
         $this->fpdf->Cell(8,6,'',"",0,"C");
@@ -489,7 +494,7 @@ class ReportLeave_rpt_model extends CI_Model {
 
         $vldays = $sldays = '';
 
-        if ($requestDetails[0] == 'VL') {
+        if ($requestDetails[0] == 'VL' || $requestDetails[0] == 'FL') {
             $vldays = $requestDetails[3];
         }else{
             $vldays = 0.00;
@@ -500,7 +505,6 @@ class ReportLeave_rpt_model extends CI_Model {
         }else{
             $sldays = 0.00;
         }
-
 
 
         $this->fpdf->Cell(25,6,number_format($latestBalance['vlBalance']-$vldays, 3, '.', ''),"RLTB",0,"C");

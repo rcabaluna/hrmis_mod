@@ -19,7 +19,16 @@ $(document).ready(function() {
         },"columnDefs": [{ "orderable":false, "targets":'no-sort' }]} );
 
     $('#table-notif').on('click', 'a#btnview-details', function() {
-        var data = $(this).data('json');
+    });
+
+    $('#printreport').click(function(){
+        
+        });
+
+});
+
+function view_details(x){
+    var data = $(x).data('json');
 
         var status = data['req_nextsign'].split(';');
         var details = data['req_details'].split(';');
@@ -127,14 +136,8 @@ $(document).ready(function() {
 
             $('#request_to').modal('show');
         }
+}
 
-    });
-
-    $('#printreport').click(function(){
-        
-        });
-
-});
 
 function print_report(x){
     var requestid = $(x).data('requestid');

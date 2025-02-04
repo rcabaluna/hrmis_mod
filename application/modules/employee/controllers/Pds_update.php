@@ -323,12 +323,14 @@ class Pds_update extends MY_Controller {
 
 			if($action=='add'):
 				$blnReturn  = $this->update_pds_model->submit_request($arrData);
+				$this->send_email_signatory($blnReturn);
 				if(count($blnReturn)>0):
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strSname.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 				endif;
 			else:
 				$blnReturn  = $this->update_pds_model->save($arrData, $arrPost['txtreqid']);
+				$this->send_email_signatory($arrPost['txtreqid']);
 				if(count($blnReturn)>0):
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Updated '.$strSname.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been updated.');
@@ -393,12 +395,14 @@ class Pds_update extends MY_Controller {
 
 			if($action=='add'):
 				$blnReturn  = $this->update_pds_model->submit_request($arrData);
+				$this->send_email_signatory($blnReturn);
 				if(count($blnReturn)>0):
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strSSurname.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 				endif;
 			else:
 				$blnReturn  = $this->update_pds_model->save($arrData, $arrPost['txtreqid']);
+				$this->send_email_signatory($arrPost['txtreqid']);
 				if(count($blnReturn)>0):
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Updated '.$strSSurname.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been updated.');
@@ -443,12 +447,14 @@ class Pds_update extends MY_Controller {
 
     		if($action=='add'):
     			$blnReturn = $this->update_pds_model->submit_request($arrData);
+				$this->send_email_signatory($blnReturn);
     			if(count($blnReturn)>0):
     				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strLevelDesc.' PDS Update',implode(';',$arrData),'');
     				$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
     			endif;
     		else:
     			$blnReturn  = $this->update_pds_model->save($arrData, $arrPost['txtreqid']);
+				$this->send_email_signatory($arrPost['txtreqid']);
     			if(count($blnReturn)>0):
     				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Updated '.$strLevelDesc.' PDS Update',implode(';',$arrData),'');
     				$this->session->set_flashdata('strSuccessMsg','Request has been updated.');
@@ -514,12 +520,14 @@ class Pds_update extends MY_Controller {
 
 				if($action=='add'):
 					$blnReturn  = $this->update_pds_model->submit_request($arrData);
+					$this->send_email_signatory($blnReturn);
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strTrainTitle.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					endif;
 				else:
 					$blnReturn  = $this->update_pds_model->save($arrData, $arrPost['txtreqid']);
+					$this->send_email_signatory($arrPost['txtreqid']);
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Updated '.$strTrainTitle.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been updated.');
@@ -583,12 +591,14 @@ class Pds_update extends MY_Controller {
 
 				if($action=='add'):
 					$blnReturn  = $this->update_pds_model->submit_request($arrData);
+					$this->send_email_signatory($blnReturn);
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strExamDesc.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					endif;
 				else:
 					$blnReturn  = $this->update_pds_model->save($arrData, $arrPost['txtreqid']);
+					$this->send_email_signatory($arrPost['txtreqid']);
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Updated '.$strExamDesc.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been updated.');
@@ -647,12 +657,14 @@ class Pds_update extends MY_Controller {
 
 				if($action=='add'):
 					$blnReturn  = $this->update_pds_model->submit_request($arrData);
+					$this->send_email_signatory($blnReturn);
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strChildName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					endif;
 				else:
 					$blnReturn  = $this->update_pds_model->save($arrData, $arrPost['txtreqid']);
+					$this->send_email_signatory($arrPost['txtreqid']);
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Updated '.$strChildName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been updated.');
@@ -706,12 +718,14 @@ class Pds_update extends MY_Controller {
 			
 			if($action=='add'):
 				$blnReturn  = $this->update_pds_model->submit_request($arrData);
+				$this->send_email_signatory($blnReturn);
 				if(count($blnReturn)>0):
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$intTaxCert.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 				endif;
 			else:
 				$blnReturn  = $this->update_pds_model->save($arrData, $arrPost['txtreqid']);
+				$this->send_email_signatory($arrPost['txtreqid']);
 				if(count($blnReturn)>0):
 					log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Updated '.$intTaxCert.' PDS Update',implode(';',$arrData),'');
 					$this->session->set_flashdata('strSuccessMsg','Request has been updated.');
@@ -770,12 +784,14 @@ class Pds_update extends MY_Controller {
 
 					if($action=='add'):
 						$blnReturn  = $this->update_pds_model->submit_request($arrData);
+						$this->send_email_signatory($blnReturn);
 						if(count($blnReturn)>0):
 							log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strRefName.' PDS Update',implode(';',$arrData),'');
 							$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 						endif;
 					else:
 						$blnReturn  = $this->update_pds_model->save($arrData, $arrPost['txtreqid']);
+						$this->send_email_signatory($arrPost['txtreqid']);
 						if(count($blnReturn)>0):
 							log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Updated '.$strRefName.' PDS Update',implode(';',$arrData),'');
 							$this->session->set_flashdata('strSuccessMsg','Request has been updated.');
@@ -837,12 +853,19 @@ class Pds_update extends MY_Controller {
 				
 				if($action=='add'):
 					$blnReturn  = $this->update_pds_model->submit_request($arrData);
+
+					$this->send_email_signatory($blnReturn);
+
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strVolName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
+						
 					endif;
 				else:
 					$blnReturn  = $this->update_pds_model->save($arrData, $arrPost['txtreqid']);
+
+					$this->send_email_signatory($arrPost['txtreqid']);
+					
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Updated '.$strVolName.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been updated.');
@@ -916,12 +939,15 @@ class Pds_update extends MY_Controller {
 
 				if($action=='add'):
 					$blnReturn  = $this->update_pds_model->submit_request($arrData);
+
+					$this->send_email_signatory($blnReturn);
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been submitted.');
 					endif;
 				else:
 					$blnReturn  = $this->update_pds_model->save($arrData, $arrPost['txtreqid']);
+					$this->send_email_signatory($arrPost['txtreqid']);
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Updated '.$dtmExpDateFrom.' PDS Update',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Request has been updated.');
@@ -943,6 +969,18 @@ class Pds_update extends MY_Controller {
     	endif;
     	redirect('employee/pds_update');
     }
+
+	public function send_email_signatory($requestid){
+
+		$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
+
+		
+		$recepient = get_email_address($signatory['next_sign']);
+
+		$send = sendemail_request_to_signatory($recepient,'PDS Update',date('Y-m-d'));
+
+		return $send;
+	}
 
 
 

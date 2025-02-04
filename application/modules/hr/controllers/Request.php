@@ -100,17 +100,8 @@ class Request extends MY_Controller
 
 						if ($leave['requestDetails'] != '') :
 							$requestDetails = explode(';', $leave['requestDetails']);
-
-							
 							$requestflowid = $leave['requestflowid'];
-
-							
-
 							$next_signatory = $this->Request_model->get_next_signatory($leave, strtoupper($requestDetails[0]),$requestflowid);
-
-						
-							// exit();
-
 							$leave['next_signatory'] = $next_signatory;
 							$leave_request[] = $leave;
 						endif;
@@ -182,10 +173,12 @@ class Request extends MY_Controller
 				else :
 					foreach ($arrpds_request as $key => $pds) :
 						$requestflowid = $pds['requestflowid'];
+						
 						$next_signatory = $this->Request_model->get_next_signatory($pds, '201',$requestflowid);
 						$pds['next_signatory'] = $next_signatory;
 						$pds_request[] = $pds;
 					endforeach;
+
 					$arrpds_request = $pds_request;
 				endif;
 			endif;
@@ -436,10 +429,7 @@ class Request extends MY_Controller
 
 
 		$requestdetails = $this->Request_model->getSelectedRequest($_GET['req_id']);
-		
-
-
-		
+	
 		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Leave',$requestdetails[0]['requestDate'],$requestdetails[0]['requestStatus']);
 
 		if (count($update_employeeRequest) > 0) :
@@ -1096,9 +1086,15 @@ class Request extends MY_Controller
 
 		$arremp_signature = $this->Request_model->get_signature($arrrequest['requestCode']);
 		$arrto_signatory = array_merge($arrto_signatory, $arremp_signature);
+
+		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($arrrequest['empNumber']),'PDS Update',$arrrequest['requestDate'],$arrto_signatory['requestStatus']);
+
 		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrto_signatory, $arrrequest['requestID']);
+
+
+
 		if (count($update_employeeRequest) > 0) :
-			log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Update request', json_encode($arr_personal), '');
+			log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'PDS Update Request', json_encode($arr_personal), '');
 			$this->session->set_flashdata('strSuccessMsg', 'Request successfully ' . $optstatus . '.');
 		endif;
 
