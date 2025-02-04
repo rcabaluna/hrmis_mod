@@ -249,4 +249,35 @@ class Home extends MY_Controller {
 
 		echo json_encode($output);
 	}
+
+	public function send_email() {
+        // Email configuration
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => 'smtp.gmail.com', // Change to your SMTP host
+            'smtp_user' => 'rocabalunajr@region10.dost.gov.ph', // SMTP username
+            'smtp_pass' => 'Rocj1010!!!!', // SMTP password
+            'smtp_port' => 587, // Use 465 for SSL, 587 for TLS
+            'smtp_crypto' => 'tls', // Use 'ssl' for SSL
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'wordwrap'  => TRUE
+        );
+
+        $this->email->initialize($config); // Initialize Email settings
+
+        // Set Email parameters
+        $this->email->from('rocabalunajr@region10.dost.gov.ph', 'Ruel O. Cabaluna Jr');
+        $this->email->to('rcabalunajr@gmail.com');
+        $this->email->subject('Test Email from CodeIgniter 3');
+        $this->email->message('<p>This is a test email sent from CodeIgniter 3.</p>');
+
+        // Send email
+        if ($this->email->send()) {
+            echo "Email sent successfully.";
+        } else {
+            echo "Failed to send email.";
+            echo $this->email->print_debugger(); // Debugging output
+        }
+    }
 }

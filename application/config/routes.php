@@ -63,6 +63,7 @@ $route['migrate'] = 'dbmigrate/migrate';
 $modules_path = APPPATH . 'modules/';
 $modules = scandir($modules_path);
 
+
 foreach ($modules as $module) {
     if ($module === '.' || $module === '..') continue;
     if (is_dir($modules_path) . '/' . $module) {
