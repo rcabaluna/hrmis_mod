@@ -183,10 +183,17 @@ class ReportOB_rpt_model extends CI_Model {
 				$this->fpdf->Ln(10);
 				$this->fpdf->SetFont('Arial', "B", 10);		
 				if ($reqdetails['empNumber']) {
-					$image = "uploads/employees/esignature/".$reqdetails['empNumber'].".png";
-					$this->fpdf->Cell(25, 7, "", 0, 0, "C"); 
-					$this->fpdf->Cell(40, 10, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 30), 0, 0, 'C', false );		
+					$image = "uploads/employees/esignature/" . $reqdetails['empNumber'] . ".png";
+					$this->fpdf->Cell(25, 7, "", 0, 0, "C");
+				
+					// Check if the image file exists before adding it
+					if (file_exists($image)) {
+						$this->fpdf->Cell(40, 10, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 30), 0, 0, 'C', false);
+					} else {
+						$this->fpdf->Cell(40, 10, 'No Signature', 0, 0, 'C'); // Placeholder text
+					}
 				}
+				
 				$this->fpdf->Cell(100, 5, "", 0, 0, "C"); 
 				$this->fpdf->Ln(1);
 				$this->fpdf->Cell(75, 5,"", 0, 0, "L"); 
@@ -251,31 +258,34 @@ class ReportOB_rpt_model extends CI_Model {
 
 		$this->fpdf->Ln(15);
 
-		$image = "uploads/employees/esignature/".$reqdetails['Signatory1'].".png";
+		// First Signatory
+		$signatory1 = $reqdetails['Signatory1'];
+		$image1 = "uploads/employees/esignature/" . $signatory1 . ".png";
 
-		if (file_exists($image)) {
-			
+		$this->fpdf->SetFont('Arial', "I", 8);
+		$this->fpdf->Cell(22, 6, '', 0, 0, "C");
 
-            $this->fpdf->SetFont('Arial', "I", 8);	
-            $this->fpdf->Cell(22,6,'',0,"C");
-            $this->fpdf->Cell(28, 6, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 50), 0, 0, 'C', false );
-            $this->fpdf->Cell(40,6,$reqdetails['Sig1DateTime'],0,0,"L");
-		}else{
-            $this->fpdf->Cell(98,6,'',"",0,"C");
+		if (file_exists($image1)) {
+			$this->fpdf->Cell(28, 6, $this->fpdf->Image($image1, $this->fpdf->GetX(), $this->fpdf->GetY(), 50), 0, 0, 'C', false);
+			$this->fpdf->Cell(40, 6, $reqdetails['Sig1DateTime'], 0, 0, "L");
+		} else {
+			$this->fpdf->Cell(68, 6, 'No Signature', 0, 0, 'C'); // Placeholder text
 		}
 
-		$image = "uploads/employees/esignature/".$reqdetails['SignatoryFin'].".png";
+		// Final Signatory
+		$signatoryFin = $reqdetails['SignatoryFin'];
+		$approverFin = $this->get_signatory($signatoryFin); // Ensure the signatory exists before proceeding
+		$image2 = "uploads/employees/esignature/" . $signatoryFin . ".png";
 
-		if (file_exists($image)) {
-			$approver1 = $this->get_signatory($reqdetails['SignatoryFin']);
+		$this->fpdf->Cell(22, 6, '', 0, 0, "C");
 
-            $this->fpdf->SetFont('Arial', "I", 8);	
-            $this->fpdf->Cell(22,6,'',0,"C");
-            $this->fpdf->Cell(28, 6, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 50), 0, 0, 'C', false );
-            $this->fpdf->Cell(40,6,$reqdetails['SigFinDateTime'],0,0,"L");
-		}else{
-            $this->fpdf->Cell(98,6,'',"",0,"C");
+		if ($approverFin && file_exists($image2)) {
+			$this->fpdf->Cell(28, 6, $this->fpdf->Image($image2, $this->fpdf->GetX(), $this->fpdf->GetY(), 50), 0, 0, 'C', false);
+			$this->fpdf->Cell(40, 6, $reqdetails['SigFinDateTime'], 0, 0, "L");
+		} else {
+			$this->fpdf->Cell(68, 6, 'No Signature', 0, 0, 'C'); // Placeholder text
 		}
+
 
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial', "B", 10);		

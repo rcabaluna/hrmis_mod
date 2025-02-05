@@ -515,25 +515,40 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->Ln(6);
         $approver1 = $this->get_signatory($leaveDetails['Signatory1']);
         if ($approver1) {
-            $image = "uploads/employees/esignature/".$leaveDetails['Signatory1'].".png";
-            $this->fpdf->SetFont('Arial', "I", 8);	
+            $image = "uploads/employees/esignature/" . $leaveDetails['Signatory1'] . ".png";
+            $this->fpdf->SetFont('Arial', "I", 8);    
             $this->fpdf->Cell(30,6,'',"L",0,"C");
-            $this->fpdf->Cell( 28, 6, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 50), 0, 0, 'C', false );
+            
+            // Check if the image file exists before adding it
+            if (file_exists($image)) {
+                $this->fpdf->Cell(28, 6, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 50), 0, 0, 'C', false);
+            } else {
+                $this->fpdf->Cell(28, 6, 'No Signature', 0, 0, 'C'); // Placeholder text
+            }
+        
             $this->fpdf->Cell(40,6,$leaveDetails['Sig1DateTime'],0,0,"L");
-        }else{
+        } else {
             $this->fpdf->Cell(98,6,'',"RL",0,"C");
         }
-
+        
         $approver2 = $this->get_signatory($leaveDetails['Signatory2']);
         if ($approver2) {
-            $image = "uploads/employees/esignature/".$leaveDetails['Signatory2'].".png";
-            $this->fpdf->SetFont('Arial', "I", 8);	
+            $image = "uploads/employees/esignature/" . $leaveDetails['Signatory2'] . ".png";
+            $this->fpdf->SetFont('Arial', "I", 8);    
             $this->fpdf->Cell(25,6,'',"L",0,"C");
-            $this->fpdf->Cell(25, 6, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 50), 0, 0, 'C', false );
+        
+            // Check if the image file exists before adding it
+            if (file_exists($image)) {
+                $this->fpdf->Cell(25, 6, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 50), 0, 0, 'C', false);
+            } else {
+                $this->fpdf->Cell(25, 6, 'No Signature', 0, 0, 'C'); // Placeholder text
+            }
+        
             $this->fpdf->Cell(32,6,$leaveDetails['Sig2DateTime'],"R",0,"L");
-        }else{
+        } else {
             $this->fpdf->Cell(82,6,'',"RL",0,"C");
         }
+        
 
         $this->fpdf->Ln(6);
         $this->fpdf->SetFont('Arial', "BU", 8.5);	
@@ -627,14 +642,22 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->Ln(5);
         $approver3 = $this->get_signatory($leaveDetails['Signatory3']);
         if ($approver3) {
-            $image = "uploads/employees/esignature/".$leaveDetails['Signatory3'].".png";
-            $this->fpdf->SetFont('Arial', "I", 8);	
+            $image = "uploads/employees/esignature/" . $leaveDetails['Signatory3'] . ".png";
+            $this->fpdf->SetFont('Arial', "I", 8);    
             $this->fpdf->Cell(75,6,'',"L",0,"C");
-            $this->fpdf->Cell(20, 6, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 30), 0, 0, 'C', false );
+
+            // Check if the image file exists before adding it
+            if (file_exists($image)) {
+                $this->fpdf->Cell(20, 6, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 30), 0, 0, 'C', false);
+            } else {
+                $this->fpdf->Cell(20, 6, 'No Signature', 0, 0, 'C'); // Placeholder text
+            }
+
             $this->fpdf->Cell(85,6,$leaveDetails['Sig3DateTime'],"R",0,"L");
-        }else{
+        } else {
             $this->fpdf->Cell(180,6,'',"RL",0,"C");
         }
+
 
         $this->fpdf->Ln(5);
         $this->fpdf->Cell(180,5,'',"RL",0,"C");
