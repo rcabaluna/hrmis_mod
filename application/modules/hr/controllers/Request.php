@@ -52,12 +52,13 @@ class Request extends MY_Controller
 					$arrob_request = $ob_request;
 				else :
 					foreach ($arrob_request as $key => $ob) :
-
 						$requestflowid = $ob['requestflowid'];
+						
 						$next_signatory = $this->Request_model->get_next_signatory($ob, 'OB',$requestflowid);
 						$ob['next_signatory'] = $next_signatory;
 						$ob_request[] = $ob;
 					endforeach;
+					
 					$arrob_request = $ob_request;
 				endif;
 			endif;

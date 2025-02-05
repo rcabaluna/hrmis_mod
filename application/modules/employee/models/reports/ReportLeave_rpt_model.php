@@ -88,7 +88,7 @@ class ReportLeave_rpt_model extends CI_Model {
 
         $office = employee_office_desc($leaveDetails['empNumber']);
 
-        $this->fpdf->SetTitle('Application for Form');
+        $this->fpdf->SetTitle('Leave Application Form');
 		$this->fpdf->SetLeftMargin(18);
 		$this->fpdf->SetRightMargin(15);
 		$this->fpdf->SetTopMargin(10);

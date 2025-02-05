@@ -265,11 +265,9 @@ class ReportOB_rpt_model extends CI_Model {
 		$this->fpdf->SetFont('Arial', "I", 8);
 		$this->fpdf->Cell(22, 6, '', 0, 0, "C");
 
-		if (file_exists($image1)) {
+		if ($signatory1 && file_exists($image1)) {
 			$this->fpdf->Cell(28, 6, $this->fpdf->Image($image1, $this->fpdf->GetX(), $this->fpdf->GetY(), 50), 0, 0, 'C', false);
 			$this->fpdf->Cell(40, 6, $reqdetails['Sig1DateTime'], 0, 0, "L");
-		} else {
-			$this->fpdf->Cell(68, 6, 'No Signature', 0, 0, 'C'); // Placeholder text
 		}
 
 		// Final Signatory
@@ -282,8 +280,6 @@ class ReportOB_rpt_model extends CI_Model {
 		if ($approverFin && file_exists($image2)) {
 			$this->fpdf->Cell(28, 6, $this->fpdf->Image($image2, $this->fpdf->GetX(), $this->fpdf->GetY(), 50), 0, 0, 'C', false);
 			$this->fpdf->Cell(40, 6, $reqdetails['SigFinDateTime'], 0, 0, "L");
-		} else {
-			$this->fpdf->Cell(68, 6, 'No Signature', 0, 0, 'C'); // Placeholder text
 		}
 
 
