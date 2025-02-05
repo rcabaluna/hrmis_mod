@@ -382,37 +382,40 @@ class Request_model extends CI_Model
 	}
 
 	function get_next_signatory_notif($ob, $type, $requestflowid)
-{
-    $this->load->helper('config_helper');
-    $this->load->model('Request_model');
-    $signatories = $this->Request_model->get_signatory($requestflowid);
+	{
+		$this->load->helper('config_helper');
+		$this->load->model('Request_model');
+		$signatories = $this->Request_model->get_signatory($requestflowid);
 
-    if (count($signatories) > 0) {
-        $signatoryKeys = ['Signatory1', 'Signatory2', 'Signatory3', 'SignatoryFin'];
-        $rflowsign = array_map(fn($key) => !empty($signatories[$key]) ? explode(';', $signatories[$key]) : ['', '', ''], $signatoryKeys);
+		if (count($signatories) > 0) {
+			$signatoryKeys = ['Signatory1', 'Signatory2', 'Signatory3', 'SignatoryFin'];
+			$rflowsign = array_map(function($key) use ($signatories) {
+				return !empty($signatories[$key]) ? explode(';', $signatories[$key]) : ['', '', ''];
+			}, $signatoryKeys);
+			
 
-        if (strtolower($ob['requestStatus']) != 'certified') {
-            foreach ($signatoryKeys as $index => $key) {
-                if ($ob[$key] == '' && $rflowsign[$index][2] != '') {
-                    $display = $rflowsign[$index][2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-                    return [
-                        'next_sign' => getDestination($signatories[$key]),
-                        'display' => $display,
-                        'action' => $rflowsign[$index][0]
-                    ];
-                }
-            }
-            $display = $rflowsign[3][2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-            return ['next_sign' => '', 'display' => $display, 'action' => $rflowsign[3][0]];
-        } else {
-            $arr_signs = array_column($rflowsign, 2);
-            if (in_array($_SESSION['sessEmpNo'], $arr_signs)) {
-                return ['next_sign' => '', 'display' => 1, 'action' => ''];
-            }
-        }
-    }
-    return ['next_sign' => '', 'display' => 0, 'action' => ''];
-}
+			if (strtolower($ob['requestStatus']) != 'certified') {
+				foreach ($signatoryKeys as $index => $key) {
+					if ($ob[$key] == '' && $rflowsign[$index][2] != '') {
+						$display = $rflowsign[$index][2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+						return [
+							'next_sign' => getDestination($signatories[$key]),
+							'display' => $display,
+							'action' => $rflowsign[$index][0]
+						];
+					}
+				}
+				$display = $rflowsign[3][2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+				return ['next_sign' => '', 'display' => $display, 'action' => $rflowsign[3][0]];
+			} else {
+				$arr_signs = array_column($rflowsign, 2);
+				if (in_array($_SESSION['sessEmpNo'], $arr_signs)) {
+					return ['next_sign' => '', 'display' => 1, 'action' => ''];
+				}
+			}
+		}
+		return ['next_sign' => '', 'display' => 0, 'action' => ''];
+	}
 
 	function get_next_signatory_for_email($request_id)
 	{
