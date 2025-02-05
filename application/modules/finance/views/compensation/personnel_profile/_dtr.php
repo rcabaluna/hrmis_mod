@@ -25,7 +25,7 @@
                 <button type="submit" class="btn btn-primary" style="margin-top: -3px;">Search</button>
             <?=form_close()?>
             
-            <table class="table table-striped table-bordered order-column" id="tbldtr">
+            <table class="table table-striped table-bordered table-condensed  order-column" id="tbldtr">
                 <thead>
                     <tr>
                         <th class="no-sort">DATE</th>

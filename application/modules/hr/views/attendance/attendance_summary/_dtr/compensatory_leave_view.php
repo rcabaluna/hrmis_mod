@@ -16,7 +16,7 @@
                             <i class="fa fa-plus"></i> Add Compensatory Time Off</a>
                         <br><br>
                         
-                        <table class="table table-striped table-bordered table-hover" id="table-comp_leaves">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="table-comp_leaves">
                             <thead>
                                 <th style="width: 50px;">No</th>
                                 <th>Date</th>

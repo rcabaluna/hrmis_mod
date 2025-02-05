@@ -13,7 +13,7 @@
         </ul>
     </div>
 </div>
-<table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-ob">
+<table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-ob">
     <thead>
         <tr>
             <th style="width: 100px;text-align:center;"> No. </th>

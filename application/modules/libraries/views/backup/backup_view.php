@@ -44,7 +44,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                 </a>
 
                 <br><br>
-                 <!--  <table class="table table-striped table-bordered table-checkable order-column" id="libraries_backup" style="visibility: hidden;">
+                 <!--  <table class="table table-striped table-bordered table-condensed  table-checkable order-column" id="libraries_backup" style="visibility: hidden;">
                     <thead>
                         <tr>
                             <th style="width:5% !important"> No </th>

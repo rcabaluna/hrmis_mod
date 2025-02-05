@@ -85,7 +85,7 @@ $offset_wkends = 0;
                     padding: 15px !important;
                 }
             </style>
-            <table class="table table-striped table-bordered order-column" id="tbldtr">
+            <table class="table table-striped table-bordered table-condensed  order-column" id="tbldtr">
                 <thead>
                     <tr>
                         <th class="no-sort">DATE</th>

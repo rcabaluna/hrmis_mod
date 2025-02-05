@@ -333,9 +333,9 @@ class Request extends MY_Controller
 
 			
 			$addreturn = $this->official_business_model->add($arrob_data);
-			// $addreturn = array();	
-
-			if (count($addreturn) > 0) :
+			// $addreturn = array();
+	
+			if ($addreturn > 0) :
 				log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Add Official Business', json_encode($arrob_data), '');
 			endif;
 		endif;
@@ -349,13 +349,11 @@ class Request extends MY_Controller
 
 		$arrob_signatory = array_merge($arrob_signatory, $arremp_signature);
 
-		// echo "<pre>";
-		// 	var_dump($arrob_signatory);
-		// 	exit();
-
 		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrob_signatory, $arrob['requestID']);
 
-		
+		$requestdetails = $this->Request_model->getSelectedRequest($arrob['requestID']);
+	
+		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Official Business',$requestdetails[0]['requestDate'],$requestdetails[0]['requestStatus']);
 
 		if (count($update_employeeRequest) > 0) :
 			log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Update request', json_encode($arrob_signatory), '');

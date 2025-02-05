@@ -9,7 +9,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover">
+                        <table class="table table-striped table-bordered table-condensed  table-hover">
                             <tbody>
                                 <tr>
                                     <td style="width: 25%;">Actual Vacation Leave</td>
@@ -56,7 +56,7 @@
                             <i class="fa fa-money"></i> &nbsp;Monetization Form</button>
                         <br><br>
                         <?php if(count($arrMonetize) > 0): ?>
-                            <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                            <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column">
                                 <thead>
                                     <tr>
                                         <th style="text-align: center;">LB Period</th>

@@ -62,7 +62,7 @@
                     <div class="portlet-body">
                         <div class="row">
                             <div class="tabbable-line tabbable-full-width col-md-12">
-                                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblloan_balance" >
+                                <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="tblloan_balance" >
                                     <thead>
                                         <tr>
                                             <th> No </th>

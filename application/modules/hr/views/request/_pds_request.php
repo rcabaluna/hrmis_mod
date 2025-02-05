@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-pds">
+<table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-pds">
     <thead>
         <tr>
             <th style="width: 100px;text-align:center;"> No. </th>

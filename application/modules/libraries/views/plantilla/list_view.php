@@ -55,7 +55,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_plantilla">
+                <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="libraries_plantilla">
                     <thead>
                         <tr>
                             <th style="width: 50px;text-align:center;"> No. </th>

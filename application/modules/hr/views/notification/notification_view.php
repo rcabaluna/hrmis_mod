@@ -106,7 +106,7 @@
                                 <div class="legend-dd1" style="background-color: #ffc0cb;"></div> &nbsp;<small style="margin-left: 10px;">Cancelled</small> &nbsp;&nbsp;</div>
                         </div>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="table-notif" style="visibility: hidden;">
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-condensed" id="table-notif" style="visibility: hidden;">
                             <thead>
                                 <tr>
                                     <th style="text-align: center;width:50px;">No</th>
@@ -116,7 +116,7 @@
                                     <th style="text-align: center;width:150px;"> Request Status </th>
                                     <th style="text-align: center;"> Remarks </th>
                                     <th> Destination </th>
-                                    <!-- <th style="text-align: center;width:150px;" class="no-sort"> Action</th> -->
+                                    <th style="text-align: center;width:150px;" class="no-sort"> Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -129,10 +129,41 @@
                                         <td align="center"><?=$request['req_status']?></td>
                                         <td align="center"><?=$request['req_remarks']?></td>
                                         <td><?=$request['req_desti']?></td>
-                                        <!-- <td nowrap style="vertical-align: middle;text-align: center;">
-                                            <a href="javascript:;" id="btnview-details" class="btn btn-sm blue" data-json='<?=json_encode($request)?>'>
-                                                <i class="icon-magnifier"></i> View Details </a>
-                                        </td> -->
+
+                                        <?php
+                                            $link = '#';
+
+                                            switch ($request['req_type']) {
+                                                case 'Leave':
+                                                    $link = base_url('/hr/request?request=leave&status=All');
+                                                    break;
+                                                case 'OB':
+                                                    $link = base_url('/hr/request?request=ob&status=All');
+                                                    break;
+                                                case '201':
+                                                    $link = base_url('/hr/request?request=pds&status=All');
+                                                    break;
+                                                case 'TO':
+                                                    $link = base_url('/hr/request?request=to&status=All');
+                                                    break;
+                                                case 'DTR':
+                                                    $link = base_url('/hr/request?request=dtr&status=All');
+                                                    break;
+                                                case 'CTO':
+                                                    $link = base_url('/hr/request?request=cto&status=All');
+                                                    break;
+                                                default:
+                                                    $link = '#';
+                                                    break;
+                                            }
+                                        ?>
+
+
+
+                                        <td nowrap style="vertical-align: middle;text-align: center;">
+                                            <a href="<?=$link?>" class="btn btn-xs btn-outline-info">
+                                                <i class="icon-eye"></i></a>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

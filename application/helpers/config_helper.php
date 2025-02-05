@@ -251,7 +251,7 @@ function getDestination($desti)
 {
     $desti = explode(';', $desti);
     if(count($desti) > 1):
-        $empdesti = employee_name($desti[2]);
+        $empdesti = employee_name_formal($desti[2]);
         switch ($desti[0]):
             case 'RECOMMENDED':
                 return 'for Recommendation by '.$empdesti;

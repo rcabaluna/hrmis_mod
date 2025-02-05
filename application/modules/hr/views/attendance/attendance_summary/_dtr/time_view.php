@@ -16,7 +16,7 @@
                             <i class="fa fa-plus"></i> Add Time</a>
                         <br><br>
                         
-                        <table class="table table-striped table-bordered table-hover" id="table-dtrtime">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="table-dtrtime">
                             <thead>
                                 <tr>
                                     <th rowspan="2" style="text-align: center;">No</th>

@@ -30,7 +30,7 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post','id
             <div class="col-md-12 scroll">
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                 <!-- Pls be careful in using colspan and colrow, table details will be use in saving payroll process in json form -->
-                <table class="table table-striped table-bordered order-column" id="tblemployee-list" style="visibility: hidden;">
+                <table class="table table-striped table-bordered table-condensed  order-column" id="tblemployee-list" style="visibility: hidden;">
                     <thead>
                         <tr>
                             <th> Employee Name </th>

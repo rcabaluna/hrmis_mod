@@ -5,7 +5,7 @@
             <div class="col-md-12 scroll">
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
                 <center>
-                    <table class="table table-striped table-bordered order-column" id="tblreports" style="visibility: hidden;width: 70%;">
+                    <table class="table table-striped table-bordered table-condensed  order-column" id="tblreports" style="visibility: hidden;width: 70%;">
                         <tr>
                             <td>Payslip</td>
                             <td style="text-align: center;">

@@ -62,7 +62,7 @@
                                                     <div class="col-md-2"></div>
                                                     <div class="col-md-8">
                                                         <h5 class="bold">VACATION AND SICK LEAVE CREDITS EARNED ON A DAILY BASIS</h5>
-                                                        <table class="table table-striped table-bordered order-column" id="table-convii">
+                                                        <table class="table table-striped table-bordered table-condensed  order-column" id="table-convii">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="no-sort">Number of Days</th>
@@ -87,7 +87,7 @@
                                                 <h5 class="bold">CONVERSION OF WORKING HOURS/MINUTES INTO FRACTIONS OF A DAY</h5>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <table class="table table-striped table-bordered order-column" id="table-8hrs">
+                                                        <table class="table table-striped table-bordered table-condensed  order-column" id="table-8hrs">
                                                             <thead>
                                                                 <tr><th colspan="3">Based on 8-Hour Workday</th></tr>
                                                                 <tr>
@@ -106,7 +106,7 @@
                                                         </table>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <table class="table table-striped table-bordered order-column" id="table-conviii">
+                                                        <table class="table table-striped table-bordered table-condensed  order-column" id="table-conviii">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="no-sort">Minutes</th>
@@ -133,7 +133,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <h5 class="bold">VACATION AND SICK LEAVE CREDITS EARNED ON A DAILY BASIS</h5>
-                                                        <table class="table table-striped table-bordered order-column" id="table-convii">
+                                                        <table class="table table-striped table-bordered table-condensed  order-column" id="table-convii">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="no-sort">Number of Days Present</th>
@@ -154,7 +154,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h5>&nbsp;</h5>
-                                                        <table class="table table-striped table-bordered order-column" id="table-convii">
+                                                        <table class="table table-striped table-bordered table-condensed  order-column" id="table-convii">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="no-sort">Number of Days Present</th>

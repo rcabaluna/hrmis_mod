@@ -43,7 +43,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-hazards" >
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-hazards" >
                             <thead>
                                 <tr>
                                     <th style="text-align: center;"> No </th>

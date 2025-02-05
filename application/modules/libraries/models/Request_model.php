@@ -343,43 +343,46 @@ class Request_model extends CI_Model
 		$this->load->model('Request_model');
 		$signatories = $this->Request_model->get_signatory($requestflowid);
 
-		if (count($signatories) > 0) {
-			$rflowsign_c = !empty($signatories['SignatoryCountersign']) ? explode(';', $signatories['SignatoryCountersign']) : array('', '', '');
-			$signatoryKeys = ['Signatory1', 'Signatory2', 'Signatory3', 'SignatoryFin'];
+		if (!empty($signatories)) {
+			$signatoryKeys = ['SignatoryCountersign', 'Signatory1', 'Signatory2', 'Signatory3', 'SignatoryFin'];
 			$rflowsign = [];
-			
+
 			foreach ($signatoryKeys as $key) {
-				$rflowsign[] = !empty($signatories[$key]) ? explode(';', $signatories[$key]) : array('', '', '');
+				$rflowsign[] = isset($signatories[$key]) && !empty($signatories[$key]) 
+					? explode(';', $signatories[$key]) 
+					: ['', '', ''];
 			}
 
-			if (strtolower($ob['requestStatus']) != 'certified') {
+			if (strtolower($ob['requestStatus']) !== 'certified') {
 				foreach ($signatoryKeys as $index => $key) {
-					if ($ob[$key] == '') {
-						if ($rflowsign[$index][2] == '') {
+					if (empty($ob[$key])) {
+						if (empty($rflowsign[$index][2])) {
 							continue;
 						}
 
-						$display = $rflowsign[$index][2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-						return array(
-							'next_sign' => getDestination($signatories[$key]),
+						$display = ($rflowsign[$index][2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+
+						return [
+							'next_sign' => getDestination($signatories[$key] ?? ''),
 							'display' => $display,
-							'action' => $rflowsign[$index][0]
-						);
+							'action' => $rflowsign[$index][0] ?? ''
+						];
 					}
 				}
 
-				$display = $rflowsign[3][2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-				return array('next_sign' => '', 'display' => $display, 'action' => $rflowsign[3][0]);
+				$display = ($rflowsign[3][2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+				return ['next_sign' => '', 'display' => $display, 'action' => $rflowsign[3][0] ?? ''];
 			} else {
 				$arr_signs = array_column($rflowsign, 2);
-				if (in_array($_SESSION['sessEmpNo'], $arr_signs)) {
-					return array('next_sign' => '', 'display' => 1, 'action' => '');
+				if (in_array($_SESSION['sessEmpNo'], $arr_signs, true)) {
+					return ['next_sign' => '', 'display' => 1, 'action' => ''];
 				}
 			}
 		}
 
-		return array('next_sign' => '', 'display' => 0, 'action' => '');
+		return ['next_sign' => '', 'display' => 0, 'action' => ''];
 	}
+
 
 	function get_next_signatory_notif($ob, $type, $requestflowid)
 	{
@@ -387,135 +390,96 @@ class Request_model extends CI_Model
 		$this->load->model('Request_model');
 		$signatories = $this->Request_model->get_signatory($requestflowid);
 
-		if (count($signatories) > 0) {
-			$signatoryKeys = ['Signatory1', 'Signatory2', 'Signatory3', 'SignatoryFin'];
-			$rflowsign = array_map(function($key) use ($signatories) {
-				return !empty($signatories[$key]) ? explode(';', $signatories[$key]) : ['', '', ''];
-			}, $signatoryKeys);
-			
+		if (!empty($signatories)) {
+			$signatoryKeys = ['SignatoryCountersign', 'Signatory1', 'Signatory2', 'Signatory3', 'SignatoryFin'];
+			$rflowsign = [];
 
-			if (strtolower($ob['requestStatus']) != 'certified') {
+			foreach ($signatoryKeys as $key) {
+				$rflowsign[] = isset($signatories[$key]) && !empty($signatories[$key]) 
+					? explode(';', $signatories[$key]) 
+					: ['', '', ''];
+			}
+
+			if (strtolower($ob['requestStatus']) !== 'certified') {
 				foreach ($signatoryKeys as $index => $key) {
-					if ($ob[$key] == '' && $rflowsign[$index][2] != '') {
-						$display = $rflowsign[$index][2] == $_SESSION['sessEmpNo'] ? 1 : 0;
+					if (empty($ob[$key])) {
+						if (empty($rflowsign[$index][2])) {
+							continue;
+						}
+
+						$display = ($rflowsign[$index][2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+
 						return [
-							'next_sign' => getDestination($signatories[$key]),
+							'next_sign' => getDestination($signatories[$key] ?? ''),
 							'display' => $display,
-							'action' => $rflowsign[$index][0]
+							'action' => $rflowsign[$index][0] ?? ''
 						];
 					}
 				}
-				$display = $rflowsign[3][2] == $_SESSION['sessEmpNo'] ? 1 : 0;
-				return ['next_sign' => '', 'display' => $display, 'action' => $rflowsign[3][0]];
+
+				$display = ($rflowsign[3][2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+				return ['next_sign' => '', 'display' => $display, 'action' => $rflowsign[3][0] ?? ''];
 			} else {
 				$arr_signs = array_column($rflowsign, 2);
-				if (in_array($_SESSION['sessEmpNo'], $arr_signs)) {
+				if (in_array($_SESSION['sessEmpNo'], $arr_signs, true)) {
 					return ['next_sign' => '', 'display' => 1, 'action' => ''];
 				}
 			}
 		}
+
 		return ['next_sign' => '', 'display' => 0, 'action' => ''];
 	}
 
 	function get_next_signatory_for_email($request_id)
 	{
-
 		$this->load->helper('config_helper');
 		$this->load->model('Request_model');
 
-		$ob = $this->db->where('requestID',$request_id)->get('tblemprequest')->row_array();
+		$ob = $this->db->where('requestID', $request_id)->get('tblemprequest')->row_array();
+		if (!$ob) {
+			return ['next_sign' => '', 'display' => 0, 'action' => ''];
+		}
 
 		$signatories = $this->Request_model->get_signatory($ob['requestflowid']);
+		if (empty($signatories)) {
+			return ['next_sign' => '', 'display' => 0, 'action' => ''];
+		}
 
+		// Define signatory keys
+		$signatoryKeys = ['SignatoryCountersign', 'Signatory1', 'Signatory2', 'Signatory3', 'SignatoryFin'];
+		$rflowsign = [];
 
-		if (count($signatories) > 0) {
+		foreach ($signatoryKeys as $key) {
+			$rflowsign[$key] = isset($signatories[$key]) && !empty($signatories[$key])
+				? explode(';', $signatories[$key])
+				: ['', '', ''];
+		}
 
-			$rflowsign_c = !empty($signatories['SignatoryCountersign']) ? explode(';', $signatories['SignatoryCountersign']) : array('', '', '');
-			$rflowsign_1 = !empty($signatories['Signatory1']) ? explode(';', $signatories['Signatory1']) : array('', '', '');
-			$rflowsign_2 = !empty($signatories['Signatory2']) ? explode(';', $signatories['Signatory2']) : array('', '', '');
-			$rflowsign_3 = !empty($signatories['Signatory3']) ? explode(';', $signatories['Signatory3']) : array('', '', '');
-			$rflowsign_fin = !empty($signatories['SignatoryFin']) ? explode(';', $signatories['SignatoryFin']) : array('', '', '');
-		
-			if (strtolower($ob['requestStatus']) != 'certified') {
-
-		
-				# BEGIN SIGNATORY COUNTERSIGN
-				if (empty($ob['SignatoryCountersign'])) {
-					if (empty($rflowsign_c[2])) {
-						if (empty($ob['Signatory1'])) {
-							if (empty($rflowsign_1[2])) {
-								if (empty($rflowsign_2[2])) {
-									if (empty($rflowsign_3[2])) {
-										$display = ($rflowsign_fin[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-										return array('next_sign' => getDestination_approver($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
-									} else {
-										$display = ($rflowsign_3[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-										return array('next_sign' => getDestination_approver($signatories['Signatory3']), 'display' => $display, 'action' => $rflowsign_3[0]);
-									}
-								} else {
-									$display = ($rflowsign_2[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-									return array('next_sign' => getDestination_approver($signatories['Signatory2']), 'display' => $display, 'action' => $rflowsign_2[0]);
-								}
-							} else {
-								$display = ($rflowsign_1[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-								return array('next_sign' => getDestination_approver($signatories['Signatory1']), 'display' => $display, 'action' => $rflowsign_1[0]);
-							}
-						} else {
-							# BEGIN SIGNATORY 2
-							if (empty($ob['Signatory2'])) {
-								if (empty($rflowsign_2[2])) {
-									if (empty($rflowsign_3[2])) {
-										$display = ($rflowsign_fin[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-										return array('next_sign' => getDestination_approver($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
-									} else {
-										$display = ($rflowsign_3[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-										return array('next_sign' => getDestination_approver($signatories['Signatory3']), 'display' => $display, 'action' => $rflowsign_3[0]);
-									}
-								} else {
-									$display = ($rflowsign_2[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-									return array('next_sign' => getDestination_approver($signatories['Signatory2']), 'display' => $display, 'action' => $rflowsign_2[0]);
-								}
-							} else {
-								# BEGIN SIGNATORY 3
-								if (empty($ob['Signatory3'])) {
-									if (empty($rflowsign_3[2])) {
-										$display = ($rflowsign_fin[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-										return array('next_sign' => getDestination_approver($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
-									} else {
-										$display = ($rflowsign_3[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-										return array('next_sign' => getDestination_approver($signatories['Signatory3']), 'display' => $display, 'action' => $rflowsign_3[0]);
-									}
-								} else {
-									# BEGIN FINAL SIGNATORY
-									if (empty($ob['SignatoryFin'])) {
-										$display = ($rflowsign_fin[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-										return array('next_sign' => getDestination_approver($signatories['SignatoryFin']), 'display' => $display, 'action' => $rflowsign_fin[0]);
-									} else {
-										$display = ($rflowsign_fin[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-										return array('next_sign' => '', 'display' => $display, 'action' => $rflowsign_fin[0]);
-									}
-								}
-							}
-						}
-					} else {
-						$display = ($rflowsign_1[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-						return array('next_sign' => getDestination_approver($signatories['SignatoryCountersign']), 'display' => $display, 'action' => $rflowsign_1[0]);
-					}
-				}else {
-					$display = ($rflowsign_1[2] == $_SESSION['sessEmpNo']) ? 1 : 0;
-					return array('next_sign' => getDestination_approver($signatories['Signatory1']), 'display' => $display, 'action' => $rflowsign_1[0]);
-				}
-		
-			} else {
-				$arr_signs = array($rflowsign_1[2], $rflowsign_2[2], $rflowsign_3[2], $rflowsign_fin[2]);
-				if (in_array($_SESSION['sessEmpNo'], $arr_signs)) {
-					return array('next_sign' => '', 'display' => 1, 'action' => '');
+		if (strtolower($ob['requestStatus']) !== 'certified') {
+			foreach ($signatoryKeys as $key) {
+				if (empty($ob[$key]) && !empty($rflowsign[$key][2])) {
+					$display = ($rflowsign[$key][2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+					return [
+						'next_sign' => getDestination_approver($signatories[$key] ?? ''),
+						'display' => $display,
+						'action' => $rflowsign[$key][0] ?? ''
+					];
 				}
 			}
+
+			// If all signatories are already filled, return final signatory check
+			$display = ($rflowsign['SignatoryFin'][2] == $_SESSION['sessEmpNo']) ? 1 : 0;
+			return ['next_sign' => '', 'display' => $display, 'action' => $rflowsign['SignatoryFin'][0] ?? ''];
+		} else {
+			$arr_signs = array_column($rflowsign, 2);
+			if (in_array($_SESSION['sessEmpNo'], $arr_signs, true)) {
+				return ['next_sign' => '', 'display' => 1, 'action' => ''];
+			}
 		}
-		
-		return array('next_sign' => '', 'display' => 0, 'action' => '');
+
+		return ['next_sign' => '', 'display' => 0, 'action' => ''];
 	}
+
 
 	function get_next_signatory_old($ob, $type)
 	{

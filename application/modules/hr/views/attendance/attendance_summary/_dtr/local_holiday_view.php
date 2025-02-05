@@ -16,7 +16,7 @@
                         <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/local_holiday_add/').$arrData['empNumber']?>">
                             <i class="fa fa-plus"></i> Add Local Holiday</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="table-local-holiday">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="table-local-holiday">
                             <thead>
                                 <th width="30px;">No</th>
                                 <th>Local Holiday name</th>

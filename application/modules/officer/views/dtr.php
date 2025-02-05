@@ -34,7 +34,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover" id="table-employees">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="table-employees">
                             <thead>
                                 <th width="50px;">No</th>
                                 <th>Employee</th>

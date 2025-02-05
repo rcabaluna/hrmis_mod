@@ -25,7 +25,7 @@ echo form_open($form, array('class' => 'form-horizontal', 'method' => 'post'))?>
         <div class="row">
             <div class="col-md-12 scroll">
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                <table class="table table-striped table-bordered order-column" id="tblemployees" style="visibility: hidden;">
+                <table class="table table-striped table-bordered table-condensed  order-column" id="tblemployees" style="visibility: hidden;">
                     <thead>
                         <tr>
                             <th style="text-align: center;vertical-align: middle;"> Employee Name </th>

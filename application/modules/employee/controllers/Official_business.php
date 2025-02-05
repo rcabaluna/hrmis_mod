@@ -259,6 +259,10 @@ class Official_business extends MY_Controller {
 							'file_location'	 => json_encode($attachments));
 					$blnReturn  = $this->official_business_model->submit($arrData);
 
+					$signatory = $this->Request_model->get_next_signatory_for_email($blnReturn);
+					$recepient = get_email_address($signatory['next_sign']);
+					sendemail_request_to_signatory($recepient,'Official Business', date('Y-m-d'));
+
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strOBtype.' Official Business',implode(';',$arrData),'');
 						$this->session->set_flashdata('strSuccessMsg','Your request has been submitted.');

@@ -93,7 +93,7 @@
                                     </center>
                                     <br>
                                     <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                                    <table class="table table-striped table-bordered table-hover" id="table-atts" style="display: none">
+                                    <table class="table table-striped table-bordered table-condensed  table-hover" id="table-atts" style="display: none">
                                         <thead>
                                             <th style="width: 40px;">No</th>
                                             <th style="text-align: left;">Employee</th>

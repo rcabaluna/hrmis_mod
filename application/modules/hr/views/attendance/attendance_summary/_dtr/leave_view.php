@@ -41,7 +41,7 @@
                             <?=($vlPreBalance+$slPreBalance+$plPreBalance+$flPreBalance) < 1 ? 'disabled' : ''?>>
                             <i class="fa fa-plus"></i> Add Leave</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="table-leave">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="table-leave">
                             <thead>
                                 <th>No</th>
                                 <th>Type of Leave</th>

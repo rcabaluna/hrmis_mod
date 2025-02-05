@@ -9,7 +9,7 @@
         </tr>
         <tr>
             <td>
-                <table class="table table-striped table-bordered table-hover" id="tblskills" style="width: 100% !important;">
+                <table class="table table-striped table-bordered table-condensed  table-hover" id="tblskills" style="width: 100% !important;">
                     <thead>
                         <tr>
                             <th>Special Skills / Hobbies</th>
@@ -44,7 +44,7 @@
         </tr>
         <tr>
             <td>
-                <table class="table table-striped table-bordered table-hover" id="tblchar-references" style="width: 100% !important;">
+                <table class="table table-striped table-bordered table-condensed  table-hover" id="tblchar-references" style="width: 100% !important;">
                     <thead>
                         <tr>
                             <th>No</th>

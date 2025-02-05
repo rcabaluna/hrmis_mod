@@ -52,7 +52,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             <div class="portlet-body">
                
                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblemployees"  style="display: none">
+                <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="tblemployees"  style="display: none">
                     <thead>
                         <tr>
                             <th style="width: 75px;"> No. </th>

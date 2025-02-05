@@ -16,7 +16,7 @@
                 <?php endif; ?>
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tblleave-balance" data-title="Vacation Leave">
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="tblleave-balance" data-title="Vacation Leave">
                             <thead>
                                 <tr>
                                     <th rowspan="2" style="text-align: center;vertical-align: middle;">Month</th>

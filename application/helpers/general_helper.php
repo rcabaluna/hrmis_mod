@@ -508,7 +508,7 @@ if (!function_exists('sendemail_new_request')) {
         // Set email parameters
         $CI->email->from('hr@region10.dost.gov.ph', 'DOST 10 HR');
         $CI->email->to($recepient);
-        $link = base_url();
+        $link = base_url('/login');
         $subject = "[HRMIS] Action Required: New " . $requesttype . " Request for Processing";
         $message = "<p>Hello,</p>
         
@@ -567,7 +567,7 @@ if (!function_exists('sendemail_update_request')) {
         $CI->email->from('hr@region10.dost.gov.ph', 'DOST 10 HR');
         $CI->email->to($recepient);
 
-        $link = base_url();
+        $link = base_url('/login');
     
         $subject = "[HRMIS] Notification: ".$requesttype ." Request Status";
         $message = "<p>Hello,</p>

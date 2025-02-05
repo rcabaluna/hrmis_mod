@@ -75,7 +75,7 @@
                             <div class="portlet-body">
                                 <div class="row">
                                     <div class="tabbable-line tabbable-full-width col-md-12">
-                                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-adj-income" >
+                                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-adj-income" >
                                             <thead>
                                                 <tr>
                                                    <th style="text-align: center;vertical-align: middle;"> No </th>
@@ -125,7 +125,7 @@
                             <div class="portlet-body">
                                 <div class="row">
                                     <div class="tabbable-line tabbable-full-width col-md-12">
-                                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-adj-deductions" >
+                                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-adj-deductions" >
                                             <thead>
                                                 <tr>
                                                     <th style="text-align: center;vertical-align: middle;"> No </th>

@@ -53,7 +53,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="libraries_user_account">
+                <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="libraries_user_account">
                     <thead>
                         <tr>
                             <th style="width: 100px;text-align:center;"> No. </th>

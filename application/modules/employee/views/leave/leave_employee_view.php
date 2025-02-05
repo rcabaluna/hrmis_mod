@@ -72,7 +72,7 @@
                             <div class="portlet-body">
                                 <div class="row">
                                     <div class="col-md-12" style="margin-bottom: 20px;">
-				                        <table class="table table-striped table-bordered table-hover" id="tblvl">
+				                        <table class="table table-striped table-bordered table-condensed  table-hover" id="tblvl">
 				                            <thead>
 				                                <tr>
 				                                	<th width="30px;">No</th>
@@ -137,7 +137,7 @@
                             <div class="portlet-body">
                                 <div class="row">
                                     <div class="col-md-12" style="margin-bottom: 20px;">
-				                        <table class="table table-striped table-bordered table-hover" id="tblsl">
+				                        <table class="table table-striped table-bordered table-condensed  table-hover" id="tblsl">
 				                            <thead>
 				                                <tr>
 				                                	<th width="30px;">No</th>

@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-income" style="display: none">
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-income" style="display: none">
                             <thead>
                                 <tr>
                                     <tr>

@@ -89,7 +89,7 @@
                         <div class="datenow">List of Employees to Sync.</div>
                         <div class="row" style="background-color: white; margin-top: 9%">
                             <div class="col-md-12" id="table-container">
-                                <table class="table table-striped table-bordered table-hover" id="tbldtr-employee">
+                                <table class="table table-striped table-bordered table-condensed  table-hover" id="tbldtr-employee">
                                     <thead>
                                         <tr>
                                             <th rowspan="1">Employee Number</th>

@@ -15,7 +15,7 @@
                         <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/ob_add/').$arrData['empNumber']?>">
                             <i class="fa fa-plus"></i> Add OB</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="table-ob">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="table-ob">
                             <thead>
                                 <th>No</th>
                                 <th>Date Filed</th>

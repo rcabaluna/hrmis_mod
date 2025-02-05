@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <td>
-                <table class="table table-striped table-bordered table-hover" id="tblpos_duties" style="width: 100% !important;">
+                <table class="table table-striped table-bordered table-condensed  table-hover" id="tblpos_duties" style="width: 100% !important;">
                     <thead>
                         <tr>
                             <th width="5%">No</th>
@@ -62,7 +62,7 @@
         </tr>
         <tr>
             <td>
-                <table class="table table-striped table-bordered table-hover" id="tblplan_duties" style="width: 100% !important;">
+                <table class="table table-striped table-bordered table-condensed  table-hover" id="tblplan_duties" style="width: 100% !important;">
                     <thead>
                         <tr>
                             <th width="5%">No</th>
@@ -108,7 +108,7 @@
         </tr>
         <tr>
             <td>
-                <table class="table table-striped table-bordered table-hover" id="tblactual_duties" style="width: 100% !important;">
+                <table class="table table-striped table-bordered table-condensed  table-hover" id="tblactual_duties" style="width: 100% !important;">
                     <thead>
                         <tr>
                             <th width="5%">No</th>

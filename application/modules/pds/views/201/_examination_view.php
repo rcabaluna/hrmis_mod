@@ -13,7 +13,7 @@
             </th>
         </tr>
         <tr>
-            <table class="table table-striped table-bordered table-hover" id="tblexam" style="width: 50% !important;">
+            <table class="table table-striped table-bordered table-condensed  table-hover" id="tblexam" style="width: 50% !important;">
                 <thead>
                     <tr>
                         <th>No.</th>

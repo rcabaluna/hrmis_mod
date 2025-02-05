@@ -13,7 +13,7 @@
                         <a class="btn blue" href="<?=base_url('hr/attendance/override/exclude_dtr_add')?>">
                             <i class="fa fa-plus"></i> Add Employee Exclude in DTR</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="tbloverride_excdtr">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="tbloverride_excdtr">
                             <thead>
                                 <th style="text-align: center;width:10%;">No</th>
                                 <th style="text-align: center;">Employees</th>

@@ -75,7 +75,7 @@
                                 <div class="legend-dd1" style="background-color: #ffc0cb;"></div> &nbsp;<small style="margin-left: 10px;">Cancelled</small> &nbsp;&nbsp;</div>
                         </div>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="table-notif" style="visibility: hidden;">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="table-notif" style="visibility: hidden;">
                             <thead>
                                 <tr>
                                     <th style="text-align: center;width:50px;">No</th>

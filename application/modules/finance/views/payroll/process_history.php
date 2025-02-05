@@ -78,7 +78,7 @@
                         </center>
                     </div>
                     <div class="portlet-body">
-                        <table class="table table-striped table-bordered order-column" id="tblprocess-history" style="visibility: hidden;">
+                        <table class="table table-striped table-bordered table-condensed  order-column" id="tblprocess-history" style="visibility: hidden;">
                             <thead>
                                 <tr>
                                     <th width="50px"> No </th>

@@ -14,7 +14,7 @@
                             <i class="icon-calendar"></i> DTR </a>
                         <br><br>
                         <?=form_open('employee/Compensatory_leave/certify_offset/'.$arrData['empNumber'].'?datefrom='.currdfrom().'&dateto='.currdto(), array('method' => 'post', 'id' => 'frmcertif_offset'))?>
-                        <table class="table table-striped table-bordered table-hover" id="table-offsets">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="table-offsets">
                             <thead>
                                 <tr>
                                     <th rowspan="2"></th>

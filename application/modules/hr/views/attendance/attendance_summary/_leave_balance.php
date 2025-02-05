@@ -26,7 +26,7 @@
                             <span class="caption-subject bold uppercase"> Vacation Leave</span>
                         </div>
                         <hr>
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-vl" data-title="Vacation Leave">
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-vl" data-title="Vacation Leave">
                             <thead>
                                 <tr>
                                     <th style="width: 140px;">Date</th>
@@ -64,7 +64,7 @@
                             <span class="caption-subject bold uppercase"> Sick Leave</span>
                         </div>
                         <hr>
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-sl" data-title="Vacation Leave">
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-sl" data-title="Vacation Leave">
                             <thead>
                                 <tr>
                                     <th style="width: 140px;">Date</th>

@@ -14,7 +14,7 @@
             <div class="modal-body">
                 <div class="row">
                   <div class="col-md-12" id="table-container">
-                    <table class="table table-striped table-bordered table-hover" id="tbldtr-employee" style="display: none">
+                    <table class="table table-striped table-bordered table-condensed  table-hover" id="tbldtr-employee" style="display: none">
                       <thead></thead>
                       <tbody></tbody>
                     </table>

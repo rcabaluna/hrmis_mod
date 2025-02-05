@@ -131,6 +131,16 @@ class Requests extends MY_Controller
 		$requestid = $arrpost['txtob_id'];
 		$this->Request_model->update_employeeRequest($arrdata, $requestid);
 
+		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Official Business',$requestdetails[0]['requestDate'],$arrdata['requestStatus']);
+
+		if ($send) {
+			$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
+			$recepient = get_email_address($signatory['next_sign']);
+			if ($arrdata['requestStatus'] != 'DISAPPROVED') {
+				sendemail_request_to_signatory($recepient,'Official Business', $requestdetails[0]['requestDate']);
+			}
+		}
+
 		$this->session->set_flashdata('strSuccessMsg', 'Request has been '.strtolower($arrpost['selob_stat']).'!');
 		redirect('officer/tasks?month='.date('m').'&yr='.date('Y'));
 
@@ -198,7 +208,9 @@ class Requests extends MY_Controller
 		if ($send) {
 			$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
 			$recepient = get_email_address($signatory['next_sign']);
-			sendemail_request_to_signatory($recepient,'Leave', $reqx['requestDate']);
+			if ($arrdata['requestStatus'] != 'DISAPPROVED') {
+				sendemail_request_to_signatory($recepient,'Leave', $reqx['requestDate']);
+			}
 		}
 
 		$this->session->set_flashdata('strSuccessMsg', 'Request has been '.strtolower($arrpost['selreq_stat']).'!');

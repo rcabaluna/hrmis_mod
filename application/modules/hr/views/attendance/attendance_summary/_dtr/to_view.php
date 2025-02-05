@@ -15,7 +15,7 @@
                         <a class="btn blue" href="<?=base_url('hr/attendance_summary/dtr/to_add/').$arrData['empNumber']?>">
                             <i class="fa fa-plus"></i> Add TO</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="table-to">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="table-to">
                             <thead>
                                 <tr>
                                     <th width="30px;">No</th>

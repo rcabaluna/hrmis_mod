@@ -13,7 +13,7 @@
                         <a class="btn blue" href="<?=base_url('hr/attendance/override/ob_add')?>">
                             <i class="fa fa-plus"></i> Add OB</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="tbloverride_ob">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="tbloverride_ob">
                             <thead>
                                 <th style="text-align: center;">No</th>
                                 <th style="text-align: center;">Date Filed</th>

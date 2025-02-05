@@ -50,7 +50,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab-loans">
                     <div class="portlet-body">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-loans" >
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-loans" >
                             <thead>
                                 <tr>
                                     <th style="text-align: center;"> No </th>
@@ -81,7 +81,7 @@
 
                 <div class="tab-pane" id="tab-contributions">
                     <div class="portlet-body">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-contributions" >
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-contributions" >
                             <thead>
                                 <tr>
                                     <th style="text-align: center;"> No </th>
@@ -106,7 +106,7 @@
 
                 <div class="tab-pane" id="tab-finishedLoans">
                     <div class="portlet-body">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-finishedLoans" >
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-finishedLoans" >
                             <thead>
                                 <tr>
                                     <th> ID </th>

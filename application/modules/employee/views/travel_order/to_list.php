@@ -67,7 +67,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-to">
+                <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-to">
                     <thead>
                         <tr>
                             <th style="width: 100px;text-align:center;"> No. </th>

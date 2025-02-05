@@ -139,7 +139,7 @@
                         <?=form_close()?>
                         <br>
                         <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-advance">
+                            <table class="table table-striped table-bordered table-condensed  table-advance">
                                 <thead>
                                     <tr>
                                         <th> </th>
@@ -202,7 +202,7 @@
                     </div>
                     <div class="tab-pane <?=$this->uri->segment(6) == '1' ? 'active' : ''?>" id="tab-payrolldetails">
                         <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-advance">
+                            <table class="table table-striped table-bordered table-condensed  table-advance">
                                 <tbody>
                                     <tr>
                                         <td><b>Payroll Group</b> </td>
@@ -250,7 +250,7 @@
                     
                     <div class="tab-pane <?=$this->uri->segment(6) == '2' ? 'active' : ''?>" id="tab-positiondetails">
                         <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-advance">
+                            <table class="table table-striped table-bordered table-condensed  table-advance">
                                 <tbody>
                                     <tr>
                                         <td><b>Appointment Desc </b></td>

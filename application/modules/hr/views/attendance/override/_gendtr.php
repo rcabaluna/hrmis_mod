@@ -17,7 +17,7 @@
                         <a class="btn blue" href="<?=base_url('hr/attendance/override/generate_dtr_allemp')?>">
                             <i class="fa fa-refresh"></i> Generate Employee DTR</a>
                         <br><br>
-                        <table class="table table-striped table-bordered table-hover" id="tbloverride_gendtr">
+                        <table class="table table-striped table-bordered table-condensed  table-hover" id="tbloverride_gendtr">
                             <thead>
                                 <th style="text-align: center;width:15%;">No</th>
                                 <th style="text-align: center;width:25%;">Employee Number</th>

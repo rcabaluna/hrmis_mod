@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                                  <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table_executive">
+                                  <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table_executive">
                                     <thead>
                                         <tr>
                                             <th style="width: 85px;text-align:center;"> No. </th>
@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
                                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table_service">
+                                 <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table_service">
                                     <thead>
                                         <tr>
                                             <th> No. </th>
@@ -224,7 +224,7 @@
                                     </div>
                                 </div>
                                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                                  <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table_division"">
+                                  <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table_division"">
                                     <thead>
                                         <tr>
                                             <th> No. </th>
@@ -288,7 +288,7 @@
                                     </div>
                                 </div>
                                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table_section">
+                                <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table_section">
                                     <thead>
                                         <tr>
                                             <th> No. </th>
@@ -355,7 +355,7 @@
                                     </div>
                                 </div>
                                 <div class="loading-image"><center><img src="<?=base_url('assets/images/spinner-blue.gif')?>"></center></div>
-                                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table_department">
+                                <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table_department">
                                     <thead>
                                         <tr>
                                             <th> No. </th>

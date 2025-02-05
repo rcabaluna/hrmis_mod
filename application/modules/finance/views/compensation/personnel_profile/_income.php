@@ -10,7 +10,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-benefitList" data-title="Benefit">
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-benefitList" data-title="Benefit">
                             <thead>
                                 <tr>
                                     <th> Benefit </th>
@@ -81,7 +81,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-longevityPay" >
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-longevityPay" >
                             <thead>
                                 <tr>
                                     <th style="width: 120px;"> Longevity Date </th>
@@ -137,7 +137,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-bonusList" data-title="Bonus">
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-bonusList" data-title="Bonus">
                             <thead>
                                 <tr>
                                     <th style="width:120px;"> Benefit </th>
@@ -207,7 +207,7 @@
             <div class="portlet-body">
                 <div class="row">
                     <div class="tabbable-line tabbable-full-width col-md-12">
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-incomeList" data-title="Additional Income" >
+                        <table class="table table-striped table-bordered table-condensed  table-hover table-checkable order-column" id="table-incomeList" data-title="Additional Income" >
                             <thead>
                                 <tr>
                                     <th style="width:120px;"> Benefit </th>

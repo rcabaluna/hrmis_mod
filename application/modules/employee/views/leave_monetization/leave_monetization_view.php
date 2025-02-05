@@ -54,7 +54,7 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                     <div class="tabbable-line tabbable-full-width col-md-12">
                         <?php $permonth = date("F Y", strtotime("last day of previous month")); ?>
                         <p><b>Leave Credits Available as of <?=$permonth?></b></p>
-                        <table class="table table-striped table-bordered table-hover">
+                        <table class="table table-striped table-bordered table-condensed  table-hover">
                             <tbody>
                                 <tr>
                                     <td style="width: 25%;">Vacation Leave</td>
