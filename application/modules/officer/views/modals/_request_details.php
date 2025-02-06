@@ -277,13 +277,7 @@
                             <span class="help-block"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Destination </label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" id="txtto_desti" name="txtto_desti" disabled>
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
                         <label class="col-md-3 control-label">Date From</label>
                         <div class="col-md-8">
@@ -298,6 +292,14 @@
                             <span class="help-block"></span>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Destination </label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="txtto_desti" name="txtto_desti" disabled>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
                         <label class="col-md-3 control-label">Purpose </label>
                         <div class="col-md-8">

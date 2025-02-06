@@ -127,7 +127,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td width="150px" style="white-space: nowrap;text-align: center;">
                                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>"
                                     data-rdetails='<?=$row['requestID']?>' data-rattach='<?=$row['file_location']?>'>
-                                    <span class="icon-magnifier" title="View"></span> Print Preview</a>
+                                    <span class="icon-magnifier" title="View"></span> View</a>
                                 <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
                                     <a class="btn btn-sm green" href="<?=base_url('employee/official_business/edit?req_id='.$row['requestID'])?>">
                                         <span class="fa fa-edit" title="Edit"></span> Edit</a>

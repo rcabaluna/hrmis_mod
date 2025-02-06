@@ -151,6 +151,12 @@ function print_report(x){
             var link = baseUrl+"employee/reports/generate/?rpt=reportOB&req_id="+requestid;
         }
 
+        if (requesttype == "TO") {
+            var link = baseUrl+"employee/reports/generate/?rpt=reportTO&req_id="+requestid;
+        }
+
+
+
         $('#leave-embed').attr('src',link);
         $('#leave-embed-fullview').attr('href',link);
         $('#leave-form').modal('show');

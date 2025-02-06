@@ -86,9 +86,7 @@ class Reports extends MY_Controller {
 			break;
 			case 'reportTO': 
 				$this->load->model(array('reports/ReportTO_rpt_model'));
-				// $arrData=array('strDestination'=>$arrGet['desti'],'dtmTOdatefrom'=>$arrGet['todatefrom'],'dtmTOdateto'=>$arrGet['todateto'],'strPurpose'=>$arrGet['purpose'],'strMeal'=>$arrGet['meal'],'strEmpNo'=>$arrGet['empno']);
-				$arrData=array('strDestination'=>$arrGet['desti'],'dtmTOdatefrom'=>$arrGet['todatefrom'],'dtmTOdateto'=>$arrGet['todateto'],'strPurpose'=>$arrGet['purpose'],'strMeal'=>$arrGet['meal'],'strEmpNo'=>$_SESSION['sessEmpNo']);
-				$this->ReportTO_rpt_model->generate($arrData);
+				$this->ReportTO_rpt_model->generate($arrGet['req_id']);
 				echo $this->fpdf->Output();	
 			break;
 			case 'reportLeave': 

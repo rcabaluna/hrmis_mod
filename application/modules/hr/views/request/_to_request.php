@@ -24,7 +24,7 @@
                 <th style="text-align: center;"> Remarks </th>
             <?php endif; endif; ?>
             <th style="text-align: center;"> Request Destination </th>
-            <th style="text-align: center;"> TO Date </th>
+            <th style="text-align: center;"> Inclusive Date/s </th>
             <th class="no-sort" style="text-align: center;"> Actions </th>
         </tr>
     </thead>
@@ -32,7 +32,7 @@
     <?php $i=1; foreach($arrto_request as $row): $req_details = explode(';',$row['requestDetails']);?>
         <tr class="odd gradeX">
             <td align="center"> <?=$i++?> </td>
-            <td> <?=employee_name($row['empNumber'])?> </td>
+            <td> <?=employee_name_formal($row['empNumber'])?> </td>
             <td align="center"> <?=$row['requestDate']?> </td>
             <td align="center"> <?=$row['requestStatus']?> </td>
             <?php if(isset($_GET['status'])): if($_GET['status']=='Disapproved'): ?>
@@ -45,17 +45,31 @@
             </td>
             <td align="center" nowrap>
                 <?php
-                    if($req_details[1]!='' && $req_details[2]!=''):
-                        echo date('M. d, Y',strtotime($req_details[1])).' <b>to</b> '.date('M. d, Y',strtotime($req_details[2]));
-                    else:
-                        echo $req_details[1]!=''?date('M. d, Y',strtotime($req_details[1])):'';
-                        echo $req_details[2]!=''?date('M. d, Y',strtotime($req_details[2])):'';
-                    endif;
-                ?></td>
+                    if ($req_details[1] != '' && $req_details[2] != '') {
+                        $date1 = strtotime($req_details[1]);
+                        $date2 = strtotime($req_details[2]);
+
+                        if (date('Y-m-d', $date1) == date('Y-m-d', $date2)) {
+                            // Same day
+                            echo date('F d, Y', $date1);
+                        } elseif (date('Y-m', $date1) == date('Y-m', $date2)) {
+                            // Same month and year
+                            echo date('F d', $date1) . ' - ' . date('d, Y', $date2);
+                        } else {
+                            // Different month or year
+                            echo date('F d, Y', $date1) . ' <b>to</b> ' . date('M. d, Y', $date2);
+                        }
+                    } else {
+                        echo $req_details[1] != '' ? date('F d, Y', strtotime($req_details[1])) : '';
+                        echo $req_details[2] != '' ? date('F d, Y', strtotime($req_details[2])) : '';
+                    }
+                ?>
+            </td>
             <td width="150px" style="white-space: nowrap;text-align: center;">
-                <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>" data-id="<?=$row['requestID']?>"
-                    data-rdetails='<?=json_encode($req_details)?>' data-empno="<?=$row['empNumber']?>" data-rattach='<?=$row['file_location']?>'>
-                    <span class="icon-magnifier" title="View"></span> Print Preview</a>
+                    <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>" data-empnum="<?=$row['empNumber']?>" data-id="<?=$row['requestID']?>"
+                    data-rid='<?=$row['requestID']?>' data-rattach='<?=$row['file_location']?>'>
+                    <span class="icon-magnifier" title="View"></span> View</a>
+
                 <?php if(!in_array(strtolower($row['requestStatus']), array('certified','disapproved', 'cancelled')) && $row['next_signatory']['display'] == 1): ?>
                     <a class="btn btn-sm blue" id="btncertify" data-id="<?=$row['requestID']?>"><span class="icon-check"></span> 
                         <?= strtolower($row['next_signatory']['action']) == "certified" ? "Certify" : ""; ?>

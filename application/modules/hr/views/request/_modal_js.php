@@ -110,18 +110,10 @@
 
         // TO
         $('#table-to').on('click','a#printreport',function(){
-            var req_details = $(this).data('rdetails');
-            var desti      = req_details[0];
-            var todatefrom  = req_details[1];
-            var todateto    = req_details[2];
-            var purpose     = req_details[3];
-            var meal     = req_details[4];
-            var empno        = $(this).data('empno');
 
-
+            var requestid = $(this).data('rid');
             var link = "";
-            link = "<?=base_url('employee/reports/generate/?rpt=reportTO')?>"+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal+"&empno="+empno;
-
+            link = "<?=base_url('employee/reports/generate/?rpt=reportTO')?>"+"&req_id="+requestid;
             $('div#attachments').html('');
             var json_file = $(this).data('rattach');
             $('div#attachments').append('<ul>');

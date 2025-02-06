@@ -71,7 +71,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
-                                <button type="submit" class="btn btn-primary">View</button>
+                                <button type="submit" class="btn btn-primary"> View</button>
                                 <button type="button" id="updateSalary" class="btn btn-primary">Activate Salary Schedule</button>
                             </div>
                         </div>

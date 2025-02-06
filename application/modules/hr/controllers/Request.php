@@ -124,7 +124,9 @@ class Request extends MY_Controller
 				$to_request = array();
 				if (strtolower($_GET['status']) != 'all') :
 					foreach ($arrto_request as $key => $to) :
-						$next_signatory = $this->Request_model->get_next_signatory($to, 'TO');
+
+						$requestflowid = $to['requestflowid'];
+						$next_signatory = $this->Request_model->get_next_signatory($to, 'TO',$requestflowid);
 						$to['next_signatory'] = $next_signatory;
 						if (strtolower($_GET['status']) == strtolower($to['requestStatus'])) :
 							if ($active_menu == 'Filed Request') :
@@ -139,7 +141,8 @@ class Request extends MY_Controller
 					$arrto_request = $to_request;
 				else :
 					foreach ($arrto_request as $key => $to) :
-						$next_signatory = $this->Request_model->get_next_signatory($to, 'TO');
+						$requestflowid = $to['requestflowid'];
+						$next_signatory = $this->Request_model->get_next_signatory($to, 'TO',$requestflowid);
 						$to['next_signatory'] = $next_signatory;
 						$to_request[] = $to;
 					endforeach;
@@ -362,7 +365,9 @@ class Request extends MY_Controller
 		endif;
 
 		redirect('hr/request?request=ob&status=All');
+		
 	}
+
 
 	public function update_leave()
 	{
@@ -437,7 +442,8 @@ class Request extends MY_Controller
 			$this->session->set_flashdata('strSuccessMsg', 'Request successfully ' . strtolower($optstatus) . '.');
 		endif;
 
-		redirect('hr/request?request=leave&status=All');
+		redirect('hr/request?status=All&request=leave');
+
 	}
 
 	public function update_to()
@@ -469,7 +475,11 @@ class Request extends MY_Controller
 				'wmeal'			=> $to_details[4]
 			);
 
+
+			
+
 			$addreturn = $this->travel_order_model->add($arrto_data);
+
 			if (count($addreturn) > 0) :
 				log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Add TO ', json_encode($arrto_data), '');
 			endif;
@@ -484,12 +494,18 @@ class Request extends MY_Controller
 
 		$arrto_signatory = array_merge($arrto_signatory, $arremp_signature);
 		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrto_signatory, $arrto['requestID']);
+
+
+		$requestdetails = $this->Request_model->getSelectedRequest($arrto['requestID']);
+	
+		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Official Business',$requestdetails[0]['requestDate'],$requestdetails[0]['requestStatus']);
+
 		if (count($update_employeeRequest) > 0) :
-			log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Update request', json_encode($arrleave_signatory), '');
+			log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Update request', json_encode($arrto_signatory), '');
 			$this->session->set_flashdata('strSuccessMsg', 'Request successfully ' . strtolower($optstatus) . '.');
 		endif;
 
-		redirect('hr/request?request=to');
+		redirect('hr/request?request=to&status=All');
 	}
 
 	public function update_mone()
@@ -1098,6 +1114,6 @@ class Request extends MY_Controller
 			$this->session->set_flashdata('strSuccessMsg', 'Request successfully ' . $optstatus . '.');
 		endif;
 
-		redirect('hr/request?request=pds');
+		redirect('hr/request?request=pds&status=All');
 	}
 }

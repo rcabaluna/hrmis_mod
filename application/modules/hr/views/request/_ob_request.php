@@ -96,7 +96,7 @@
             <td width="150px" style="white-space: nowrap;text-align: center;">
                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>" data-empnum="<?=$row['empNumber']?>" data-id="<?=$row['requestID']?>"
                     data-rid='<?=$row['requestID']?>' data-rattach='<?=$row['file_location']?>'>
-                    <span class="icon-magnifier" title="View"></span> Print Preview</a>
+                    <span class="icon-magnifier" title="View"></span> View</a>
                 <?php if(!in_array(strtolower($row['requestStatus']), array('certified','disapproved', 'cancelled')) && $row['next_signatory']['display'] == 1): ?>
                     <a class="btn btn-sm blue" id="btncertify" data-id="<?=$row['requestID']?>"><span class="icon-check"></span> 
                         <?= strtolower($row['next_signatory']['action']) == "certified" ? "Certify" : ""; ?>

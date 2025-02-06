@@ -60,7 +60,10 @@ class Travel_order extends MY_Controller {
 			if (!isset($arrPost['strMeal'])) {
 				$arrPost['strMeal'] = 'N';
 			}
-		
+
+
+			$travelorderno = generate_travel_order_no();
+
 			$strDestination	= $arrPost['strDestination'];
 			$dtmTOdatefrom	= $arrPost['dtmTOdatefrom'];
 			$dtmTOdateto	= $arrPost['dtmTOdateto'];
@@ -68,7 +71,7 @@ class Travel_order extends MY_Controller {
 			$strMeal		= $arrPost['strMeal'];
 			$strStatus		= $arrPost['strStatus'];
 			$strCode		= $arrPost['strCode'];
-			$str_details	= $strDestination.';'.$dtmTOdatefrom.';'.$dtmTOdateto.';'.$strPurpose.';'.$strMeal;
+			$str_details	= $strDestination.';'.$dtmTOdatefrom.';'.$dtmTOdateto.';'.$strPurpose.';'.$strMeal.';'.$travelorderno;
 
 			if(!empty($strDestination) && !empty($dtmTOdatefrom)):	
 				if(count($this->travel_order_model->checkExist($str_details))==0):
@@ -133,6 +136,10 @@ class Travel_order extends MY_Controller {
 							'file_location'	 => json_encode($attachments));
 
 					$blnReturn  = $this->travel_order_model->submit($arrData);
+
+					$signatory = $this->Request_model->get_next_signatory_for_email($blnReturn);
+					$recepient = get_email_address($signatory['next_sign']);
+					sendemail_request_to_signatory($recepient,'Travel Order', date('Y-m-d'));
 
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDestination.' Travel Order',implode(';',$arrData),'');

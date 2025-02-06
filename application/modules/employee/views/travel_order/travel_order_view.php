@@ -51,6 +51,27 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                 <input type="hidden" id="txtfilesize" name="txtfilesize">
                 <input type="hidden" id="txtdgstorage" name="txtdgstorage">
                 <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Date From :  <span class="required"> * </span></label>
+                            <div class="input-icon right">
+                                <i class="fa"></i>
+                               <input type="text" class="form-control date-picker" name="dtmTOdatefrom" id="dtmTOdatefrom" value="<?=count($to_details) > 0 ? $to_details[1] : '' ?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Date To :  <span class="required"> * </span></label>
+                            <div class="input-icon right">
+                                <i class="fa"></i>
+                               <input type="text" class="form-control date-picker" name="dtmTOdateto" id="dtmTOdateto" value="<?=count($to_details) > 0 ? $to_details[2] : '' ?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+   
+                <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Destination :  <span class="required"> * </span></label>
@@ -61,28 +82,7 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label">Date From :  <span class="required"> * </span></label>
-                            <div class="input-icon right">
-                                <i class="fa"></i>
-                               <input type="text" class="form-control date-picker" name="dtmTOdatefrom" id="dtmTOdatefrom" value="<?=count($to_details) > 0 ? $to_details[1] : '' ?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label">Date To :  <span class="required"> * </span></label>
-                            <div class="input-icon right">
-                                <i class="fa"></i>
-                               <input type="text" class="form-control date-picker" name="dtmTOdateto" id="dtmTOdateto" value="<?=count($to_details) > 0 ? $to_details[2] : '' ?>" data-date-format="yyyy-mm-dd" autocomplete="off" <?=$hrmodule ? 'disabled' : ''?>>   
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group">
@@ -150,7 +150,7 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                         <?php else: ?>
                             <a href="<?=base_url('hr/request?request=to')?>" class="btn blue"> <i class="icon-ban"></i> Cancel</a>
                         <?php endif; ?>
-                        <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button>
+                        <!-- <button type="button" id="printreport" value="reportOB" class="btn grey-cascade pull-right"><i class="icon-magnifier"></i> Print/Preview</button> -->
                     </div>
                 </div>
                 <?=form_close()?>

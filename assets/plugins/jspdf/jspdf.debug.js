@@ -13926,7 +13926,7 @@
           top: 0,
           margin: "auto",
           backgroundColor: "white"
-        }; // Set the overlay to hidden (could be changed in the future to provide a print preview).
+        }; // Set the overlay to hidden (could be changed in the future to provide aView).
 
         var source = cloneNode(this.prop.src, this.opt.html2canvas.javascriptEnabled);
 
