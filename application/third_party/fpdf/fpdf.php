@@ -546,10 +546,17 @@ function Rect($x, $y, $w, $h, $style='')
 
 function AddFont($family, $style='', $file='', $dir='')
 {
+
+
 	// Add a TrueType, OpenType or Type1 font
 	$family = strtolower($family);
+
+
 	if($file=='')
 		$file = str_replace(' ','',$family).strtolower($style).'.php';
+
+	
+	
 	$style = strtoupper($style);
 	if($style=='IB')
 		$style = 'BI';
@@ -562,10 +569,16 @@ function AddFont($family, $style='', $file='', $dir='')
 		$dir = $this->fontpath;
 	if(substr($dir,-1)!='/' && substr($dir,-1)!='\\')
 		$dir .= '/';
+
+	
+
 	$info = $this->_loadfont($dir.$file);
 	$info['i'] = count($this->fonts)+1;
+
+
 	if(!empty($info['file']))
 	{
+
 		// Embedded font
 		$info['file'] = $dir.$info['file'];
 		if($info['type']=='TrueType')
