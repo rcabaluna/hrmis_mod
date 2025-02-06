@@ -44,7 +44,7 @@
                     <?=$row['next_signatory']['next_sign']?> 
                 <?php endif; ?>
             </td>
-            <td align="center"> <?=strtoupper($req_details[0])?> </td>
+            <td align="center"> <?=$row['leaveType']?> </td>
             <td align="center" nowrap>
             <?php
                 $start_date = strtotime($req_details[1]);
@@ -69,7 +69,7 @@
                     data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>
                     <span class="icon-magnifier" title="View"></span> Print Preview</a>
                 <?php
-                
+            
 
                 if(!in_array(strtolower($row['requestStatus']), array('certified','disapproved', 'cancelled')) && $row['next_signatory']['display'] == 1): ?>
                     <a class="btn btn-sm blue" id="btncertify" data-id="<?=$row['requestID']?>"><span class="icon-check"></span> 

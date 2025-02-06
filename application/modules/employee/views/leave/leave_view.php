@@ -232,7 +232,7 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                         <div class="form-group">
                             <hr>
                             <label class="control-label">Commutation :</label>
-                            <select name="strCommutation" id="strCommutation" type="text" class="form-control form-required" <?=$hrmodule ? 'disabled' : ''?>>
+                            <select name="strCommutation" id="strCommutation" type="text" class="form-control form-required" <?=$hrmodule ? 'disabled' : ''?> required>
                                 <option value="0">-- SELECT COMMUTATION REQUEST--</option>
                                 <option value="not-requested">Not Requested</option>
                                 <option value="requested">Requested</option>
