@@ -27,9 +27,9 @@ class ReportOB_rpt_model extends CI_Model {
 
         $this->db->select('req.*, pers.surname, pers.firstname, pers.middleInitial, pers.middlename, pers.nameExtension, pos.positionDesc, emppos.actualSalary');
         $this->db->from('tblemprequest AS req');
-        $this->db->join('tblemppersonal AS pers', 'pers.empNumber = req.empNumber');
-        $this->db->join('tblempposition AS emppos', 'emppos.empNumber = req.empNumber');
-        $this->db->join('tblposition AS pos', 'pos.positionCode = emppos.positionCode');
+        $this->db->join('tblemppersonal AS pers', 'pers.empNumber = req.empNumber', 'LEFT');
+        $this->db->join('tblempposition AS emppos', 'emppos.empNumber = req.empNumber', 'LEFT');
+        $this->db->join('tblposition AS pos', 'pos.positionCode = emppos.positionCode', 'LEFT');
         $this->db->where('req.requestID', $requestid);
 
         $query = $this->db->get();
@@ -100,6 +100,7 @@ class ReportOB_rpt_model extends CI_Model {
 		$requestSignatories = $this->get_request_signatories($reqdetails['requestflowid']);
 
 		// $strOBtype=$arrData['strOBtype'];
+
 		$dtmOBrequestdate = $obdetails[1] == '' ? '' : date("F j, Y",strtotime($obdetails[1]));
 		$dtmOBdatefrom = $obdetails[2] == '' ? '' : date("F j, Y",strtotime($obdetails[2]));
 		$dtmOBdateto = $obdetails[3] == '' ? '' : date("F j, Y",strtotime($obdetails[3]));

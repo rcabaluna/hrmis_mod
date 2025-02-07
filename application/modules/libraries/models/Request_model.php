@@ -766,7 +766,6 @@ class Request_model extends CI_Model
 	}
 
 	public function get_approver_id($office,$requesttype){
-
 		$this->db->select('*');
 		$this->db->from('tblrequestflow');
 		$this->db->like('RequestType', $requesttype,'both');
@@ -780,4 +779,49 @@ class Request_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+
+	public function get_approver_id2($office, $requesttype, $empid) {
+		// CHECK IF DIVISION/UNIT HEAD
+		$this->db->select('*');
+		$this->db->from('tblrequestflow');
+		$this->db->where('RequestType LIKE', '%'.$requesttype.'%');
+		$this->db->where('isactive', 1);
+		$this->db->where('Applicant LIKE', '%HEAD%');
+		$this->db->where('Applicant LIKE', '%'.$empid.'%');
+		$this->db->where('Applicant LIKE', '%'.$office.'%');
+
+		$head = $this->db->get()->result_array();
+
+		// IF NOT DIVISION/UNIT HEAD, CHECK IF DIVISION/UNIT HAS APPROVER
+		if(!$head){
+			$this->db->select('*');
+			$this->db->from('tblrequestflow');
+			$this->db->where('RequestType LIKE', '%'.$requesttype.'%');
+			$this->db->where('Applicant LIKE', '%'.$office.'%');
+			$this->db->where('Applicant NOT LIKE', '%HEAD%');
+		
+			$unit = $this->db->get()->result_array();
+
+			// IF NO DIVISION/UNIT SPECIFIC REQUESTFLOW, CHECK IF ALLEMP
+			if (!$unit) {
+				$this->db->select('*');
+				$this->db->from('tblrequestflow');
+				$this->db->where('RequestType LIKE', '%'.$requesttype.'%');
+				$this->db->where('Applicant LIKE', '%ALLEMP%');
+			
+				$allemp = $this->db->get()->result_array();
+
+				if (!$allemp) {
+					return;
+				}else{
+					return $allemp;
+				}
+			}else{
+				return $unit;
+			}
+		}else{
+			return $head;
+		}
+	}
+	
 }

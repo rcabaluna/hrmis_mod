@@ -196,11 +196,7 @@ class Official_business extends MY_Controller {
 			$empid = $this->session->userdata('sessEmpNo');
 			$office = employee_office($empid);
 
-			
-
-
-			$requestflowid = $this->Request_model->get_approver_id($office,'OB');
-
+			$requestflowid = $this->Request_model->get_approver_id2($office,'OB',$empid);
 
 			if (!$requestflowid) {
 				$this->session->set_flashdata('strErrorMsg','Request flow not found. Please contact HR.');

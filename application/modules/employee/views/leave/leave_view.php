@@ -233,7 +233,7 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                             <hr>
                             <label class="control-label">Commutation :</label>
                             <select name="strCommutation" id="strCommutation" type="text" class="form-control form-required" <?=$hrmodule ? 'disabled' : ''?> required>
-                                <option value="0">-- SELECT COMMUTATION REQUEST--</option>
+                                <option value="">-- SELECT COMMUTATION REQUEST--</option>
                                 <option value="not-requested">Not Requested</option>
                                 <option value="requested">Requested</option>
                             </select>
@@ -439,11 +439,59 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
 
         });
 
+
+        $("#strLeavetype").change(function (e) { 
+
+            $("#strIncaseVL").val("");
+            $("#strIncaseSL").val("");
+            $("#strIncaseSTL").val("");
+
+            $(".btn.dropdown-toggle[data-id='strIncaseVL'] .filter-option").text("-- SELECT --");
+            $(".btn.dropdown-toggle[data-id='strIncaseSL'] .filter-option").text("-- SELECT --");
+            $(".btn.dropdown-toggle[data-id='strIncaseSTL'] .filter-option").text("-- SELECT --");
+
+        });
+
+
         $('#btn-request-leave').click(function(e) {
             var total_error = 0;
 
             total_error = total_error + check_null('#dtmLeavefrom','Leave from must not be empty.');
             total_error = total_error + check_null('#dtmLeaveto','Leave to must not be empty.');
+            total_error = total_error + check_null('#strReason',' This field must not be empty.');
+            total_error = total_error + check_null('#strCommutation',' This field must not be empty.');
+
+            
+            
+            var strLeavetype = $("#strLeavetype").val();
+            
+            switch (strLeavetype) {
+                case 'VL':
+                    total_error = total_error + check_null('#strIncaseVL','This field must not be empty.');
+                    break;
+                case 'SL':
+                    total_error = total_error + check_null('#strIncaseSL',' This field must not be empty.');
+                    break;
+                case 'STL':
+                    total_error = total_error + check_null('#strIncaseSTL',' This field must not be empty.');
+                    break;
+            }
+
+
+            console.log(check_null('#dtmLeavefrom : ' + '#dtmLeavefrom','Leave from must not be empty.'));
+            console.log(check_null('#dtmLeaveto : ' + '#dtmLeaveto','Leave to must not be empty.'));
+            console.log(check_null('#strReason : ' + '#strReason',' This field must not be empty.'));
+            console.log(check_null('#strCommutation : ' + '#strCommutation',' This field must not be empty.'));
+            console.log(check_null('#strIncaseVL : ' + '#strIncaseVL','This field must not be empty.'));
+            console.log(check_null('#strIncaseSL : ' + '#strIncaseSL',' This field must not be empty.'));
+            console.log(check_null('#strIncaseSTL : ' + '#strIncaseSTL',' This field must not be empty.'));
+
+
+            console.log(total_error);
+
+            e.preventDefault();
+
+
             if($('#txtdgstorage').val()!='' && $('#txtdgstorage').val()!=''){
                 if($('#txtdgstorage').val() == 'MB' || $('#txtdgstorage').val() == 'KB') {
                     if($('#txtdgstorage').val() == 'MB') {

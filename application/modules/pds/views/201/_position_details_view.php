@@ -59,30 +59,37 @@
                 <tr>
                     <th style="text-align: right;">Executive Office :</th>
                     <td><?= $arrPosition[0]['officecode'] ?></td>
-                    <th style="text-align: right;">Section :</th>
-                    <td><?= $arrPosition[0]['divisionCode'] ?></td>
+                    <th style="text-align: right;">Personnel Action :</th>
+                    <td><?= $arrPosition[0]['personnelAction'] ?></td>
                 </tr>
                 <tr>
 
                     <th style="text-align: right;">Division :</th>
                     <td><?= $arrPosition[0]['serviceCode'] ?></td>
-                    <th style="text-align: right;">Unit :</th>
-                    <td><?= $arrPosition[0]['sectionCode'] ?></td>
-                </tr>
-                <tr>
-                    <th style="text-align: right;">Personnel Action :</th>
-                    <td><?= $arrPosition[0]['personnelAction'] ?></td>
                     <th style="text-align: right;">Place of Assignment :</th>
                     <td><?= $arrPosition[0]['assignPlace'] ?></td>
+                    
                 </tr>
+                <tr><th style="text-align: right;">Unit :</th>
+                <td><?= $arrPosition[0]['divisionCode'] ?></td>
+                <th width="25%" style="text-align: right;">Head of the Agency :</th>
+                <td width="25%"><?= count($agencyHead) > 0 ? $agencyHead['agencyHead'] == 1 ? 'Y' : 'N' : '' ?></td>
+            
+            </tr>
+
+            <tr>
+
+            <tr>
+                    <td colspan="4"></td>
+                </tr>
+            </tr>
                 <tr>
                     <?php $arrPerm = explode(',', $arrProcessWith[0]['processWith']);
                     if (in_array($arrPosition[0]['appointmentCode'], $arrPerm)) {   ?>
                         <th width="25%" style="text-align: right;">Item Number :</th>
                         <td width="25%"><?= $arrPosition[0]['itemNumber'] ?></td>
                     <?php } ?>
-                    <th width="25%" style="text-align: right;">Head of the Agency :</th>
-                    <td width="25%"><?= count($agencyHead) > 0 ? $agencyHead['agencyHead'] == 1 ? 'Y' : 'N' : '' ?></td>
+                    
                 </tr>
                 <tr>
                     <th style="text-align: right;">Actual Salary :</th>

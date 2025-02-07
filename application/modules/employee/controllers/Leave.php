@@ -75,6 +75,8 @@ class Leave extends MY_Controller {
     function add_leave()
     {
     	$arrPost = $this->input->post();
+
+		
 		
 		if(!empty($arrPost)) {
 			$curr_leave = $this->leave_model->getleave($arrPost['txtempno'],$arrPost['dtmLeavefrom'],$arrPost['dtmLeaveto']);
@@ -83,7 +85,11 @@ class Leave extends MY_Controller {
 			$empid = $this->session->userdata('sessEmpNo');
 			$office = employee_office($empid);
 
-			$requestflowid = $this->Request_model->get_approver_id($office,$arrPost['strLeavetype']);
+			$requestflowid = $this->Request_model->get_approver_id2($office,$arrPost['strLeavetype'],$office);
+
+			echo "<pre>";
+			var_dump($requestflowid);
+			exit();
 
 			if (!$requestflowid) {
 				$this->session->set_flashdata('strErrorMsg','Request flow not found. Please contact HR.');

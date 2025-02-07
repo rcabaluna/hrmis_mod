@@ -113,7 +113,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Section</label>
+                                <label class="col-md-3 control-label">Unit</label>
                                 <div class="col-md-8">
                                     <!-- <input type="text" name="seldivision" class="form-control" value=""> -->
                                     <select class="form-control bs-select" name="seldivision">
@@ -126,10 +126,10 @@
                                     <span class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="col-md-3 control-label">Unit</label>
                                 <div class="col-md-8">
-                                    <!-- <input type="text" name="" class="form-control" value=""> -->
+                                    <input type="text" name="" class="form-control" value="">
                                     <select class="form-control bs-select" name="selsection">
                                         <option value=""> </option>
                                         <?php foreach ($arrSection as $section) :
@@ -139,7 +139,7 @@
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
-                            </div>
+                            </div> -->
                             <?php //print_r($arrProcessWith);
                             $arrPerm = explode(',', $arrProcessWith[0]['processWith']);
                             // print_r($arrPerm);
