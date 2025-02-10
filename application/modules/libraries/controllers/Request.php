@@ -36,8 +36,8 @@ class Request extends MY_Controller {
 			if (count($counter_sign) > 1) {
 				$counter_signatory = $counter_sign[1] != '' ? $this->request_model->getSignatory($counter_sign[1]) : [];
 				$counter_signatory_name = count($counter_signatory) > 0 ? $counter_signatory[0]['Signatory'] : '';
-				$counter_employee_name = employee_name($counter_sign[2]);
-				$all_requests[$key]['counter_signatory'] = [$counter_sign[0], $counter_signatory_name, $counter_employee_name];
+				$counter_employee_name_formal = employee_name_formal($counter_sign[2]);
+				$all_requests[$key]['counter_signatory'] = [$counter_sign[0], $counter_signatory_name, $counter_employee_name_formal];
 			} else {
 				$all_requests[$key]['counter_signatory'] = [];
 			}
@@ -46,8 +46,8 @@ class Request extends MY_Controller {
 			if (count($first_sign) > 1) {
 				$first_signatory = $first_sign[1] != '' ? $this->request_model->getSignatory($first_sign[1]) : [];
 				$first_signatory_name = count($first_signatory) > 0 ? $first_signatory[0]['Signatory'] : '';
-				$first_employee_name = employee_name($first_sign[2]);
-				$all_requests[$key]['first_signatory'] = [$first_sign[0], $first_signatory_name, $first_employee_name];
+				$first_employee_name_formal = employee_name_formal($first_sign[2]);
+				$all_requests[$key]['first_signatory'] = [$first_sign[0], $first_signatory_name, $first_employee_name_formal];
 			} else {
 				$all_requests[$key]['first_signatory'] = [];
 			}
@@ -56,8 +56,8 @@ class Request extends MY_Controller {
 			if (count($second_sign) > 1) {
 				$second_signatory = $second_sign[1] != '' ? $this->request_model->getSignatory($second_sign[1]) : [];
 				$second_signatory_name = count($second_signatory) > 0 ? $second_signatory[0]['Signatory'] : '';
-				$second_employee_name = employee_name($second_sign[2]);
-				$all_requests[$key]['second_signatory'] = [$second_sign[0], $second_signatory_name, $second_employee_name];
+				$second_employee_name_formal = employee_name_formal($second_sign[2]);
+				$all_requests[$key]['second_signatory'] = [$second_sign[0], $second_signatory_name, $second_employee_name_formal];
 			} else {
 				$all_requests[$key]['second_signatory'] = [];
 			}
@@ -66,8 +66,8 @@ class Request extends MY_Controller {
 			if (count($third_sign) > 1) {
 				$third_signatory = $third_sign[1] != '' ? $this->request_model->getSignatory($third_sign[1]) : [];
 				$third_signatory_name = count($third_signatory) > 0 ? $third_signatory[0]['Signatory'] : '';
-				$third_employee_name = employee_name($third_sign[2]);
-				$all_requests[$key]['third_signatory'] = [$third_sign[0], $third_signatory_name, $third_employee_name];
+				$third_employee_name_formal = employee_name_formal($third_sign[2]);
+				$all_requests[$key]['third_signatory'] = [$third_sign[0], $third_signatory_name, $third_employee_name_formal];
 			} else {
 				$all_requests[$key]['third_signatory'] = [];
 			}
@@ -76,8 +76,8 @@ class Request extends MY_Controller {
 			if (count($final_sign) > 1) {
 				$final_signatory = $final_sign[1] != '' ? $this->request_model->getSignatory($final_sign[1]) : [];
 				$final_signatory_name = count($final_signatory) > 0 ? $final_signatory[0]['Signatory'] : '';
-				$final_employee_name = employee_name($final_sign[2]);
-				$all_requests[$key]['final_signatory'] = [$final_sign[0], $final_signatory_name, $final_employee_name];
+				$final_employee_name_formal = employee_name_formal($final_sign[2]);
+				$all_requests[$key]['final_signatory'] = [$final_sign[0], $final_signatory_name, $final_employee_name_formal];
 			} else {
 				$all_requests[$key]['final_signatory'] = [];
 			}
