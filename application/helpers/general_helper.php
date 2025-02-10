@@ -600,7 +600,7 @@ if (!function_exists('sendemail_update_request')) {
             $CI = &get_instance();
             $rs = $CI->db->select('work_email')->where('empNumber', $strEmpNo)->get('tblemppersonal')->row_array();
 
-            return $rs['email'];
+            return $rs['work_email'];
         }
 }
 
