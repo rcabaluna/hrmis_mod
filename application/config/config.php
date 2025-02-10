@@ -26,8 +26,8 @@ date_default_timezone_set('Asia/Manila');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = ($_SERVER['HTTP_HOST'] == 'hrmis.region10.dost.gov.ph:8082' ? 'http://'.$_SERVER['HTTP_HOST'].'/' : 'http://122.53.79.156:8082/hrmis');
-// $config['base_url'] = 'http://localhost/hrmis';
+// $config['base_url'] = ($_SERVER['HTTP_HOST'] == 'hrmis.region10.dost.gov.ph:8082' ? 'http://'.$_SERVER['HTTP_HOST'].'/' : 'http://122.53.79.156:8082/hrmis');
+$config['base_url'] = 'http://localhost/hrmis';
 
 /*
 |--------------------------------------------------------------------------

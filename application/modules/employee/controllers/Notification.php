@@ -47,8 +47,6 @@ class Notification extends MY_Controller
 			$requestFlow = $this->Request_model->getRequestFlow(employee_office($this->session->userdata('sessEmpNo')));
 			// $requestFlow = $this->Request_model->getRequestFlow('ALLEMP');
 			$requestFlow = $this->Request_model->getRequestFlow($strEmpNo);
-			$arremp_request = $this->Request_model->getEmployeeRequest2($strEmpNo);
-
 			$arremp_request = $this->Request_model->getEmployeeRequest2($strEmpNo);  
 			$updated_requests = [];
 

@@ -35,7 +35,7 @@ class Tasks extends MY_Controller
 		$allemp_request = array();
 		$arremp_request = $this->Request_model->getEmployeeRequest(curryr(), currmo());	
 		
-		$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $arremp_request,$office);
+		$arrRequest = $this->Notification_model->check_request_flow_and_signatories2($requestFlow, $arremp_request,$office);
 
 		foreach ($arrRequest as $req) :
 
@@ -68,11 +68,11 @@ class Tasks extends MY_Controller
 		$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $arremp_request);
 
 		foreach ($arrRequest as $req) :
-
 			if ((strpos($req['req_nextsign'], $officer_empid) !== false)) :
 				$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
 				$req['req_empname'] = employee_name($req['req_emp']);
 				array_push($allemp_request, $req);
+
 			endif;
 		endforeach;
 

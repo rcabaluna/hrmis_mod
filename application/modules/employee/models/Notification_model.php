@@ -211,12 +211,7 @@ class Notification_model extends CI_Model
             if ($request['SignatoryFin'] == ''):
                 // check counter signatory
                 $signc = $this->Notification_model->validate_signature( $rflow, $request, 'SignatoryCountersign');
-
-                
-
                 if ($signc) :
-
-
                     # check signatory 1
                     $sign1 = $this->Notification_model->validate_signature( $rflow, $request, 'Signatory1');
 
@@ -267,6 +262,79 @@ class Notification_model extends CI_Model
             $arrRequest[] = $request_detail;
 
         endforeach;
+        return $arrRequest;
+    }
+
+
+    function check_request_flow_and_signatories2($requestFlow, $emp_requests)
+    {
+
+        $arrRequest = [];
+        foreach ($emp_requests as $request): 
+            $request['code'] = $request['requestCode'];
+            $rflow = $this->Notification_model->getrequestflow(
+                $requestFlow,
+                $request['requestflowid']
+            );
+
+            $next_sign = '';
+            $sign_no = ''; // echo "<pre>";
+            if ($request['SignatoryFin'] == ''):
+                // check counter signatory
+                $signc = $this->Notification_model->validate_signature( $rflow, $request, 'SignatoryCountersign');
+                if ($signc) :
+                    # check signatory 1
+                    $sign1 = $this->Notification_model->validate_signature( $rflow, $request, 'Signatory1');
+
+                    if ($sign1):
+                        # signatory 1 is done -> check signatory 2
+                        $sign2 = $this->Notification_model->validate_signature($rflow, $request, 'Signatory2');
+                        if ($sign2):
+                            # signatory 2 is done -> check signatory 3
+                            $sign3 = $this->Notification_model->validate_signature($rflow, $request, 'Signatory3');
+                            if ($sign3):
+                                # signatory 3 is done -> check final signatory
+                                $sign4 = $this->Notification_model->validate_signature($rflow, $request, 'SignatoryFin');
+                                if (!$sign4):
+                                    $next_sign = $rflow['SignatoryFin'];
+                                    $sign_no = 'SignatoryFin';
+                                endif;
+                            else:
+                                $next_sign = $rflow['Signatory3'];
+                                $sign_no = 'Signatory3';
+                            endif;
+                        else:
+                            $next_sign = $rflow['Signatory2'];
+                            $sign_no = 'Signatory2';
+                        endif;
+                    else:
+                        $next_sign = $rflow['Signatory1'];
+                        $sign_no = 'Signatory1';
+                    endif;
+                else:
+                    $next_sign = $rflow['SignatoryCountersign'];
+                    $sign_no = 'SignatoryCountersign';
+                endif;
+            else:
+                $next_sign = '';
+            endif; // exit();
+            $request_detail = [
+                'req_id' => $request['requestID'],
+                'req_emp' => $request['empNumber'],
+                'req_date' => $request['requestDate'],
+                'req_code' => $request['code'],
+                'req_type' => $request['requestCode'],
+                'req_status' => $request['requestStatus'],
+                'req_remarks' => $request['remarks'],
+                'req_details' => $request['requestDetails'],
+                'req_nextsign' => $next_sign,
+                'req_sign_no' => $sign_no,
+            ];
+
+            $arrRequest[] = $request_detail;
+
+        endforeach;
+
         return $arrRequest;
     }
 }
