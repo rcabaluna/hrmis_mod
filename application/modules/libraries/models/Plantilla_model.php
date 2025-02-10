@@ -73,7 +73,7 @@ class Plantilla_model extends CI_Model {
 	function checkExist($strPlantilla = '', $strPosition = '')
 	{		
 		$this->db->where('itemNumber',$strPlantilla);
-		$this->db->or_where('positionCode', $strPosition);			
+		// $this->db->or_where('positionCode', $strPosition);			
 		
 		$objQuery = $this->db->get($this->table);
 		return $objQuery->result_array();	
