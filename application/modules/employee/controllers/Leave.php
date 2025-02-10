@@ -151,7 +151,12 @@ class Leave extends MY_Controller {
 
 				$signatory = $this->Request_model->get_next_signatory_for_email($request_id);
 				$recepient = get_email_address($signatory['next_sign']);
-				sendemail_request_to_signatory($recepient,'Leave', date('Y-m-d'));
+
+				if ($recepient) {
+					sendemail_request_to_signatory($recepient,'Leave', date('Y-m-d'));
+				}
+
+				
 
 				$this->session->set_flashdata('strSuccessMsg','Leave has been submitted.');
 

@@ -356,9 +356,11 @@ class Request extends MY_Controller
 		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrob_signatory, $arrob['requestID']);
 
 		$requestdetails = $this->Request_model->getSelectedRequest($arrob['requestID']);
-	
-		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Official Business',$requestdetails[0]['requestDate'],$requestdetails[0]['requestStatus']);
 
+		if (get_email_address($requestdetails[0]['empNumber'])) {
+			sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Official Business',$requestdetails[0]['requestDate'],$requestdetails[0]['requestStatus']);
+		}
+	
 		if (count($update_employeeRequest) > 0) :
 			log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Update request', json_encode($arrob_signatory), '');
 			$this->session->set_flashdata('strSuccessMsg', 'Request successfully ' . strtolower($optstatus) . '.');
@@ -435,8 +437,9 @@ class Request extends MY_Controller
 
 		$requestdetails = $this->Request_model->getSelectedRequest($_GET['req_id']);
 	
-		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Leave',$requestdetails[0]['requestDate'],$requestdetails[0]['requestStatus']);
-
+		if (get_email_address($requestdetails[0]['empNumber'])) {
+			sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Leave',$requestdetails[0]['requestDate'],$requestdetails[0]['requestStatus']);
+		}
 		if (count($update_employeeRequest) > 0) :
 			log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Update request', json_encode($arrleave_signatory), '');
 			$this->session->set_flashdata('strSuccessMsg', 'Request successfully ' . strtolower($optstatus) . '.');
@@ -498,7 +501,9 @@ class Request extends MY_Controller
 
 		$requestdetails = $this->Request_model->getSelectedRequest($arrto['requestID']);
 	
-		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Official Business',$requestdetails[0]['requestDate'],$requestdetails[0]['requestStatus']);
+		if (get_email_address($requestdetails[0]['empNumber'])) {
+			sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Official Business',$requestdetails[0]['requestDate'],$requestdetails[0]['requestStatus']);
+		}
 
 		if (count($update_employeeRequest) > 0) :
 			log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Update request', json_encode($arrto_signatory), '');
@@ -1103,8 +1108,9 @@ class Request extends MY_Controller
 		$arremp_signature = $this->Request_model->get_signature($arrrequest['requestCode']);
 		$arrto_signatory = array_merge($arrto_signatory, $arremp_signature);
 
-		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($arrrequest['empNumber']),'PDS Update',$arrrequest['requestDate'],$arrto_signatory['requestStatus']);
-
+		if (get_email_address($arrrequest['empNumber'])) {
+			sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($arrrequest['empNumber']),'PDS Update',$arrrequest['requestDate'],$arrto_signatory['requestStatus']);
+		}
 		$update_employeeRequest = $this->Request_model->update_employeeRequest($arrto_signatory, $arrrequest['requestID']);
 
 

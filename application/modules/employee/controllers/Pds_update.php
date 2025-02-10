@@ -977,9 +977,10 @@ class Pds_update extends MY_Controller {
 		
 		$recepient = get_email_address($signatory['next_sign']);
 
-		$send = sendemail_request_to_signatory($recepient,'PDS Update',date('Y-m-d'));
+		if ($recepient) {
+			sendemail_request_to_signatory($recepient,'PDS Update',date('Y-m-d'));
+		}
 
-		return $send;
 	}
 
 

@@ -139,7 +139,9 @@ class Travel_order extends MY_Controller {
 
 					$signatory = $this->Request_model->get_next_signatory_for_email($blnReturn);
 					$recepient = get_email_address($signatory['next_sign']);
-					sendemail_request_to_signatory($recepient,'Travel Order', date('Y-m-d'));
+					if ($recepient) {
+						sendemail_request_to_signatory($recepient,'Travel Order', date('Y-m-d'));
+					}
 
 					if(count($blnReturn)>0):
 						log_action($this->session->userdata('sessEmpNo'),'HR Module','tblemprequest','Added '.$strDestination.' Travel Order',implode(';',$arrData),'');

@@ -96,13 +96,15 @@ class Requests extends MY_Controller
 		$requestid = $arrpost['txtto_id'];
 		$this->Request_model->update_employeeRequest($arrdata, $requestid);
 
-
-		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Travel Order',$requestdetails[0]['requestDate'],$arrdata['requestStatus']);
+		$send = '';
+		if ($requestdetails[0]['empNumber']) {
+			$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Travel Order',$requestdetails[0]['requestDate'],$arrdata['requestStatus']);
+		}
 
 		if ($send) {
 			$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
 			$recepient = get_email_address($signatory['next_sign']);
-			if ($arrdata['requestStatus'] != 'DISAPPROVED') {
+			if ($arrdata['requestStatus'] != 'DISAPPROVED' && $recepient) {
 				sendemail_request_to_signatory($recepient,'Travel Order', $requestdetails[0]['requestDate']);
 			}
 		}
@@ -170,13 +172,15 @@ class Requests extends MY_Controller
 	
 		$requestid = $arrpost['txtob_id'];
 		$this->Request_model->update_employeeRequest($arrdata, $requestid);
-
-		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Official Business',$requestdetails[0]['requestDate'],$arrdata['requestStatus']);
+		$send = '';
+		if (get_email_address($requestdetails[0]['empNumber'])) {
+			$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Official Business',$requestdetails[0]['requestDate'],$arrdata['requestStatus']);
+		}
 
 		if ($send) {
 			$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
 			$recepient = get_email_address($signatory['next_sign']);
-			if ($arrdata['requestStatus'] != 'DISAPPROVED') {
+			if ($arrdata['requestStatus'] != 'DISAPPROVED' && $recepient) {
 				sendemail_request_to_signatory($recepient,'Official Business', $requestdetails[0]['requestDate']);
 			}
 		}
@@ -243,12 +247,16 @@ class Requests extends MY_Controller
 		
 		$this->Request_model->update_employeeRequest($arrdata, $requestid);
 
-		$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($reqx['empNumber']),'Leave',$reqx['requestDate'],$arrdata['requestStatus']);
+		$send = '';
 
+		if(get_email_address($reqx['empNumber'])){
+			$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($reqx['empNumber']),'Leave',$reqx['requestDate'],$arrdata['requestStatus']);
+
+		}
 		if ($send) {
 			$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
 			$recepient = get_email_address($signatory['next_sign']);
-			if ($arrdata['requestStatus'] != 'DISAPPROVED') {
+			if ($arrdata['requestStatus'] != 'DISAPPROVED' && $recepient) {
 				sendemail_request_to_signatory($recepient,'Leave', $reqx['requestDate']);
 			}
 		}

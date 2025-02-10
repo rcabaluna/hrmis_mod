@@ -250,15 +250,4 @@ class Home extends MY_Controller {
 		echo json_encode($output);
 	}
 
-
-
-	public function send_email_new_request() {
-		sendemail_request_to_signatory('rcabalunajr@gmail.com','Leave','2025-02-04');
-    }
-
-	public function sendemail_update_request() {
-		
-		sendemail_update_request('rcabalunajr@gmail.com','Leave','2025-02-04','Approved');
-       
-    }
 }
