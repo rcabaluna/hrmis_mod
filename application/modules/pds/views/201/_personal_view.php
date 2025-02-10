@@ -89,8 +89,8 @@
      <tr>
         <th style="text-align:right;" nowrap>Email Address </th>
         <td><?=$arrData['email']?></td>
-        <th style="text-align:right;" nowrap></th>
-        <td></td>
+        <th style="text-align:right;" nowrap>Work Email Address </th>
+        <td><?=$arrData['work_email']?></td>
     </tr>
     <tr>
         <th style="text-align:right;" nowrap>Mobile Number </th>

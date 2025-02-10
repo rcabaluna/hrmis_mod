@@ -455,16 +455,18 @@
                              <input type="text" class="form-control" name="intPagibig" autcomplete="off" value="<?=isset($arrData['pagibigNumber'])?$arrData['pagibigNumber']:''?>">
                         </div>
                     </div>
-                     <div class="col-sm-1 text-left">
+                    <div class="col-sm-1 text-left">
                         <div class="form-group">
-                            <label class="control-label">Payroll Account No. : </label>
+                            <label class="control-label">Work Email Address : </label>
                         </div>
                     </div>
                     <div class="col-sm-2" text-left>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="intAccount" autcomplete="off" value="<?=isset($arrData['AccountNum'])?$arrData['AccountNum']:''?>">
+                            <input type="text" class="form-control" name="strWorkEmail" autcomplete="off" value="<?=isset($arrData['work_email'])?$arrData['work_email']:''?>">
                         </div>
                     </div>
+
+                     
                 </div>
                 <div class="row">
                 <div class="col-sm-1">
@@ -527,8 +529,14 @@
                              <input type="text" class="form-control" name="intTin" autcomplete="off" value="<?=isset($arrData['tin'])?$arrData['tin']:''?>">
                         </div>
                     </div>
-                     <div class="col-sm-3">
+                    <div class="col-sm-1 text-left">
                         <div class="form-group">
+                            <label class="control-label">Payroll Account No. : </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" text-left>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="intAccount" autcomplete="off" value="<?=isset($arrData['AccountNum'])?$arrData['AccountNum']:''?>">
                         </div>
                     </div>
                 </div>

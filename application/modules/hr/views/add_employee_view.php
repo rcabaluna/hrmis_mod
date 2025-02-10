@@ -293,6 +293,18 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
 
                         <div class="form-group">
                             <div class="row">
+                                <label class="col-md-2 control-label right"> Work Email Address </label>
+                                <div class="col-md-9">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-warning tooltips i-required"></i>
+                                        <input name="strWorkEmail" id="strWorkEmail" type="text" size="20" maxlength="30" class="form-control" autocomplete="off" value="<?=!empty($this->session->userdata('strWorkEmail'))?$this->session->userdata('strWorkEmail'):''?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
                                 <label class="col-md-2 control-label right"> SSS Number </label>
                                 <div class="col-md-9">
                                     <div class="input-icon right">

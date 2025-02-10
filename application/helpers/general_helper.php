@@ -598,7 +598,7 @@ if (!function_exists('sendemail_update_request')) {
         function get_email_address($strEmpNo)
         {
             $CI = &get_instance();
-            $rs = $CI->db->select('email')->where('empNumber', $strEmpNo)->get('tblemppersonal')->row_array();
+            $rs = $CI->db->select('work_email')->where('empNumber', $strEmpNo)->get('tblemppersonal')->row_array();
 
             return $rs['email'];
         }

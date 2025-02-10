@@ -244,6 +244,7 @@ class Hr extends MY_Controller {
 			$intPhilhealth=$arrPost['intPhilhealth'];
 			$intTin=$arrPost['intTin'];
 			$strEmail=$arrPost['strEmail'];
+			$strWorkEmail=$arrPost['strWorkEmail'];
 			$intSSS=$arrPost['intSSS'];
 
 			$strLot1=$arrPost['strLot1'];
@@ -292,6 +293,8 @@ class Hr extends MY_Controller {
 						'sssNumber'=>$intSSS,
 						'bloodType'=>$strBloodType,
 						'email'=>$strEmail,
+						'work_email'=>$strWorkEmail,
+
 						'pagibigNumber'=>$intPagibig,
 						'philHealthNumber'=>$intPhilhealth,
 
