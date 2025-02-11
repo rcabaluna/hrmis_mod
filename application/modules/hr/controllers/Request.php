@@ -406,7 +406,13 @@ class Request extends MY_Controller
 			);
 
 
+			
+			
+			
+			$addreturn = $this->leave_model->add_employeeLeave($arrleave_data);
+
 			$arrleave_empbalance = array(
+				'leaveid' => $addreturn,
 				'empNumber' => $arrleave['empNumber'],
 				'periodMonth' => date('n', strtotime($arrleave['requestDate'])),
 				'periodYear' => date('Y', strtotime($arrleave['requestDate'])),
@@ -415,13 +421,12 @@ class Request extends MY_Controller
 				'wopay' => $leave_details[15]
 			);
 
-			// $update_leave_balance = $this->Leave_model->update_empleave_balance_from_leave($arrleave_empbalance);
-			
 
-			// $addreturn = $this->leave_model->add_employeeLeave($arrleave_data);
-			// if (count($addreturn) > 0) :
-			// 	log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Add Leave', json_encode($arrob_data), '');
-			// endif;
+
+			$update_leave_balance = $this->Leave_model->update_empleave_balance_from_leave($arrleave_empbalance);
+			if (count($addreturn) > 0) :
+				log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Add Leave', json_encode($arrob_data), '');
+			endif;
 		endif;
 
 		$arrleave_signatory = array(
