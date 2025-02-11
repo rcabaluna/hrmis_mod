@@ -371,8 +371,12 @@ class Leave_model extends CI_Model {
 	// }	
 
 	public function update_empleave_balance_from_leave($params) {
+
+
         $sql = "CALL update_empleave_balance_from_leave(?, ?, ?, ?, ?, ?, ?)";
-        $query = $this->db->query($sql, array($params['empNumber'], $params['periodMonth'], $params['periodYear'], $params['leaveCode'], $params['wpay'], $params['wopay']));
+
+		
+        $query = $this->db->query($sql, array($params['leaveid'],$params['empNumber'], $params['periodMonth'], $params['periodYear'], $params['leaveCode'], $params['wpay'], $params['wopay']));
 
         if ($query) {
             return true;
