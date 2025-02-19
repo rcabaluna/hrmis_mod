@@ -30,17 +30,11 @@ class Tasks extends MY_Controller
 
 		$requestFlow = $this->Request_model->getRequestFlow($officer_empid);
 
-		
-
-
-	
 
 		$allemp_request = array();
 		$arremp_request = $this->Request_model->getEmployeeRequest(curryr(), currmo());	
-
 		
 		$arrRequest = $this->Notification_model->check_request_flow_and_signatories2($requestFlow, $arremp_request,$office);
-
 
 		foreach ($arrRequest as $req) :
 
