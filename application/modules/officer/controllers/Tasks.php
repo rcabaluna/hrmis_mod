@@ -26,16 +26,26 @@ class Tasks extends MY_Controller
 		$office = employee_office($officer_empid);
 		$emps = $this->Position_model->getemployees_byoffice($office);
 		$emps = array_column($emps, 'empNumber');
-
-
-		$requestFlow = $this->Request_model->getRequestFlow($officer_empid);
 	
 
+		$requestFlow = $this->Request_model->getRequestFlow($officer_empid);
+
+		
+
+
+	
 
 		$allemp_request = array();
 		$arremp_request = $this->Request_model->getEmployeeRequest(curryr(), currmo());	
+
 		
 		$arrRequest = $this->Notification_model->check_request_flow_and_signatories2($requestFlow, $arremp_request,$office);
+
+		
+		
+		echo "<pre>";
+		var_dump($arrRequest);
+		exit();
 
 		foreach ($arrRequest as $req) :
 
@@ -43,8 +53,13 @@ class Tasks extends MY_Controller
 				$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
 				$req['req_empname'] = employee_name_formal($req['req_emp']);
 				array_push($allemp_request, $req);
+
+				
 			endif;
+			
 		endforeach;
+		
+		
 
 		$this->arrData['allemp_request'] = $allemp_request;
 		$this->template->load('template/template_view', 'officer/tasks', $this->arrData);

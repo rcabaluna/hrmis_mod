@@ -784,44 +784,45 @@ class Request_model extends CI_Model
 		// CHECK IF DIVISION/UNIT HEAD
 		$this->db->select('*');
 		$this->db->from('tblrequestflow');
-		$this->db->where('RequestType LIKE', '%'.$requesttype.'%');
+		$this->db->where("RequestType LIKE", '%'.$requesttype.'%');
 		$this->db->where('isactive', 1);
-		$this->db->where('Applicant LIKE', '%HEAD%');
-		$this->db->where('Applicant LIKE', '%'.$empid.'%');
-		$this->db->where('Applicant LIKE', '%'.$office.'%');
-
+		$this->db->where("CONCAT(';', Applicant, ';') LIKE", '%HEAD;%');
+		$this->db->where("CONCAT(';', Applicant, ';') LIKE", '%;'.$empid.'%');
+		$this->db->where("CONCAT(';', Applicant, ';') LIKE", '%;'.$office.';%');
+	
 		$head = $this->db->get()->result_array();
-
+	
 		// IF NOT DIVISION/UNIT HEAD, CHECK IF DIVISION/UNIT HAS APPROVER
-		if(!$head){
+		if (!$head) {
 			$this->db->select('*');
 			$this->db->from('tblrequestflow');
-			$this->db->where('RequestType LIKE', '%'.$requesttype.'%');
-			$this->db->where('Applicant LIKE', '%'.$office.'%');
-			$this->db->where('Applicant NOT LIKE', '%HEAD%');
-		
+			$this->db->where("RequestType LIKE", '%'.$requesttype.'%');
+			$this->db->where('isactive', 1);
+			$this->db->where("CONCAT(';', Applicant, ';') LIKE", '%;'.$office.';%');
+			$this->db->where("CONCAT(';', Applicant, ';') NOT LIKE", '%HEAD;%');
+	
 			$unit = $this->db->get()->result_array();
+
+			
 
 			// IF NO DIVISION/UNIT SPECIFIC REQUESTFLOW, CHECK IF ALLEMP
 			if (!$unit) {
 				$this->db->select('*');
 				$this->db->from('tblrequestflow');
-				$this->db->where('RequestType LIKE', '%'.$requesttype.'%');
-				$this->db->where('Applicant LIKE', '%ALLEMP%');
-			
+				$this->db->where("RequestType LIKE", '%'.$requesttype.'%');
+				$this->db->where('isactive', 1);
+				$this->db->where("CONCAT(';', Applicant, ';') LIKE", '%ALLEMP%');
+	
 				$allemp = $this->db->get()->result_array();
-
-				if (!$allemp) {
-					return;
-				}else{
-					return $allemp;
-				}
-			}else{
+	
+				return !empty($allemp) ? $allemp : null;
+			} else {
 				return $unit;
 			}
-		}else{
+		} else {
 			return $head;
 		}
 	}
+	
 	
 }
