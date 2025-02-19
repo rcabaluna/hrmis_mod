@@ -87,9 +87,6 @@ class Leave extends MY_Controller {
 
 			$requestflowid = $this->Request_model->get_approver_id2($office,$arrPost['strLeavetype'],$office);
 
-			echo "<pre>";
-			var_dump($requestflowid);
-			exit();
 			if (!$requestflowid) {
 				$this->session->set_flashdata('strErrorMsg','Request flow not found. Please contact HR.');
 				redirect('employee/leave');
