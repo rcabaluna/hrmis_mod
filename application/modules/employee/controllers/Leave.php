@@ -85,7 +85,7 @@ class Leave extends MY_Controller {
 			$empid = $this->session->userdata('sessEmpNo');
 			$office = employee_office($empid);
 
-			$requestflowid = $this->Request_model->get_approver_id2($office,$arrPost['strLeavetype'],$office);
+			$requestflowid = $this->Request_model->get_approver_id2($office,$arrPost['strLeavetype'],$empid);
 
 			if (!$requestflowid) {
 				$this->session->set_flashdata('strErrorMsg','Request flow not found. Please contact HR.');
@@ -98,6 +98,7 @@ class Leave extends MY_Controller {
 				$requestflowid = $requestflowid[0]['reqID'];
 			}
 			//END GET APPROVER
+
 
 			if(count($curr_leave) < 1):
 				$attachments = array();

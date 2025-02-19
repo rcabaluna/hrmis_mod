@@ -791,8 +791,7 @@ class Request_model extends CI_Model
 		$this->db->where("CONCAT(';', Applicant, ';') LIKE", '%;'.$office.';%');
 	
 		$head = $this->db->get()->result_array();
-	
-		// IF NOT DIVISION/UNIT HEAD, CHECK IF DIVISION/UNIT HAS APPROVER
+			// IF NOT DIVISION/UNIT HEAD, CHECK IF DIVISION/UNIT HAS APPROVER
 		if (!$head) {
 			$this->db->select('*');
 			$this->db->from('tblrequestflow');

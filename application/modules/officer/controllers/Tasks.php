@@ -42,10 +42,7 @@ class Tasks extends MY_Controller
 				$req['req_desti'] = $this->Notification_model->getDestination($req['req_nextsign']);
 				$req['req_empname'] = employee_name_formal($req['req_emp']);
 				array_push($allemp_request, $req);
-
-				
 			endif;
-			
 		endforeach;
 		
 		
