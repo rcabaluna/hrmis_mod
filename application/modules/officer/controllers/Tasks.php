@@ -41,11 +41,6 @@ class Tasks extends MY_Controller
 		
 		$arrRequest = $this->Notification_model->check_request_flow_and_signatories2($requestFlow, $arremp_request,$office);
 
-		
-		
-		echo "<pre>";
-		var_dump($arrRequest);
-		exit();
 
 		foreach ($arrRequest as $req) :
 
