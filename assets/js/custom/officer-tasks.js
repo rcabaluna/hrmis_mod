@@ -29,8 +29,8 @@ $(document).ready(function() {
 
 function view_details(x){
     var data = $(x).data('json');
-
         var status = data['req_nextsign'].split(';');
+
         var details = data['req_details'].split(';');
         $('.modal-title').html('<b>'+data['req_code']+'</b>');
         if(data['req_code'] == "Leave") {

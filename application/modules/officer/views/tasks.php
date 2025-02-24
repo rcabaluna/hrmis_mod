@@ -103,10 +103,14 @@
                                         <a class="btn btn-sm grey-cascade" onclick="print_report(this)" data-requesttype="<?=$request['req_code']?>" data-rdate="<?=$request['req_date']?>"
                                             data-requestid="<?=$request['req_id']?>">
                                                 <span class="icon-magnifier" title="View"></span> View Document</a>
-                                        <?php if (strtoupper($request['req_status']) != strtoupper('Cancelled')) { ?>
+                                        <?php if (strtoupper($request['req_status']) != strtoupper('Cancelled')) {
+                                            ?>
                                             
-                                            <a href="javascript:;" onclick="view_details(this)" class="btn btn-sm blue" data-json='<?=json_encode($request)?>'>
-                                                <i class="icon-magnifier"></i> View Details </a>
+                                            <a href="javascript:;" onclick="view_details(this)" class="btn btn-sm blue" 
+   data-json='<?= htmlspecialchars(json_encode($request), ENT_QUOTES, 'UTF-8') ?>'>
+   <i class="icon-magnifier"></i> View Details 
+</a>
+
                                             
                                             <?php
                                         }?>
