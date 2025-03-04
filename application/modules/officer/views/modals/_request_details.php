@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title"></h4>
             </div>
-            <?= form_open('employee/requests/update_leave', array('class' => 'form-horizontal')) ?>
+            <?= form_open('employee/requests/update_leave', array('class' => 'form-horizontal', 'id'=>'update-leave-form-task')) ?>
             <div class="modal-body">
                 <div class="form-body">
                     <div class="form-group">
@@ -136,7 +136,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title"></h4>
             </div>
-            <?= form_open('employee/requests/update_ob?month=' . currmo() . '&yr=' . curryr(), array('class' => 'form-horizontal')) ?>
+            <?= form_open('employee/requests/update_ob?month=' . currmo() . '&yr=' . curryr(), array('class' => 'form-horizontal', 'id' => 'update-ob-form-task')) ?>
             <div class="modal-body">
                 <div class="form-body">
                     <div class="form-group">
@@ -338,3 +338,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    $("#update-leave-form-task").submit(function (e) { 
+        $("#btncertify").attr("disabled", "disabled");
+        $("#btncertify").text("Submitting...");
+    });
+
+    $("#update-ob-form-task").submit(function (e) { 
+        $("#btnobcertify").attr("disabled", "disabled");
+        $("#btnobcertify").text("Submitting...");
+    });
+</script>
