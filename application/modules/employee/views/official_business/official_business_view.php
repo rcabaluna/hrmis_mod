@@ -417,4 +417,10 @@ $(document).ready(function() {
     });
 
 });
+
+$("#frmOB").submit(function (e) { 
+    $("#btn-request-ob").attr("disabled", "disabled");
+    $("#btn-request-ob").text("Submitting...");
+
+});
 </script>
