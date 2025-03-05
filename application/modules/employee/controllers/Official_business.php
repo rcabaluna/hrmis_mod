@@ -67,7 +67,7 @@ class Official_business extends MY_Controller {
 		if(!empty($arrPost)):
 			$strEmpNum 		  = $_SESSION['sessEmpNo'];
 			$strOBtype		  = $arrPost['strOBtype'];
-			$dtmOBrequestdate = $arrPost['dtmOBrequestdate'];
+			$dtmOBrequestdate = $arrPost['hdtmOBrequestdate'];
 			$dtmOBdatefrom	  = $arrPost['dtmOBdatefrom'];
 			$dtmOBdateto	  = $arrPost['dtmOBdateto'];
 			$dtmTimeFrom	  = $arrPost['dtmTimeFrom'];
@@ -77,6 +77,7 @@ class Official_business extends MY_Controller {
 			$strPurpose		  = $arrPost['strPurpose'];
 			$strStatus		  = $arrPost['strStatus'];
 			$strCode		  = $arrPost['strCode'];
+
 
 			if(!empty($strOBtype)):
 				if(count($this->official_business_model->checkExist($strOBtype, $dtmOBrequestdate))==0):
