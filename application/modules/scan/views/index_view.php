@@ -79,7 +79,7 @@
 
         <!-- BEGIN FOOTER -->
         <div class="page-footer">
-            <div class="page-footer-inner"> 2018 &copy; DOST-HRMIS.
+            <div class="page-footer-inner"> <?=date('Y')?> &copy; DOST-HRMIS.
             </div>
             <div class="scroll-to-top">
                 <i class="icon-arrow-up"></i>

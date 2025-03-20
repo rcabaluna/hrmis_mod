@@ -166,7 +166,7 @@
             <!-- end logo -->
 
             <div class="footer">
-                <div class="copyright"> 2018 © DOST ITD. </div>
+                <div class="copyright"> <?=date('Y') ?> © DOST ITD. </div>
             </div>
 
             <!-- start modal -->

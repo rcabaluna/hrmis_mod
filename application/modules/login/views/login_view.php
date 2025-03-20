@@ -56,7 +56,7 @@
             <!-- END LOGIN FORM -->
 
         </div>
-        <div class="copyright"> 2018 © DOST ITD. </div>
+        <div class="copyright"> <?=date('Y') ?> © DOST ITD. </div>
         <!--[if lt IE 9]>
 <script src="../assets/plugins/respond.min.js"></script>
 <script src="../assets/plugins/excanvas.min.js"></script> 

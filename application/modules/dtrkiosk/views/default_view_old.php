@@ -201,7 +201,7 @@
                    
                     <div class="copyright"> 
                         <em>Note: The DATE and TIME of this Daily Time Record is sychronized with the HRMIS server.</em>
-                        <br><br>2018 © DOST ITD. 
+                        <br><br><?=date('Y') ?> © DOST ITD. 
                     </div>
                 </div>
             </div>
