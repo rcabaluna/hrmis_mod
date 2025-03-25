@@ -82,8 +82,7 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                         </div>
                     </div>
                 </div>
-                
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label class="control-label">Purpose :  <span class="required"> * </span></label>
@@ -96,10 +95,91 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                 </div>
                 <div class="row">
                     <div class="col-sm-8">
-                        <div class="form-group">
-                           <label  class="control-label" class="mt-checkbox mt-checkbox-outline"> With Meal :
-                                <input type="checkbox" value="Y" name="strMeal" id="strMeal" <?=$hrmodule ? 'disabled' : ''?> <?=count($to_details) > 0 ? strtolower($to_details[4]) == 'y' ? 'checked' : '' : '' ?> />
-                        </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Travel Expenses to be Incurred</th>
+                                <th colspan="3">Appropriation/Fund to which travel expenses would be charged to:</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th><input type="radio" name="funding_source" value="General Fund" id="funding_general"> <label for="funding_general"><b>General Fund</b></label></th>
+                                <th><input type="radio" name="funding_source" value="Project Funds" id="funding_project"> <label for="funding_project"><b>Project Funds</b> <small>(Please specify)</small></label></th>
+                                <th><input type="radio" name="funding_source" value="Others" id="funding_others"> <label for="funding_others"><b>Others</b> <small>(e.g., sponsor/requesting agency)</small></label></th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th><input type="text" class="form-control" name="project_fund_details" id="project_fund_details"></th>
+                                <th><input type="text" class="form-control" name="other_fund_details" id="other_fund_details"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Actual</b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Accommodation</td>
+                                <td class="text-center"><input type="checkbox" value="general" id="actual_accommodation_general" name="actual_accommodation"></td>
+                                <td class="text-center"><input type="checkbox" value="project" id="actual_accommodation_project" name="actual_accommodation"></td>
+                                <td class="text-center"><input type="checkbox" value="others" id="actual_accommodation_others" name="actual_accommodation"></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Meals/Food</td>
+                                <td class="text-center"><input type="checkbox" value="general" id="actual_meals_general" name="actual_meals"></td>
+                                <td class="text-center"><input type="checkbox" value="project" id="actual_meals_project" name="actual_meals"></td>
+                                <td class="text-center"><input type="checkbox" value="others" id="actual_meals_others" name="actual_meals"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Per Diem</b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Accommodation</td>
+                                <td class="text-center"><input type="checkbox" value="general" id="perdiem_accomodation_general" name="perdiem_accomodation"></td>
+                                <td class="text-center"><input type="checkbox" value="project" id="perdiem_accomodation_project" name="perdiem_accomodation"></td>
+                                <td class="text-center"><input type="checkbox" value="others" id="perdiem_accomodation_others" name="perdiem_accomodation"></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Meals/Food</td>
+                                <td class="text-center"><input type="checkbox" value="general" id="perdiem_meals_general" name="perdiem_meals"></td>
+                                <td class="text-center"><input type="checkbox" value="project" id="perdiem_meals_project" name="perdiem_meals"></td>
+                                <td class="text-center"><input type="checkbox" value="others" id="perdiem_meals_others" name="perdiem_meals"></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Incidental Expenses</td>
+                                <td class="text-center"><input type="checkbox" value="general" id="perdiem_incidental_general" name="perdiem_incidental"></td>
+                                <td class="text-center"><input type="checkbox" value="project" id="perdiem_incidental_project" name="perdiem_incidental"></td>
+                                <td class="text-center"><input type="checkbox" value="others" id="perdiem_incidental_others" name="perdiem_incidental"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Transportation</b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Official Vehicle</td>
+                                <td class="text-center"><input type="checkbox" value="general" id="transport_official_general" name="transport_official"></td>
+                                <td class="text-center"><input type="checkbox" value="project" id="transport_official_project" name="transport_official"></td>
+                                <td class="text-center"><input type="checkbox" value="others" id="transport_official_others" name="transport_official"></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Public Conveyance</td>
+                                <td class="text-center"><input type="checkbox" value="general" id="transport_public_general" name="transport_public"></td>
+                                <td class="text-center"><input type="checkbox" value="project" id="transport_public_project" name="transport_public"></td>
+                                <td class="text-center"><input type="checkbox" value="others" id="transport_public_others" name="transport_public"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
                     </div>
                 </div>
 
@@ -312,7 +392,6 @@ $(document).ready(function() {
         var todatefrom  = $('#dtmTOdatefrom').val();
         var todateto    = $('#dtmTOdateto').val();
         var purpose     = $('#strPurpose').val();
-        var meal        = $('#strMeal').val();
 
         var link = "<?=base_url('employee/reports/generate/?rpt=reportTO')?>"+"&desti="+desti+"&todatefrom="+todatefrom+"&todateto="+todateto+"&purpose="+purpose+"&meal="+meal;
         $('#to-embed').attr('src',link);

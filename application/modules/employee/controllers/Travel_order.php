@@ -55,12 +55,9 @@ class Travel_order extends MY_Controller {
     {
     	$arrPost = $this->input->post();
 
+	
+
 		if(!empty($arrPost)):
-
-			if (!isset($arrPost['strMeal'])) {
-				$arrPost['strMeal'] = 'N';
-			}
-
 
 			$travelorderno = generate_travel_order_no();
 
@@ -68,10 +65,9 @@ class Travel_order extends MY_Controller {
 			$dtmTOdatefrom	= $arrPost['dtmTOdatefrom'];
 			$dtmTOdateto	= $arrPost['dtmTOdateto'];
 			$strPurpose		= $arrPost['strPurpose'];
-			$strMeal		= $arrPost['strMeal'];
 			$strStatus		= $arrPost['strStatus'];
 			$strCode		= $arrPost['strCode'];
-			$str_details	= $strDestination.';'.$dtmTOdatefrom.';'.$dtmTOdateto.';'.$strPurpose.';'.$strMeal.';'.$travelorderno;
+			$str_details	= $strDestination.';'.$dtmTOdatefrom.';'.$dtmTOdateto.';'.$strPurpose.';'.''.';'.$travelorderno;
 
 			if(!empty($strDestination) && !empty($dtmTOdatefrom)):	
 				if(count($this->travel_order_model->checkExist($str_details))==0):
@@ -136,6 +132,22 @@ class Travel_order extends MY_Controller {
 							'file_location'	 => json_encode($attachments));
 
 					$blnReturn  = $this->travel_order_model->submit($arrData);
+
+
+					// SAVE TO TRAVEL ORDER REQUEST DETAILS
+
+
+					// Get all key-value pairs after "strPurpose"
+					$keys = array_keys($arrPost);
+					$index = array_search("strPurpose", $keys); // Find the index of "strPurpose"
+
+					if ($index !== false) {
+						$tofunding = array_slice($arrPost, $index + 1, null, true); // Slice the array after "strPurpose"
+					}
+
+					$tofunding['requestID'] = $blnReturn;
+
+					$this->travel_order_model->submit_funding_details($tofunding);
 
 					$signatory = $this->Request_model->get_next_signatory_for_email($blnReturn);
 					$recepient = get_email_address($signatory['next_sign']);

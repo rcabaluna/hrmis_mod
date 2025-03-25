@@ -28,14 +28,21 @@ class ReportTO_rpt_model extends CI_Model
 
         $this->db->select('req.*, pers.surname, pers.firstname, pers.middleInitial, pers.middlename, pers.nameExtension, pos.positionDesc, emppos.actualSalary');
         $this->db->from('tblemprequest AS req');
-        $this->db->join('tblemppersonal AS pers', 'pers.empNumber = req.empNumber');
-        $this->db->join('tblempposition AS emppos', 'emppos.empNumber = req.empNumber');
-        $this->db->join('tblposition AS pos', 'pos.positionCode = emppos.positionCode');
+        $this->db->join('tblemppersonal AS pers', 'pers.empNumber = req.empNumber', 'left');
+        $this->db->join('tblempposition AS emppos', 'emppos.empNumber = req.empNumber', 'left');
+        $this->db->join('tblposition AS pos', 'pos.positionCode = emppos.positionCode', 'left');
         $this->db->where('req.requestID', $requestid);
 
         $query = $this->db->get();
         return $query->row_array();
     }
+
+
+	public function getto_funding_details($requestid){
+		$this->db->where('requestID', $requestid);
+		$query = $this->db->get('tblempto_req_details');
+		return $query->row_array();
+	}
 
 	public function show_name_bold($name){
         $this->fpdf->AddFont('dejavusans', 'B', 'dejavusansb.php');
@@ -51,6 +58,8 @@ class ReportTO_rpt_model extends CI_Model
         return utf8_decode($name);
     }
 
+
+	
 
 	public function get_request_signatories($requestid){
         $this->db->select("
@@ -117,8 +126,85 @@ class ReportTO_rpt_model extends CI_Model
 	{
 
 		$requestdetails = $this->getrequest_details($requestid);
+		$fundingdetails = $this->getto_funding_details($requestid);
+
+		$actual_accommodation_general = $actual_accommodation_project = $actual_accommodation_others = "";
+		$actual_meals_general = $actual_meals_project = $actual_meals_others = "";
+		$perdiem_accommodation_general = $perdiem_accommodation_project = $perdiem_accommodation_others = "";
+		$perdiem_meals_general = $perdiem_meals_project = $perdiem_meals_others = "";
+		$perdiem_incidental_general = $perdiem_incidental_project = $perdiem_incidental_others = "";
+		$transport_official_general	= $transport_official_project = $transport_official_others	= "";
+		$transport_public_general	= $transport_public_project = $transport_public_others	= "";
+
+
+
+
+
+		if ($fundingdetails['actual_accommodation'] == 'general') {
+			$actual_accommodation_general = 4;
+		} elseif ($fundingdetails['actual_accommodation'] == 'project') {
+			$actual_accommodation_project = 4;
+		} elseif ($fundingdetails['actual_accommodation'] == 'others') {
+			$actual_accommodation_others = 4;
+		}
+
+		if ($fundingdetails['actual_meals'] == 'general') {
+			$actual_meals_general = 4;
+		} elseif ($fundingdetails['actual_meals'] == 'project') {
+			$actual_meals_project = 4;
+		} elseif ($fundingdetails['actual_meals'] == 'others') {
+			$actual_meals_others = 4;
+		}
+
+		if ($fundingdetails['perdiem_accomodation'] == 'general') {
+			$perdiem_accommodation_general = 4;
+		} elseif ($fundingdetails['perdiem_accomodation'] == 'project') {
+			$perdiem_accommodation_project = 4;
+		} elseif ($fundingdetails['perdiem_accomodation'] == 'others') {
+			$perdiem_accommodation_others = 4;
+		}
+
+		if ($fundingdetails['perdiem_meals'] == 'general') {
+			$perdiem_meals_general = 4;
+		} elseif ($fundingdetails['perdiem_meals'] == 'project') {
+			$perdiem_meals_project = 4;
+		} elseif ($fundingdetails['perdiem_meals'] == 'others') {
+			$perdiem_meals_others = 4;
+		}
+
+		if ($fundingdetails['perdiem_incidental'] == 'general') {
+			$perdiem_incidental_general = 4;
+		} elseif ($fundingdetails['perdiem_incidental'] == 'project') {
+			$perdiem_incidental_project = 4;
+		} elseif ($fundingdetails['perdiem_incidental'] == 'others') {
+			$perdiem_incidental_others = 4;
+		}
+
+		if ($fundingdetails['transport_official'] == 'general') {
+			$transport_official_general = 4;
+		} elseif ($fundingdetails['transport_official'] == 'project') {
+			$transport_official_project = 4;
+		} elseif ($fundingdetails['transport_official'] == 'others') {
+			$transport_official_others = 4;
+		}
+
+		if ($fundingdetails['transport_public'] == 'general') {
+			$transport_public_general = 4;
+		} elseif ($fundingdetails['transport_public'] == 'project') {
+			$transport_public_project = 4;
+		} elseif ($fundingdetails['transport_public'] == 'others') {
+			$transport_public_others = 4;
+		}
+
+
+		
+
+
+
 
 		$office = employee_office_desc($requestdetails['empNumber']);
+
+		
 
         $toDetails = explode(';', $requestdetails['requestDetails']);
 		$requestSignatories = $this->get_request_signatories($requestdetails['requestflowid']);
@@ -133,10 +219,11 @@ class ReportTO_rpt_model extends CI_Model
 		$this->fpdf->SetFont('Arial','',11);
 
 		$image = "assets/images/logo.png";
-					$this->fpdf->Cell(10, 7, "", 0, 0, "C");
+		$this->fpdf->Cell(10, 7, "", 0, 0, "C");
 				
-						$this->fpdf->Cell(10, 10, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 20), 0, 0, 'L', false);
+		$this->fpdf->Cell(10, 10, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 20), 0, 0, 'L', false);
 			
+
 
 		$this->fpdf->SetFont('Arial','',11);
 		$this->fpdf->Cell(137,6,'       Republic of the Philippines','',0,'C');
@@ -192,7 +279,7 @@ class ReportTO_rpt_model extends CI_Model
 		$this->fpdf->SetFont('Arial', "BU", 10);
 		$this->fpdf->Cell(72, 5, '', 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "B", 10);
-		$this->fpdf->Cell(30, 5, "Return Date: ", 0, 0, "L");
+		$this->fpdf->Cell(28, 5, "Return Date: ", 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "", 10);
 		$this->fpdf->Cell(75, 5, date("F j, Y", strtotime($toDetails[2])), 0, 0, "L");
 		
@@ -228,8 +315,124 @@ class ReportTO_rpt_model extends CI_Model
 		$this->fpdf->SetFont('Arial', "", 10);
 		$this->fpdf->MultiCell(90, 6, '-	'.$toDetails[3], 0, "L");
 
+		// FUNDING DETAILS
 
-		$this->fpdf->Ln(50);
+		$this->fpdf->Ln(10);
+		$this->fpdf->SetFont('Arial', "B", 8.5);
+		$this->fpdf->Cell(90, 5, "Travel Expenses to be inccured", 0, 0, "L");
+		$this->fpdf->SetFont('Arial', "B", 8);
+		$this->fpdf->Cell(90, 5, "Approriate/Fund to which travel expenses would be charged to:", 0, 0, "R");
+		$this->fpdf->Ln(8);
+		$this->fpdf->Cell(60, 5, "", 0, 0, "L");
+		
+		$this->fpdf->SetFont('Arial', "B", 9);
+		$this->fpdf->Cell(10, 5, "(", 0, 0, "C");
+		$this->fpdf->SetFont('ZapfDingbats','', 12);
+		if ($fundingdetails['funding_source'] == 'General Fund') {
+			$this->fpdf->Cell(1, 5, 4, 0, 0, "R");
+		}else{
+			$this->fpdf->Cell(1, 5, "", 0, 0, "R");
+		}
+
+
+		
+		
+		$this->fpdf->SetFont('Arial', "B", 9);
+
+		$this->fpdf->Cell(21, 5, " ) General Fund", 0, 0, "C");
+		$this->fpdf->Cell(5, 5, "", 0, 0, "R");
+		$this->fpdf->Cell(10, 5, "(", 0, 0, "R");
+		$this->fpdf->SetFont('ZapfDingbats','', 12);
+		if ($fundingdetails['funding_source'] == 'Project Funds') {
+			$this->fpdf->Cell(4, 5, 4, 0, 0, "R");
+		}else{
+			$this->fpdf->Cell(1, 5, "", 0, 0, "R");
+		}
+
+		$this->fpdf->SetFont('Arial', "B", 9);
+
+		$this->fpdf->Cell(21, 5, " ) Project Funds", 0, 0, "C");
+
+
+		$this->fpdf->Cell(5, 5, "", 0, 0, "R");
+		$this->fpdf->Cell(11, 5, "(", 0, 0, "R");
+		$this->fpdf->SetFont('ZapfDingbats','', 12);
+
+		if ($fundingdetails['funding_source'] == 'Others') {
+			$this->fpdf->Cell(5, 5, 4, 0, 0, "R");
+		}else{
+			$this->fpdf->Cell(5, 5, "", 0, 0, "R");
+		}
+
+		
+		$this->fpdf->SetFont('Arial', "B", 9);
+
+		$this->fpdf->Cell(10, 5, " ) Others", 0, 0, "C");
+
+		$this->fpdf->Ln(6);
+		$this->fpdf->Cell(60, 5, "", 0, 0, "L");
+		$this->fpdf->SetFont('Arial', "", 9);
+		$this->fpdf->Cell(40, 5, "", 0, 0, "C");
+		$this->fpdf->Cell(40, 5, $fundingdetails['project_fund_details'], 0, 0, "C");
+		$this->fpdf->Cell(40, 5, $fundingdetails['other_fund_details'], 0, 0, "C");
+		$this->fpdf->Ln(6);
+		$this->fpdf->SetFont('Arial', "B", 9);
+		$this->fpdf->Cell(60, 5, "Actual", 0, 0, "L");
+		$this->fpdf->Cell(120, 5, "", 0, 0, "C");
+		$this->fpdf->Ln(6);
+		$this->fpdf->SetFont('Arial', "", 9);
+		$this->fpdf->Cell(60, 5, "Accommodation", 0, 0, "L");
+		$this->fpdf->SetFont('ZapfDingbats','', 12);
+		$this->fpdf->Cell(40,5,$actual_accommodation_general,"",0,"C");
+		$this->fpdf->Cell(40,5,$actual_accommodation_project,"",0,"C");
+		$this->fpdf->Cell(40,5,$actual_accommodation_others,"",0,"C");
+		$this->fpdf->Ln(6);
+		$this->fpdf->SetFont('Arial', "", 9);
+		$this->fpdf->Cell(60, 5, "Meals/Food", 0, 0, "L");
+		$this->fpdf->SetFont('ZapfDingbats','', 12);
+		$this->fpdf->Cell(40,5,$actual_meals_general,"",0,"C");
+		$this->fpdf->Cell(40,5,$actual_meals_project,"",0,"C");
+		$this->fpdf->Cell(40,5,$actual_meals_others,"",0,"C");
+		$this->fpdf->Ln(6);
+		$this->fpdf->SetFont('Arial', "B", 9);
+		$this->fpdf->Cell(60, 5, "Per Diem", 0, 0, "L");
+		$this->fpdf->Cell(120, 5, "", 0, 0, "C");
+		$this->fpdf->Ln(6);
+		$this->fpdf->SetFont('Arial', "", 9);
+		$this->fpdf->Cell(60, 5, "Accommodation", 0, 0, "L");
+		$this->fpdf->SetFont('ZapfDingbats','', 12);
+		$this->fpdf->Cell(40,5,$perdiem_accommodation_general,"",0,"C");
+		$this->fpdf->Cell(40,5,$perdiem_accommodation_project,"",0,"C");
+		$this->fpdf->Cell(40,5,$perdiem_accommodation_others,"",0,"C");
+		$this->fpdf->Ln(6);
+		$this->fpdf->SetFont('Arial', "", 9);
+		$this->fpdf->Cell(60, 5, "Subsistence", 0, 0, "L");
+		$this->fpdf->SetFont('ZapfDingbats','', 12);
+		$this->fpdf->Cell(40,5,$perdiem_meals_general,"",0,"C");
+		$this->fpdf->Cell(40,5,$perdiem_meals_project,"",0,"C");
+		$this->fpdf->Cell(40,5,$perdiem_meals_others,"",0,"C");
+		$this->fpdf->Ln(6);
+		$this->fpdf->SetFont('Arial', "", 9);
+		$this->fpdf->Cell(60, 5, "Incidental expenses", 0, 0, "L");
+		$this->fpdf->SetFont('ZapfDingbats','', 12);
+		$this->fpdf->Cell(40,5,$perdiem_incidental_general,"",0,"C");
+		$this->fpdf->Cell(40,5,$perdiem_incidental_project,"",0,"C");
+		$this->fpdf->Cell(40,5,$perdiem_incidental_others,"",0,"C");
+		$this->fpdf->Ln(10);
+		$this->fpdf->SetFont('Arial', "B", 9);
+		$this->fpdf->Cell(60, 5, "Remarks/Special Instructions:", 0, 0, "L");
+
+		$this->fpdf->SetFont('Arial', "", 9);
+		$this->fpdf->Ln(0);
+		$this->fpdf->Cell(51, 5, "", 0, 0, "L");
+		$this->fpdf->Cell(50, 5, "Lorem Ipsum set amet dolor.", 0, 0, "L");
+		$this->fpdf->Ln(0);
+		$this->fpdf->Cell(50, 5, "", 0, 0, "L");
+
+		$this->fpdf->Cell(10, 5, "_________________________________________________________________________", 0, 0, "L");
+
+
+		$this->fpdf->Ln(15);
 		$this->fpdf->SetFont('Arial', "BI", 8);
 		$this->fpdf->Cell(10, 5, "Note:", 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "I", 8);

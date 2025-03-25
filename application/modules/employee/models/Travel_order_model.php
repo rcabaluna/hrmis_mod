@@ -42,6 +42,12 @@ class Travel_order_model extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
+	function submit_funding_details($arrData)
+	{
+		$this->db->insert('tblempto_req_details', $arrData);
+		return $this->db->insert_id();		
+	}
+
 	function add($arrData)
 	{
 		$this->db->insert('tblemptravelorder', $arrData);
