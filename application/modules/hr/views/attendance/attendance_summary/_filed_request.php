@@ -3,6 +3,7 @@
     $month = isset($_GET['month']) ? $_GET['month'] : date('m');
     $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
     $tab = isset($_GET['tab']) ? $_GET['tab'] : '';
+
     ?>
 
     
@@ -119,18 +120,18 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    if (isset($arrleave[0]) && $arrleave[0] != NULL):
-                                        $no=1; foreach($arrleave as $rleave): if(count($rleave) > 0): $rdate = explode(';', $rleave['requestDetails']); ?>
+                                    if (sizeof($arrleave) > 0):
+                                        $no=1; foreach($arrleave as $rleave): $rdate = explode(';', $rleave['requestDetails']); ?>
                                     <tr>
                                         <td align="center"><?=$no++?></td>
-                                        <td align="center"><?=$rleave['requestDate']?></td>
+                                        <td align="center"><?=date('F d, Y', strtotime($rleave['requestDate']))?></td>
                                         <td align="center"><?=$rdate[0]?></td>
-                                        <td align="center"><?=$rdate[2]?></td>
-                                        <td align="center"><?=$rdate[3]?></td>
-                                        <td align="center"><?=$rdate[1]?></td>
+                                        <td align="center"><?=date('F d, Y', strtotime($rdate[1]))?></td>
+                                        <td align="center"><?=date('F d, Y', strtotime($rdate[2]))?></td>
+                                        <td align="center"><?=$rdate[6]?></td>
                                         <td align="center"><?=$rleave['requestStatus']?></td>
                                     </tr>
-                                    <?php endif; endforeach;
+                                    <?php endforeach;
                                     endif; ?>
                                 </tbody>
                             </table>
@@ -167,7 +168,7 @@
                         <!-- end monetization order -->
 
                         <!-- begin official business -->
-                        <div class="tab-pane <?=$tab=='ob'? 'active' : ''?>" id="tab-ob">
+                        <div class="tab-pane <?=$tab=='ob' || $tab=='' ? 'active' : ''?>" id="tab-ob">
                             <table class="table table-bordered table-hover" id="tbl-ob">
                                 <thead>
                                     <tr>
@@ -182,19 +183,27 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    if (isset($arrob) && $arrob[0] != NULL ):
-                                        $no=1; foreach($arrob as $ob): if(count($ob) > 0): $rdate = explode(';', $ob['requestDetails']); ?>
-                                        <tr>
-                                            <td align="center"><?=$no++?></td>
-                                            <td align="center"><?=$ob['requestDate']?></td>
-                                            <td align="left"><?=$rdate[6]?></td>
-                                            <td align="left"><?=$rdate[7]?></td>
-                                            <td align="left"><?=$rdate[2]?> <?=$rdate[4]?></td>
-                                            <td align="left"><?=$rdate[3]?> <?=$rdate[5]?></td>
-                                            <td align="center"><?=$ob['requestStatus']?></td>
-                                        </tr>
-                                        <?php endif; endforeach; 
-                                    endif; ?>
+                                    
+                                    if (sizeof($arrob) > 0) {
+                                            $no=1;
+                                            foreach ($arrob as $ob) {
+                                                $rdate = explode(';', $ob['requestDetails']);
+                                               ?>
+                                               <tr>
+                                             <td class="text-center"><?=$no++?></td>
+                                             <td class="text-center"><?=date('F d, Y', strtotime($ob['requestDate']))?></td>
+                                             <td class="text-left"><?=$rdate[6]?></td>
+                                             <td class="text-left"><?=$rdate[7]?></td>
+                                             <td class="text-left"><?=date('F d, Y', strtotime($rdate[2]))?> <?=date('H:i A', strtotime($rdate[4]))?></td>
+                                             <td class="text-left"><?=date('F d, Y', strtotime($rdate[3]))?> <?=date('H:i A', strtotime($rdate[5]))?></td>
+                                             <td class="text-center"><?=$ob['requestStatus']?></td>
+                                         </tr>
+                                               
+                                               <?php
+                                            }
+                                        ?>
+                                     
+                                        <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -226,13 +235,13 @@
                                         
                                         if(count($to) > 0): $rdate = explode(';', $to['requestDetails']); ?>
                                         <tr>
-                                            <td align="center"><?=$no++?></td>
-                                            <td align="center"><?=$to['requestDate']?></td>
-                                            <td align="left"><?=$rdate[0]?></td>
-                                            <td align="left"><?=$rdate[3]?></td>
-                                            <td align="left"><?=$rdate[1]?></td>
-                                            <td align="left"><?=$rdate[2]?></td>
-                                            <td align="center"><?=$to['requestStatus']?></td>
+                                            <td class="text-center"><?=$no++?></td>
+                                            <td class="text-center"><?=date('F d, Y', strtotime($to['requestDate']))?></td>
+                                            <td class="text-left"><?=$rdate[0]?></td>
+                                            <td class="text-left"><?=$rdate[3]?></td>
+                                            <td class="text-center"><?=date('F d, Y', strtotime($rdate[1]))?></td>
+                                            <td class="text-center"><?=date('F d, Y', strtotime($rdate[2]))?></td>
+                                            <td class="text-center"><?=$to['requestStatus']?></td>
                                         </tr>
                                         <?php endif; endforeach;
                                     endif; ?>
@@ -256,7 +265,7 @@
                                     <?php $no=1; foreach($arrpds as $pds): if(count($pds) > 0): $pds_details = explode(';', $pds['requestDetails']); ?>
                                     <tr>
                                         <td align="center"><?=$no++?></td>
-                                        <td align="center"><?=$pds['requestDate']?></td>
+                                        <td align="center"><?=date('F d, Y', strtotime($pds['requestDate']))?></td>
                                         <td align="center"><?=$pds_details[0]?></td>
                                         <td align="center"><?=$pds['requestStatus']?></td>
                                     </tr>

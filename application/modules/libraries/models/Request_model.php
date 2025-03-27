@@ -712,13 +712,15 @@ class Request_model extends CI_Model
         
         $startDate = "{$year}-{$smonth}-01";
         $endDate = date("Y-m-t", strtotime("{$year}-{$emonth}-01"));
+
+		
         
         $this->db->where('requestDate >=', $startDate);
         $this->db->where('requestDate <=', $endDate);
 
         // Exclude '201' requestCode that starts with '201%'
-        $this->db->where_not_in('requestCode', ['201']); // Exclude '201'
-        $this->db->where('requestCode NOT LIKE', '201%');
+        // $this->db->where_not_in('requestCode', ['201']); // Exclude '201'
+        // $this->db->where('requestCode NOT LIKE', '201%');
         
         // Order by requestDate in descending order
         $this->db->order_by('requestDate', 'DESC');
