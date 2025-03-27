@@ -679,22 +679,54 @@ class Request_model extends CI_Model
 		return $res;
 	}
 
-	function getEmpFiledRequest($empNumber, $arrcode = null)
-	{
+	// function getEmpFiledRequest($empNumber, $arrcode = null)
+	// {
+
+	// 	$smonth = currmo() == 'all' ? '01' : currmo();
+	// 	$emonth = currmo() == 'all' ? '12' : currmo();
+
+
+	// 	$this->db->order_by('requestDate', 'desc');
+	// 	$this->db->where('empNumber', $empNumber);
+	// 	$this->db->where_in('requestCode', $arrcode);
+	// 	$this->db->where('(requestDate >= \'' . curryr() . '-' . $smonth . '-01\' and requestDate <= LAST_DAY(\'' . curryr() . '-' . $emonth . '-01\'))');
+	// 	if (in_array('201', $arrcode)) {
+	// 		$this->db->or_like('requestCode', '201', 'after', false);
+	// 	}
+	// 	// $this->db->where('requestStatus!=','Cancelled');
+	// 	$res = $this->db->get_where('tblemprequest')->result_array();
+
+	// 	return $res;
+	// }
+
+	function getEmpFiledRequest($empNumber, $requestCodes = null) {
+        $this->db->select('*');
+        $this->db->from('tblemprequest');
+        $this->db->where('empNumber', $empNumber);
+        
+		$this->db->where_in('requestCode', $requestCodes);
+
 		$smonth = currmo() == 'all' ? '01' : currmo();
 		$emonth = currmo() == 'all' ? '12' : currmo();
-		$this->db->order_by('requestDate', 'desc');
-		$this->db->where('empNumber', $empNumber);
-		$this->db->where_in('requestCode', $arrcode);
-		$this->db->where('(requestDate >= \'' . curryr() . '-' . $smonth . '-01\' and requestDate <= LAST_DAY(\'' . curryr() . '-' . $emonth . '-01\'))');
-		if (in_array('201', $arrcode)) {
-			$this->db->or_like('requestCode', '201', 'after', false);
-		}
-		// $this->db->where('requestStatus!=','Cancelled');
-		$res = $this->db->get_where('tblemprequest')->result_array();
+        $year = date('Y');
+        
+        $startDate = "{$year}-{$smonth}-01";
+        $endDate = date("Y-m-t", strtotime("{$year}-{$emonth}-01"));
+        
+        $this->db->where('requestDate >=', $startDate);
+        $this->db->where('requestDate <=', $endDate);
 
-		return $res;
-	}
+        // Exclude '201' requestCode that starts with '201%'
+        $this->db->where_not_in('requestCode', ['201']); // Exclude '201'
+        $this->db->where('requestCode NOT LIKE', '201%');
+        
+        // Order by requestDate in descending order
+        $this->db->order_by('requestDate', 'DESC');
+        
+        // Execute the query and return the result
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
 	function request_type()
 	{

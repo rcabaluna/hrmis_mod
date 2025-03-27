@@ -620,11 +620,16 @@ class Attendance extends MY_Controller
 	{
 		$empid = $this->uri->segment(4);
 
+	
 
 		$res = $this->Hr_model->getData($empid, '', 'all');
 		$this->arrData['arrData'] = $res[0];
 
+	
+
 		$arremp_request = $this->Request_model->getEmpFiledRequest($empid, array('Commutation', 'DTR', 'Leave', 'Monetization', 'OB', 'TO', '201'));
+
+	
 
 		$this->arrData['arrcomm'] = array_map(function ($r) {
 			if (strtolower($r['requestCode']) == 'commutation') {
@@ -663,6 +668,7 @@ class Attendance extends MY_Controller
 				return $r;
 			}
 		}, $arremp_request);
+
 
 		$this->template->load('template/template_view', 'attendance/attendance_summary/summary', $this->arrData);
 	}

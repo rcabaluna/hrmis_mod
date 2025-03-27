@@ -2,7 +2,10 @@
 <?php
     $month = isset($_GET['month']) ? $_GET['month'] : date('m');
     $yr = isset($_GET['yr']) ? $_GET['yr'] : date('Y');
-    $tab = isset($_GET['tab']) ? $_GET['tab'] : '';?>
+    $tab = isset($_GET['tab']) ? $_GET['tab'] : '';
+    ?>
+
+    
 
 <div class="tab-pane active" id="tab_1_2">
     <div class="col-md-12">
@@ -40,7 +43,7 @@
                     </ul>
                     <div class="tab-content">
                         <!-- begin commutation order -->
-                        <div class="tab-pane <?=$tab=='comm' || $tab==''? 'active' : ''?>" id="tab-comm">
+                        <!-- <div class="tab-pane <?=$tab=='comm' || $tab==''? 'active' : ''?>" id="tab-comm">
                             <table class="table table-bordered table-hover" id="tbl-comm">
                                 <thead>
                                     <tr>
@@ -52,18 +55,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no=1; foreach($arrcomm as $commutation): if(count($commutation) > 0): $rdate = explode(';', $commutation['requestDetails']); ?>
-                                    <tr>
-                                        <td align="center"><?=$no++?></td>
-                                        <td align="center"><?=$commutation['requestDate']?></td>
-                                        <td align="center"><?=join('-',array($rdate[3],$rdate[2],$rdate[1] == '' ? $rdate[0] : $rdate[1] ))?></td>
-                                        <td align="center"><?=$rdate[4]?></td>
-                                        <td align="center"><?=$commutation['requestStatus']?></td>
-                                    </tr>
-                                    <?php endif; endforeach; ?>
+                                    
+                                    <?php if(isset($arrcomm)){ if($arrcomm[0] != NULL){ ?>
+                                        <?php $no=1; foreach($arrcomm as $commutation): if(count($commutation) > 0): $rdate = explode(';', $commutation['requestDetails']); ?>
+                                            <tr>
+                                                <td align="center"><?=$no++?></td>
+                                                <td align="center"><?=$commutation['requestDate']?></td>
+                                                <td align="center"><?=join('-',array($rdate[3],$rdate[2],$rdate[1] == '' ? $rdate[0] : $rdate[1] ))?></td>
+                                                <td align="center"><?=$rdate[4]?></td>
+                                                <td align="center"><?=$commutation['requestStatus']?></td>
+                                            </tr>
+                                            <?php endif; endforeach; ?>
+                                        <?php } }?>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> -->
                         <!-- end commutation order -->
 
                         <!-- begin dtr -->
@@ -112,7 +118,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no=1; foreach($arrleave as $rleave): if(count($rleave) > 0): $rdate = explode(';', $rleave['requestDetails']); ?>
+                                    <?php
+                                    if (isset($arrleave[0]) && $arrleave[0] != NULL):
+                                        $no=1; foreach($arrleave as $rleave): if(count($rleave) > 0): $rdate = explode(';', $rleave['requestDetails']); ?>
                                     <tr>
                                         <td align="center"><?=$no++?></td>
                                         <td align="center"><?=$rleave['requestDate']?></td>
@@ -122,7 +130,8 @@
                                         <td align="center"><?=$rdate[1]?></td>
                                         <td align="center"><?=$rleave['requestStatus']?></td>
                                     </tr>
-                                    <?php endif; endforeach; ?>
+                                    <?php endif; endforeach;
+                                    endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -172,17 +181,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no=1; foreach($arrob as $ob): if(count($ob) > 0): $rdate = explode(';', $ob['requestDetails']); ?>
-                                    <tr>
-                                        <td align="center"><?=$no++?></td>
-                                        <td align="center"><?=$ob['requestDate']?></td>
-                                        <td align="left"><?=$rdate[6]?></td>
-                                        <td align="left"><?=$rdate[7]?></td>
-                                        <td align="left"><?=$rdate[2]?> <?=$rdate[4]?></td>
-                                        <td align="left"><?=$rdate[3]?> <?=$rdate[5]?></td>
-                                        <td align="center"><?=$ob['requestStatus']?></td>
-                                    </tr>
-                                    <?php endif; endforeach; ?>
+                                    <?php
+                                    if (isset($arrob) && $arrob[0] != NULL ):
+                                        $no=1; foreach($arrob as $ob): if(count($ob) > 0): $rdate = explode(';', $ob['requestDetails']); ?>
+                                        <tr>
+                                            <td align="center"><?=$no++?></td>
+                                            <td align="center"><?=$ob['requestDate']?></td>
+                                            <td align="left"><?=$rdate[6]?></td>
+                                            <td align="left"><?=$rdate[7]?></td>
+                                            <td align="left"><?=$rdate[2]?> <?=$rdate[4]?></td>
+                                            <td align="left"><?=$rdate[3]?> <?=$rdate[5]?></td>
+                                            <td align="center"><?=$ob['requestStatus']?></td>
+                                        </tr>
+                                        <?php endif; endforeach; 
+                                    endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -203,17 +215,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no=1; foreach($arrto as $to): if(count($to) > 0): $rdate = explode(';', $to['requestDetails']); ?>
-                                    <tr>
-                                        <td align="center"><?=$no++?></td>
-                                        <td align="center"><?=$to['requestDate']?></td>
-                                        <td align="left"><?=$rdate[0]?></td>
-                                        <td align="left"><?=$rdate[3]?></td>
-                                        <td align="left"><?=$rdate[1]?></td>
-                                        <td align="left"><?=$rdate[2]?></td>
-                                        <td align="center"><?=$to['requestStatus']?></td>
-                                    </tr>
-                                    <?php endif; endforeach; ?>
+                                    <?php
+
+                                    if (isset($arrto[0]) && $arrto[0] != NULL):
+
+
+                                        $no=1; foreach($arrto as $to):
+                                        
+                                        
+                                        
+                                        if(count($to) > 0): $rdate = explode(';', $to['requestDetails']); ?>
+                                        <tr>
+                                            <td align="center"><?=$no++?></td>
+                                            <td align="center"><?=$to['requestDate']?></td>
+                                            <td align="left"><?=$rdate[0]?></td>
+                                            <td align="left"><?=$rdate[3]?></td>
+                                            <td align="left"><?=$rdate[1]?></td>
+                                            <td align="left"><?=$rdate[2]?></td>
+                                            <td align="center"><?=$to['requestStatus']?></td>
+                                        </tr>
+                                        <?php endif; endforeach;
+                                    endif; ?>
                                 </tbody>
                             </table>
                         </div>

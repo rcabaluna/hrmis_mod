@@ -13,7 +13,7 @@ class Travel_order extends MY_Controller {
 
 	function __construct() {
         parent::__construct();
-        $this->load->model(array('employee/travel_order_model', 'libraries/Request_model'));
+        $this->load->model(array('employee/travel_order_model', 'libraries/Request_model', 'hr/Hr_model', 'libraries/Org_structure_model', 'libraries/Appointment_status_model'));
     }
 
     public function index()
@@ -47,6 +47,9 @@ class Travel_order extends MY_Controller {
 
 	public function add()
 	{
+
+		$this->arrData['arrEmployees'] = $this->Hr_model->getData_byGroup();
+
 		$this->arrData['action'] = 'add';
 		$this->template->load('template/template_view', 'employee/travel_order/travel_order_view', $this->arrData);
 	}
@@ -55,9 +58,12 @@ class Travel_order extends MY_Controller {
     {
     	$arrPost = $this->input->post();
 
+		
 	
 
 		if(!empty($arrPost)):
+
+			$selemps = implode('/', $arrPost['selemps']);
 
 			$travelorderno = generate_travel_order_no();
 
@@ -67,7 +73,7 @@ class Travel_order extends MY_Controller {
 			$strPurpose		= $arrPost['strPurpose'];
 			$strStatus		= $arrPost['strStatus'];
 			$strCode		= $arrPost['strCode'];
-			$str_details	= $strDestination.';'.$dtmTOdatefrom.';'.$dtmTOdateto.';'.$strPurpose.';'.''.';'.$travelorderno;
+			$str_details	= $strDestination.';'.$dtmTOdatefrom.';'.$dtmTOdateto.';'.$strPurpose.';'.''.';'.$travelorderno.';'.$selemps;
 
 			if(!empty($strDestination) && !empty($dtmTOdatefrom)):	
 				if(count($this->travel_order_model->checkExist($str_details))==0):
@@ -132,7 +138,7 @@ class Travel_order extends MY_Controller {
 							'file_location'	 => json_encode($attachments));
 
 					$blnReturn  = $this->travel_order_model->submit($arrData);
-
+				
 
 					// SAVE TO TRAVEL ORDER REQUEST DETAILS
 
@@ -146,6 +152,12 @@ class Travel_order extends MY_Controller {
 					}
 
 					$tofunding['requestID'] = $blnReturn;
+
+
+					// echo "<pre>";
+					// var_dump($tofunding);
+
+					// exit();
 
 					$this->travel_order_model->submit_funding_details($tofunding);
 

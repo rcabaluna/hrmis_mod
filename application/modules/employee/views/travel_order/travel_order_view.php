@@ -10,7 +10,14 @@ $form_action = $action=='add' ? 'employee/travel_order/submit' : 'employee/trave
 $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
 ?>
 <!-- BEGIN PAGE BAR -->
-<?=load_plugin('css', array('datepicker','timepicker'))?>
+<?=load_plugin('css', array('datetimepicker','timepicker','datepicker','select2','multi-select'))?>
+
+<style>
+    #ms-selemps{
+        width: 80%;
+    }
+    
+</style>
 
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -50,7 +57,29 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                 <input class="hidden" name="strCode" value="TO">
                 <input type="hidden" id="txtfilesize" name="txtfilesize">
                 <input type="hidden" id="txtdgstorage" name="txtdgstorage">
+                <!-- CUSTOM -->
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label">Employees <span class="required"> * </span></label>
+                                    <select multiple="multiple" class="multi-select form-control" id="selemps" name="selemps[]">
+                                        <optgroup label="SELECT ALL">
+                                        <?php
+                                            foreach($arrEmployees as $emp):
+                                                $selected = isset($arrob_data) ? in_array($emp['empNumber'], array_column($arrob_data,'empNumber')) ? 'selected' : '' : '';
+                                                echo '<option value="'.$emp['empNumber'].'">'.
+                                                        getfullname($emp['firstname'],$emp['surname'],$emp['middlename'],$emp['middleInitial'],$emp['nameExtension']).'</option>';
+                                            endforeach; ?>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea hidden id="json_employee"><?=json_encode($arrEmployees)?></textarea>
+                        <br>
+                 <!-- END CUSTOM -->
                 <div class="row">
+                    
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">Date From :  <span class="required"> * </span></label>
@@ -109,29 +138,17 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                             </tr>
                             <tr>
                                 <th></th>
-                                <th></th>
-                                <th><input type="text" class="form-control" name="project_fund_details" id="project_fund_details"></th>
-                                <th><input type="text" class="form-control" name="other_fund_details" id="other_fund_details"></th>
+                                <th><input disabled type="text" class="form-control" name="project_fund_general" id="actual_fund_details"></th>
+                                <th><input disabled type="text" class="form-control" name="project_fund_project" id="project_fund_details"></th>
+                                <th><input disabled type="text" class="form-control" name="project_fund_others" id="other_fund_details"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td><b>Actual</b></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Accommodation</td>
-                                <td class="text-center"><input type="checkbox" value="general" id="actual_accommodation_general" name="actual_accommodation"></td>
-                                <td class="text-center"><input type="checkbox" value="project" id="actual_accommodation_project" name="actual_accommodation"></td>
-                                <td class="text-center"><input type="checkbox" value="others" id="actual_accommodation_others" name="actual_accommodation"></td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Meals/Food</td>
-                                <td class="text-center"><input type="checkbox" value="general" id="actual_meals_general" name="actual_meals"></td>
-                                <td class="text-center"><input type="checkbox" value="project" id="actual_meals_project" name="actual_meals"></td>
-                                <td class="text-center"><input type="checkbox" value="others" id="actual_meals_others" name="actual_meals"></td>
+                                <td class="text-center"><input type="checkbox" value="general" id="actual_accommodation_general" name="actual"></td>
+                                <td class="text-center"><input type="checkbox" value="project" id="actual_accommodation_project" name="actual"></td>
+                                <td class="text-center"><input type="checkbox" value="others" id="actual_accommodation_others" name="actual"></td>
                             </tr>
                             <tr>
                                 <td><b>Per Diem</b></td>
@@ -170,10 +187,22 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                                 <td class="text-center"><input type="checkbox" value="others" id="transport_official_others" name="transport_official"></td>
                             </tr>
                             <tr>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Public Conveyance</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Public Conveyance <br>&nbsp;&nbsp;&nbsp;&nbsp;<small><i>(Airplane, Bus, Taxi)</i></small></td>
                                 <td class="text-center"><input type="checkbox" value="general" id="transport_public_general" name="transport_public"></td>
                                 <td class="text-center"><input type="checkbox" value="project" id="transport_public_project" name="transport_public"></td>
                                 <td class="text-center"><input type="checkbox" value="others" id="transport_public_others" name="transport_public"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Others</b></td>
+                                <td class="text-center"><input type="checkbox" value="general" id="others_general" name="others_details"></td>
+                                <td class="text-center"><input type="checkbox" value="project" id="others_project" name="others_details"></td>
+                                <td class="text-center"><input type="checkbox" value="others" id="others_others" name="others_details"></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th><input disabled type="text" class="form-control" id="others_remarks_general" name="others_details_remarks"></th>
+                                <th><input disabled type="text" class="form-control" id="others_remarks_project" name="others_details_remarks"></th>
+                                <th><input disabled type="text" class="form-control" id="others_remarks_others" name="others_details_remarks"></th>
                             </tr>
                         </tbody>
                     </table>
@@ -234,7 +263,6 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
                     </div>
                 </div>
                 <?=form_close()?>
-            </div>
         </div>
     </div>
 </div>
@@ -399,5 +427,55 @@ $(document).ready(function() {
         $('#to-form').modal('show');
         
     });
+
+  
+
+    $('#selemps').multiSelect({
+        selectableOptgroup: true
+    });
+
+
+
+    // TOGGLE INPUTS WHEN CLICKED FUNDING SOURCE
+    $('input[type=radio][name=funding_source]').change(function() {
+        
+        let selectedColumn = $(this).closest('th').index();
+
+        
+        // Clear and disable all text inputs except for the last row
+        $('thead tr:nth-child(3) th input').val('').prop('disabled', true);
+        $('tbody input[type=checkbox]').prop('checked', false).prop('disabled', true);
+
+        $("tbody span").removeClass("checked");
+        $("tbody input[type=text]").val('');
+        $("tbody input[type=text]").prop('disabled',true);
+
+
+        
+        
+        // Enable only the selected column's text input and checkboxes in that column
+        $('thead tr:nth-child(3) th:eq(' + selectedColumn + ') input').prop('disabled', false);
+        $('tbody tr td:nth-child(' + (selectedColumn + 1) + ') input[type=checkbox]').prop('disabled', false);
+
+    });
+
+    $('input[type=checkbox][name=others_details]').change(function() {
+        
+        let selectedColumn = $(this).closest('td').index();
+        let textInput = $('tbody tr:last-child th:eq(' + selectedColumn + ') input');
+
+     
+        
+        if ($(this).is(':checked')) {
+            textInput.prop('disabled', false);
+        } else {
+            textInput.val('').prop('disabled', true);
+        }
+    });
+
+
 });
 </script>
+
+
+<?=load_plugin('js',array('datetimepicker','timepicker','datepicker','select2','multi-select'));?>

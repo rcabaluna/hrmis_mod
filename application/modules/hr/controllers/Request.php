@@ -463,7 +463,11 @@ class Request extends MY_Controller
 	{
 		$arrPost = $this->input->post();
 
+
+	
 		$optstatus = isset($_GET['status']) ? $_GET['status'] : '';
+
+	
 
 		$txtremarks = '';
 		if (!empty($arrPost)) :
@@ -475,23 +479,26 @@ class Request extends MY_Controller
 		$arrto = $this->travel_order_model->getData($_GET['req_id']);
 		$to_details = explode(';', $arrto['requestDetails']);
 
+
+
+
 		# signatories
 		$arremp_signature = $this->Request_model->get_signature('TO');
 		if (strtoupper($optstatus) == 'CERTIFIED') :
 			$arrto_data = array(
 				'dateFiled'		=> $arrto['requestDate'],
-				'empNumber'		=> $arrto['empNumber'],
+				// 'empNumber'		=> $arrto['empNumber'],
 				'toDateFrom'	=> $to_details[1],
 				'toDateTo'		=> $to_details[2],
 				'destination'	=> $to_details[0],
-				'purpose'		=> $to_details[3],
-				'wmeal'			=> $to_details[4]
+				'purpose'		=> $to_details[3]
 			);
-
-
+			$emps = explode('/', $to_details[6]);
 			
-
-			$addreturn = $this->travel_order_model->add($arrto_data);
+			for ($i=0; $i < sizeof($emps); $i++) { 
+				$arrto_data['empNumber'] = $emps[$i];
+				$addreturn = $this->travel_order_model->add($arrto_data);
+			}
 
 			if (count($addreturn) > 0) :
 				log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Add TO ', json_encode($arrto_data), '');
