@@ -612,7 +612,7 @@ if (!function_exists('generate_travel_order_no')) {
 
         $count = $CI->db->where('requestCode', 'TO')->count_all_results('tblemprequest');
         
-        return date('Y') . '-' . str_pad($count+1, 4, '0', STR_PAD_LEFT);
+        return 'H'.date('Y') . '-' . str_pad($count+1, 4, '0', STR_PAD_LEFT);
         
     }
 }
