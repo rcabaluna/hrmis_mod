@@ -614,7 +614,9 @@ class ReportTO_rpt_model extends CI_Model
 		$this->fpdf->Ln(8);
 
 
+
 		if ($approver) {
+
 			$this->fpdf->Cell(
 				75, 
 				5, 
@@ -627,11 +629,13 @@ class ReportTO_rpt_model extends CI_Model
 				"C"
 			);
 		}else{
+
+
 			$this->fpdf->Cell(
 				75, 
 				5, 
 				$this->show_name_bold(strtoupper($requestSignatories['Signatory1firstname'] . ' ' . 
-				(!empty($requestSignatories['middleInitial']) ? $requestSignatories['Signatory1middleInitial'] . '.' : '') . ' ' . 
+				(!empty($requestSignatories['Signatory1middleInitial']) ? $requestSignatories['Signatory1middleInitial'] . '.' : '') . ' ' . 
 				$requestSignatories['Signatory1surname'] . ' ' . 
 				$requestSignatories['Signatory1Extension'])), 
 				0, 
