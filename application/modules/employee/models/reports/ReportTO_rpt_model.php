@@ -300,7 +300,7 @@ class ReportTO_rpt_model extends CI_Model
 		$this->fpdf->SetFont('Arial', "", 9);
 		$this->fpdf->Cell(45, 5, "", 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "", 9);
-		$this->fpdf->Cell(5, 5, "___________", 0, 0, "L");
+		$this->fpdf->Cell(5, 5, "____________", 0, 0, "L");
 
 
 		
