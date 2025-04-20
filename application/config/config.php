@@ -26,9 +26,9 @@ date_default_timezone_set('Asia/Manila');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = ($_SERVER['HTTP_HOST'] == 'hrmis.region10.dost.gov.ph:8082' ? 'http://'.$_SERVER['HTTP_HOST'].'/' : 'http://122.53.79.156:8082/hrmis');
+//$config['base_url'] = ($_SERVER['HTTP_HOST'] == 'hrmis.region10.dost.gov.ph:8082' ? 'http://'.$_SERVER['HTTP_HOST'].'/' : 'http://122.53.79.156:8082/hrmis');
 // $config['base_url'] = 'http://localhost/hrmis';
-
+$config['base_url'] = 'https://hrmis.region10.dost.gov.ph/';
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -384,7 +384,8 @@ $config['encryption_key'] = '';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
+//$config['sess_save_path'] = NULL;
+$config['sess_save_path'] = '/var/www/html/application/cache/sessions';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;

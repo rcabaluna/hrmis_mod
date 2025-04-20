@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '7efe172314847a29f861be5647b9a3463b74013e',
+        'reference' => 'aabe1d6f0ae18d2752e869ceca5d51cfe8dd2cfa',
         'name' => 'codeigniter/framework',
         'dev' => true,
     ),
     'versions' => array(
         'codeigniter/framework' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '7efe172314847a29f861be5647b9a3463b74013e',
+            'reference' => 'aabe1d6f0ae18d2752e869ceca5d51cfe8dd2cfa',
             'dev_requirement' => false,
         ),
         'mikey179/vfsstream' => array(
@@ -29,12 +29,12 @@
             'dev_requirement' => true,
         ),
         'symfony/polyfill-ctype' => array(
-            'pretty_version' => 'v1.27.0',
-            'version' => '1.27.0.0',
+            'pretty_version' => 'v1.31.0',
+            'version' => '1.31.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
             'aliases' => array(),
-            'reference' => '5bbc823adecdae860bb64756d639ecfec17b050a',
+            'reference' => 'a3cc8b044a6ea513310cbd48ef7333b384945638',
             'dev_requirement' => false,
         ),
         'vlucas/phpdotenv' => array(
