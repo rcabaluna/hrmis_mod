@@ -45,33 +45,57 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		$this->fpdf->Cell(50,3,date('Y-m-d h:i A'),0,0,'L');
 		$this->fpdf->Cell(0,3,"Page ".$this->fpdf->PageNo(),0,0,'R');					
 	}
-	
-	function generate($arrData)
-	{
-		$today =  date("F j, Y",strtotime(date("Y-m-d")));
-		$dtmDTRupdate = $arrData['dtmDTRupdate']==''?'':date("F j, Y",strtotime($arrData['dtmDTRupdate']));
-		$month = $arrData['dtmDTRupdate']==''?'':date("F",strtotime($arrData['dtmDTRupdate']));
-		
-		// old
-		$strOldMorningIn= ($arrData['strOldMorningIn'] != "00:00:00") ?  date("h:i A", strtotime($arrData['strOldMorningIn'])) : '';
-		$strOldMorningOut= ($arrData['strOldMorningOut'] != "00:00:00") ?  date("h:i A", strtotime($arrData['strOldMorningOut'])) : '';
-		$strOldAfternoonIn= ($arrData['strOldAfternoonIn'] != "00:00:00") ?  date("h:i A", strtotime($arrData['strOldAfternoonIn'])) : '';
-		$strOldAfternoonOut= ($arrData['strOldAfternoonOut'] != "00:00:00") ?  date("h:i A", strtotime($arrData['strOldAfternoonOut'])) : '';
-		$strOldOvertimeIn= ($arrData['strOldOvertimeIn'] != "00:00:00") ?   date("h:i A", strtotime($arrData['strOldOvertimeIn'])) : '';
-		$strOldOvertimeOut= ($arrData['strOldOvertimeOut'] != "00:00:00") ?  date("h:i A", strtotime($arrData['strOldOvertimeOut'])) : '';
-		// new
-		$dtmMorningIn = ($arrData['dtmMorningIn'] != "00:00:00") ? date("h:i A", strtotime($arrData['dtmMorningIn'])) : '';
-		$dtmMorningOut = ($arrData['dtmMorningOut'] != "00:00:00") ? date("h:i A", strtotime($arrData['dtmMorningOut'])) : '';
-		$dtmAfternoonIn = ($arrData['dtmAfternoonIn'] != "00:00:00") ? date("h:i A", strtotime($arrData['dtmAfternoonIn'])) : '';
-		$dtmAfternoonOut = ($arrData['dtmAfternoonOut'] != "00:00:00") ? date("h:i A", strtotime($arrData['dtmAfternoonOut'])) : '';
-		$dtmOvertimeIn = ($arrData['dtmOvertimeIn'] != "00:00:00") ? date("h:i A", strtotime($arrData['dtmOvertimeIn'])) : '';
-		$dtmOvertimeOut = ($arrData['dtmOvertimeOut'] != "00:00:00") ? date("h:i A", strtotime($arrData['dtmOvertimeOut'])) : '';
 
-		$strReason = $arrData['strReason'];
+	public function getrequest_details($requestid){
+
+        $this->db->select('req.*, pers.surname, pers.firstname, pers.middleInitial, pers.middlename, pers.nameExtension, pos.positionDesc, emppos.actualSalary');
+        $this->db->from('tblemprequest AS req');
+        $this->db->join('tblemppersonal AS pers', 'pers.empNumber = req.empNumber', 'LEFT');
+        $this->db->join('tblempposition AS emppos', 'emppos.empNumber = req.empNumber', 'LEFT');
+        $this->db->join('tblposition AS pos', 'pos.positionCode = emppos.positionCode', 'LEFT');
+        $this->db->where('req.requestID', $requestid);
+
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+	
+	function generate($requestid)
+	{
+
+		$reqdetails = $this->getrequest_details($requestid);
+		$dtrupdate_details = explode(';', $reqdetails['requestDetails']);
+		
+
+		$today =  date("F j, Y",strtotime(date("Y-m-d")));
+		$dtmDTRupdate = $dtrupdate_details[1]==''?'':date("F j, Y",strtotime($dtrupdate_details[1]));
+		$month = $dtrupdate_details[1]==''?'':date("F",strtotime($dtrupdate_details[1]));
+
+	
+		// old
+		$strOldMorningIn= ($dtrupdate_details[2] != "") ?  date("h:i A", strtotime($dtrupdate_details[2])) : '-';
+		$strOldMorningOut= ($dtrupdate_details[3] != "") ?  date("h:i A", strtotime($dtrupdate_details[3])) : '-';
+		$strOldAfternoonIn= ($dtrupdate_details[4] != "") ?  date("h:i A", strtotime($dtrupdate_details[4])) : '-';
+		$strOldAfternoonOut= ($dtrupdate_details[5] != "") ?  date("h:i A", strtotime($dtrupdate_details[5])) : '-';
+		$strOldOvertimeIn= ($dtrupdate_details[6] != "") ?   date("h:i A", strtotime($dtrupdate_details[6])) : '-';
+		$strOldOvertimeOut= ($dtrupdate_details[7] != "") ?  date("h:i A", strtotime($dtrupdate_details[7])) : '-';
+		// new
+		$dtmMorningIn = ($dtrupdate_details[8] != "") ? date("h:i A", strtotime($dtrupdate_details[8])) : '-';
+		$dtmMorningOut = ($dtrupdate_details[9] != "") ? date("h:i A", strtotime($dtrupdate_details[9])) : '-';
+		$dtmAfternoonIn = ($dtrupdate_details[10] != "") ? date("h:i A", strtotime($dtrupdate_details[10])) : '-';
+		$dtmAfternoonOut = ($dtrupdate_details[11] != "") ? date("h:i A", strtotime($dtrupdate_details[11])) : '-';
+		$dtmOvertimeIn = ($dtrupdate_details[12] != "") ? date("h:i A", strtotime($dtrupdate_details[12])) : '-';
+		$dtmOvertimeOut = ($dtrupdate_details[13] != "") ? date("h:i A", strtotime($dtrupdate_details[13])) : '-';
+
+		
+
+		$strReason = $dtrupdate_details[14];
 		// $dtmMonthOf = $arrData['dtmMonthOf'];
 		
-		$strEvidence = $arrData['strEvidence'];
-		$strSignatory = $arrData['strSignatory'];
+		$strEvidence = $dtrupdate_details[16];
+		$strSignatory = $dtrupdate_details[17];
+
+	
 
 		$this->fpdf->SetTitle('Daily Time Record Adjustment Slip');
 		$this->fpdf->SetLeftMargin(20);
@@ -82,37 +106,51 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		$this->fpdf->SetFont('Arial','B',12);
 		$this->fpdf->Ln(10);
 
+		$this->fpdf->SetFont('Arial','',11);
+
+		$image = "assets/images/logo.png";
+		$this->fpdf->Cell(10, 7, "", 0, 0, "C");
+				
+		$this->fpdf->Cell(10, 10, $this->fpdf->Image($image, $this->fpdf->GetX(), $this->fpdf->GetY(), 15), 0, 0, 'L', false);
+			
+
+
 		$this->fpdf->SetFont('Arial','',10);
-		$this->fpdf->Cell(0,6,'      Department of Science and Technology - X','',0,'C');
+		$this->fpdf->Cell(139,6,'Republic of the Philippines','',0,'C');
+		$this->fpdf->Ln(5);
+		$this->fpdf->SetFont('Arial','B',10);
+		$this->fpdf->Cell(180,6,'DEPARTMENT OF SCIENCE AND TECHNOLOGY','',0,'C');
 		$this->fpdf->Ln(5);
 		$this->fpdf->SetFont('Arial','',10);
-		$this->fpdf->Cell(0,6,'       Human Resource Management Information System','',0,'C');
-		$this->fpdf->Ln(10);
-		$this->fpdf->SetFont('Arial','B',11);
-		$this->fpdf->Cell(0,6,'       DAILY TIME RECORD ADJUSTMENT SLIP','',0,'C');
-		$this->fpdf->Ln(5);
-		$this->fpdf->Ln(10);
+		$this->fpdf->Cell(180,6,'Regional Office No. X','',0,'C');
+		$this->fpdf->Ln(13);
+		$this->fpdf->SetFont('Arial', "B", 13);
+		$this->fpdf->Cell(180, 5, "DAILY TIME RECORD ADJUSTMENT SLIP", 0, 0, "C");
+
+		$this->fpdf->Ln(15);
+
+
 		$arrDetails=$this->empInfo();
 		foreach($arrDetails as $row)
 			{
 				$this->fpdf->SetFont('Arial', "", 10);		
 				$this->fpdf->Cell(15, 5,"Name :"  , 0, 0, "L"); 
 				$this->fpdf->SetFont('Arial', "UB", 10);		
-				$this->fpdf->Cell(70, 5,$row['firstname'].' '.$row['middleInitial'].' '.$row['surname']  , 0, 0, "L"); 
+				$this->fpdf->Cell(70, 5,strtoupper($row['firstname'].' '.$row['middleInitial'].' '.$row['surname'] ) , 0, 0, "L"); 
 				$this->fpdf->SetFont('Arial', "", 10);	
 				$this->fpdf->Cell(15, 5,"Position : ", 0, 0, "L"); 
 				$this->fpdf->SetFont('Arial', "UB", 10);	
 				$this->fpdf->Cell(20, 5,$row['positionCode'], 0, 0, "L"); 
 				$this->fpdf->SetFont('Arial', "", 10);	
-				$this->fpdf->Cell(30, 5,"Date : ", 0, 0, "C"); 
+				$this->fpdf->Cell(30, 5,"Date Requested: ", 0, 0, "C"); 
 				$this->fpdf->SetFont('Arial', "UB", 10);	
-				$this->fpdf->Cell(0, 5,"$today"."", 0, 0, "C"); 
+				$this->fpdf->Cell(0, 5,date('F d, Y', strtotime($reqdetails['requestDate'])), 0, 0, "C"); 
 				$this->fpdf->Ln(5);
 				$this->fpdf->SetFont('Arial', "", 10);		
-				$this->fpdf->Cell(30, 5,"For the month of :" , 0, 0, "C"); 
-				$this->fpdf->SetFont('Arial', "U", 10);	
+				// $this->fpdf->Cell(30, 5,"For the month of :" , 0, 0, "C"); 
+				// $this->fpdf->SetFont('Arial', "U", 10);	
 				//$month=$this->intToMonthFull(LTRIM($dtmMonthOf, '0'))	
-				$this->fpdf->Cell(15, 5,"$month"  , 0, 0, "C"); 
+				// $this->fpdf->Cell(15, 5,"$month"  , 0, 0, "C"); 
 				$this->fpdf->Ln(10);
 			}
 		// start of table
@@ -147,7 +185,22 @@ class ReportDTRupdate_rpt_model extends CI_Model {
 		$this->fpdf->Cell(20,6,$dtmAfternoonOut,"RTBL",0,"C");
 		$this->fpdf->Cell(20,6,$dtmOvertimeIn,"RTBL",0,"C");
 		$this->fpdf->Cell(20,6,$dtmOvertimeOut,"RTBL",0,"C");
-		$this->fpdf->SetFont('Arial', "", 9);
+		$this->fpdf->SetFont('Arial', "", 10);
+
+		$this->fpdf->Ln(12);
+		$this->fpdf->SetFont('Arial', "B", 10);
+		$this->fpdf->Cell(50,6,'Reason:',0 ,0,"L");
+		$this->fpdf->Ln(5);
+		$this->fpdf->SetFont('Arial', "", 10);
+		$this->fpdf->Cell(170,6,"			".$strReason,0 ,0,"L");
+
+		$this->fpdf->Ln(8);
+		$this->fpdf->SetFont('Arial', "B", 10);
+		$this->fpdf->Cell(50,6,'Evidence:',0 ,0,"L");
+		$this->fpdf->Ln(5);
+		$this->fpdf->SetFont('Arial', "", 10);
+		$this->fpdf->Cell(170,6,"			".$strEvidence,0 ,0,"L");
+
 		
 		// $arrDetails=$this->getEmp($strSignatory);
 		// $name=strtoupper($arrDetails[0]['firstname'].' '.$arrDetails[0]['middleInitial'].' '.$arrDetails[0]['surname']);

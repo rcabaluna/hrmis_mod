@@ -121,6 +121,7 @@ class Attendance extends MY_Controller
 		$this->arrData['working_days'] = get_workingdays('', '', $holidays, $datefrom, $dateto);
 
 		$arremp_dtr = $this->Attendance_summary_model->getemp_dtr($empid, $datefrom, $dateto);
+
 		$this->arrData['arrLatestBalance'] = $this->Leave_model->getLatestBalance($empid);
 		$this->arrData['arremp_dtr'] = $arremp_dtr;
 

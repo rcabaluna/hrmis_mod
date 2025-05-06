@@ -123,7 +123,7 @@ class Attendance_scheme extends MY_Controller {
 		}
 		else
 		{
-			//print_r($arrPost);
+			
 			$strCode = $arrPost['strCode'];
 			$strSchemeType = $arrPost['strSchemeType'];
 			// $strSchemeCode = $arrPost['strSchemeCode'];
@@ -132,23 +132,28 @@ class Attendance_scheme extends MY_Controller {
 			$strStrict = isset($arrPost['strStrict']) ? 'Y' : 'N';
 			$strMonday = $this->input->post('strMonday');
 			// fixed
-			$dtmFtimeIn = $arrPost['dtmFtimeIn'];
-			$dtmFtimeOutFrom = $arrPost['dtmFtimeOutFrom'];
-			$dtmFtimeOutTo = $arrPost['dtmFtimeOutTo'];
-			$dtmFtimeInFrom = $arrPost['dtmFtimeInFrom'];
-			$dtmFtimeInTo = $arrPost['dtmFtimeInTo'];
-			$dtmFtimeOut = $arrPost['dtmFtimeOut'];
+			$dtmFtimeIn = date('H:i:s', strtotime($arrPost['dtmFtimeIn']));
+			$dtmFtimeOutFrom = date('H:i:s', strtotime($arrPost['dtmFtimeOutFrom']));
+			$dtmFtimeOutTo = date('H:i:s', strtotime($arrPost['dtmFtimeOutTo']));
+			$dtmFtimeInFrom = date('H:i:s', strtotime($arrPost['dtmFtimeInFrom']));
+			$dtmFtimeInTo = date('H:i:s', strtotime($arrPost['dtmFtimeInTo']));
+			$dtmFtimeOut = date('H:i:s', strtotime($arrPost['dtmFtimeOut']));
 			// sliding
-			$dtmStimeInFrom = $arrPost['dtmStimeInFrom'];
-			$dtmStimeInTo = $arrPost['dtmStimeInTo'];
-			$dtmStimeOutFromNN = $arrPost['dtmStimeOutFromNN'];
-			$dtmStimeOutToNN = $arrPost['dtmStimeOutToNN'];
-			$dtmStimeInFromNN = $arrPost['dtmStimeInFromNN'];
-			$dtmStimeInToNN = $arrPost['dtmStimeInToNN'];
-			$dtmStimeOutFrom = $arrPost['dtmStimeOutFrom'];
-			$dtmStimeOutTo = $arrPost['dtmStimeOutTo'];
+			$dtmStimeInFrom = date('H:i:s', strtotime($arrPost['dtmStimeInFrom']));
+			$dtmStimeInTo = date('H:i:s', strtotime($arrPost['dtmStimeInTo']));
+			$dtmStimeOutFromNN = date('H:i:s', strtotime($arrPost['dtmStimeOutFromNN']));
+			$dtmStimeOutToNN = date('H:i:s', strtotime($arrPost['dtmStimeOutToNN']));
+			$dtmStimeInFromNN = date('H:i:s', strtotime($arrPost['dtmStimeInFromNN']));
+			$dtmStimeInToNN = date('H:i:s', strtotime($arrPost['dtmStimeInToNN']));
+			$dtmStimeOutFrom = date('H:i:s', strtotime($arrPost['dtmStimeOutFrom']));
+			$dtmStimeOutTo = date('H:i:s',strtotime($arrPost['dtmStimeOutTo']));
+
+
 			if(!empty($strCode) AND !empty($strSchemeName)) 
 			{
+
+				$data = array();
+
 				if ($strSchemeType =='Fixed')
 				{
 					$arrData = array(
@@ -164,6 +169,7 @@ class Attendance_scheme extends MY_Controller {
 					   	'pmTimeoutTo'=>$dtmFtimeOut
 				   );
 				}
+
 				if ($strSchemeType =='Sliding')
 				{
 					$arrData = array(
@@ -181,9 +187,7 @@ class Attendance_scheme extends MY_Controller {
 				   		'pmTimeoutTo'=>$dtmStimeOutTo 
 				   	); 
 				}	  	
-				//echo '<br><br>';
-				// print_r($arrData);
-				// exit(1);
+	
 				$blnReturn = $this->attendance_scheme_model->save($arrData, $strCode);
 				if(count($blnReturn)>0)
 				{
@@ -191,7 +195,7 @@ class Attendance_scheme extends MY_Controller {
 					
 					$this->session->set_flashdata('strSuccessMsg','Attendance Scheme updated successfully.');
 				}
-				redirect('libraries/attendance_scheme');
+				redirect('libraries/attendance_scheme/edit/'.$strCode);
 			}
 		}
 		

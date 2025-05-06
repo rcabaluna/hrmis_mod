@@ -58,7 +58,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                      <option value="">Select</option>
                                      <?php foreach($arrType as $i=>$type)
                                         {
-                                          echo '<option value="'.$type['schemeType'].'" '.($arrAttendance[0]['schemeType']==$type['schemeType']?'selected':'').'>'.(strtoupper($type['schemeType'])).'</option>';
+                                          echo '<option value="'.$type['schemeType'].'"'.($arrAttendance[0]['schemeType']==$type['schemeType']?'selected':'').'>'.(strtoupper($type['schemeType'])).'</option>';
                                         }?>
                                     </select>
                                 </div>
@@ -94,7 +94,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Fixed Time In :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="<?=!empty($arrAttendance[0]['amTimeinFrom'])?$arrAttendance[0]['amTimeinFrom']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeIn" id="dtmFtimeIn" value="<?=!empty($arrAttendance[0]['amTimeinFrom'])?date('h:i:s A', strtotime($arrAttendance[0]['amTimeinFrom'])):''?>">
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time-Out From (noon) :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeOutFrom" id="dtmFtimeOutFrom" value="<?=!empty($arrAttendance[0]['nnTimeoutFrom'])?$arrAttendance[0]['nnTimeoutFrom']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeOutFrom" id="dtmFtimeOutFrom" value="<?=!empty($arrAttendance[0]['nnTimeoutFrom'])?date('h:i:s A', strtotime($arrAttendance[0]['nnTimeoutFrom'])):''?>">
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time-Out To (noon) :<span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeOutTo" id="dtmFtimeOutTo" value="<?=!empty($arrAttendance[0]['nnTimeoutTo'])?$arrAttendance[0]['nnTimeoutTo']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeOutTo" id="dtmFtimeOutTo" value="<?=!empty($arrAttendance[0]['nnTimeoutTo'])?date('h:i:s A', strtotime($arrAttendance[0]['nnTimeoutTo'])):''?>">
                                 </div>
                             </div>
                         </div>
@@ -127,7 +127,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time-In From (noon) :     <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeInFrom" id="dtmFtimeInFrom" value="<?=!empty($arrAttendance[0]['nnTimeinFrom'])?$arrAttendance[0]['nnTimeinFrom']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeInFrom" id="dtmFtimeInFrom" value="<?=!empty($arrAttendance[0]['nnTimeinFrom'])?date('h:i:s A', strtotime($arrAttendance[0]['nnTimeinFrom'])):''?>">
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time-In To (noon) :   <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeInTo" id="dtmFtimeInTo" value="<?=!empty($arrAttendance[0]['nnTimeinTo'])?$arrAttendance[0]['nnTimeinTo']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeInTo" id="dtmFtimeInTo" value="<?=!empty($arrAttendance[0]['nnTimeinTo'])?date('h:i:s A', strtotime($arrAttendance[0]['nnTimeinTo'])):''?>">
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time Out : <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeOut" id="dtmFtimeOut" value="<?=!empty($arrAttendance[0]['pmTimeoutTo'])?$arrAttendance[0]['pmTimeoutTo']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmFtimeOut" id="dtmFtimeOut" value="<?=!empty($arrAttendance[0]['pmTimeoutTo'])?date('h:i:s A', strtotime($arrAttendance[0]['pmTimeoutTo'])):''?>">
                                 </div>
                             </div>
                         </div>
@@ -192,26 +192,26 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             </div>
                         </div>
                     </div>
-                   
                     <!-- sliding -->
-                     <div class="row sch-sliding">
+                    <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Sliding Time In From :  <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInFrom" id="dtmStimeInFrom" value="<?=!empty($arrAttendance[0]['amTimeinFrom'])?$arrAttendance[0]['amTimeinFrom']:''?>">
+                                    <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInFrom" id="dtmStimeInFrom" value="<?=!empty($arrAttendance[0]['amTimeinFrom'])?date('h:i:s A', strtotime($arrAttendance[0]['amTimeinFrom'])):''?>">
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
-                      <div class="row sch-sliding">
+                    <div class="row sch-sliding">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Time In To :   <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInTo" id="dtmStimeInTo" value="<?=!empty($arrAttendance[0]['amTimeinTo'])?$arrAttendance[0]['amTimeinTo']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInTo" id="dtmStimeInTo" value="<?=!empty($arrAttendance[0]['amTimeinTo'])?date('h:i:s A', strtotime($arrAttendance[0]['amTimeinTo'])):''?>">
                                 </div>
                             </div>
                         </div>
@@ -222,7 +222,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time-Out From (noon) :   <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutFromNN" id="dtmStimeOutFromNN" value="<?=!empty($arrAttendance[0]['nnTimeoutFrom'])?$arrAttendance[0]['nnTimeoutFrom']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutFromNN" id="dtmStimeOutFromNN" value="<?=!empty($arrAttendance[0]['nnTimeoutFrom'])?date('h:i:s A', strtotime($arrAttendance[0]['nnTimeoutFrom'])):''?>">
                                 </div>
                             </div>
                         </div>
@@ -233,8 +233,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time-Out To (noon) :   <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutToNN" id="dtmStimeOutToNN" value="<?=!empty($arrAttendance[0]['nnTimeoutTo'])?$arrAttendance[0]['nnTimeoutTo']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutToNN" id="dtmStimeOutToNN" value="<?=!empty($arrAttendance[0]['nnTimeoutTo'])?date('h:i:s A', strtotime($arrAttendance[0]['nnTimeoutTo'])):''?>">
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -244,8 +245,9 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time-In From (noon) :   <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInFromNN" id="dtmStimeInFromNN" value="<?=!empty($arrAttendance[0]['nnTimeinFrom'])?$arrAttendance[0]['nnTimeinFrom']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInFromNN" id="dtmStimeInFromNN" value="<?=!empty($arrAttendance[0]['nnTimeinFrom'])?date('h:i:s A', strtotime($arrAttendance[0]['nnTimeinFrom'])):''?>">
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -255,7 +257,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time-In To (noon) : <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInToNN" id="dtmStimeInToNN" value="<?=!empty($arrAttendance[0]['nnTimeinTo'])?$arrAttendance[0]['nnTimeinTo']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeInToNN" id="dtmStimeInToNN" value="<?=!empty($arrAttendance[0]['nnTimeinTo'])?date('h:i:s A', strtotime($arrAttendance[0]['nnTimeinTo'])):''?>">
                                 </div>
                             </div>
                         </div>
@@ -266,7 +268,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time Out From : <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutFrom" id="dtmStimeOutFrom" value="<?=!empty($arrAttendance[0]['pmTimeoutFrom'])?$arrAttendance[0]['pmTimeoutFrom']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutFrom" id="dtmStimeOutFrom" value="<?=!empty($arrAttendance[0]['pmTimeoutFrom'])?date('h:i:s A', strtotime($arrAttendance[0]['pmTimeoutFrom'])):''?>">
                                 </div>
                             </div>
                         </div>
@@ -277,7 +279,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                                 <label class="control-label">Time Out To : <span class="required"> * </span></label>
                                 <div class="input-icon right">
                                     <i class="fa"></i>
-                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutTo" id="dtmStimeOutTo" value="<?=!empty($arrAttendance[0]['pmTimeoutTo'])?$arrAttendance[0]['pmTimeoutTo']:''?>">
+                                     <input type="text" class="form-control timepicker timepicker-default" name="dtmStimeOutTo" id="dtmStimeOutTo" value="<?=!empty($arrAttendance[0]['pmTimeoutTo'])?date('h:i:s A', strtotime($arrAttendance[0]['pmTimeoutTo'])):''?>">
                                 </div>
                             </div>
                         </div>

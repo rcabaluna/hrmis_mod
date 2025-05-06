@@ -95,9 +95,10 @@ class Reports extends MY_Controller {
 				// echo $this->fpdf->Output();	
 			break;
 			case 'reportDTRupdate': 
-				$this->load->model(array('reports/ReportDTRupdate_rpt_model'));				
-				$arrData=array('dtmDTRupdate'=>$arrGet['dtrupdate'],'strOldMorningIn'=>$arrGet['oldmorin'],'strOldMorningOut'=>$arrGet['oldmorout'],'strOldAfternoonIn'=>$arrGet['oldafin'],'strOldAfternoonOut'=>$arrGet['oldaftout'],'strOldOvertimeIn'=>$arrGet['oldOTin'],'strOldOvertimeOut'=>$arrGet['oldOTout'],'dtmMorningIn'=>$arrGet['morningin'],'dtmMorningOut'=>$arrGet['morningout'],'dtmAfternoonIn'=>$arrGet['aftnoonin'],'dtmAfternoonOut'=>$arrGet['aftnoonout'],'dtmOvertimeIn'=>$arrGet['OTtimein'],'dtmOvertimeOut'=>$arrGet['OTtimeout'],'strReason'=>$arrGet['reason'],'dtmMonthOf'=>$arrGet['month'],'strEvidence'=>$arrGet['evidence'],'strSignatory'=>$arrGet['signatory']);
-				$this->ReportDTRupdate_rpt_model->generate($arrData);
+				$this->load->model(array('reports/ReportDTRupdate_rpt_model'));			
+				$this->ReportDTRupdate_rpt_model->generate($arrGet['req_id']);	
+				// $arrData=array('dtmDTRupdate'=>$arrGet['dtrupdate'],'strOldMorningIn'=>$arrGet['oldmorin'],'strOldMorningOut'=>$arrGet['oldmorout'],'strOldAfternoonIn'=>$arrGet['oldafin'],'strOldAfternoonOut'=>$arrGet['oldaftout'],'strOldOvertimeIn'=>$arrGet['oldOTin'],'strOldOvertimeOut'=>$arrGet['oldOTout'],'dtmMorningIn'=>$arrGet['morningin'],'dtmMorningOut'=>$arrGet['morningout'],'dtmAfternoonIn'=>$arrGet['aftnoonin'],'dtmAfternoonOut'=>$arrGet['aftnoonout'],'dtmOvertimeIn'=>$arrGet['OTtimein'],'dtmOvertimeOut'=>$arrGet['OTtimeout'],'strReason'=>$arrGet['reason'],'dtmMonthOf'=>$arrGet['month'],'strEvidence'=>$arrGet['evidence'],'strSignatory'=>$arrGet['signatory']);
+				// $this->ReportDTRupdate_rpt_model->generate($arrData);
 				
 			break;
 			case 'reportCL': 

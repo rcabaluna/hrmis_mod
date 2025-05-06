@@ -258,27 +258,27 @@
 
         // DTR
         $('#table-dtr').on('click','a#printreport',function(){
-            var req_details = $(this).data('rdetails');
+            var requestid = $(this).data('rdetails');
             var req_empno = $(this).data('empno');
-            var dtrupdate = req_details[1];
-            var oldmorin  = req_details[2];
-            var oldmorout = req_details[3];
-            var oldafin   = req_details[4];
-            var oldaftout = req_details[5];
-            var oldOTin   = req_details[6];
-            var oldOTout  = req_details[7];
-            var morningin = req_details[8] +':'+req_details[9] +':'+req_details[10]+' '+req_details[11];
-            var morningout= req_details[12]+':'+req_details[13]+':'+req_details[14]+' '+req_details[15];
-            var aftnoonin = req_details[16]+':'+req_details[17]+':'+req_details[18]+' '+req_details[19];
-            var aftnoonout= req_details[20]+':'+req_details[21]+':'+req_details[22]+' '+req_details[23];
-            var OTtimein  = req_details[24]+':'+req_details[25]+':'+req_details[26]+' '+req_details[27];
-            var OTtimeout = req_details[28]+':'+req_details[29]+':'+req_details[30]+' '+req_details[31];
-            var month     = req_details[33];
-            var evidence  = req_details[32];
-            var reason    = req_details[34];
-            var signatory = req_details[35];
+            // var dtrupdate = req_details[1];
+            // var oldmorin  = req_details[2];
+            // var oldmorout = req_details[3];
+            // var oldafin   = req_details[4];
+            // var oldaftout = req_details[5];
+            // var oldOTin   = req_details[6];
+            // var oldOTout  = req_details[7];
+            // var morningin = req_details[8] +':'+req_details[9] +':'+req_details[10]+' '+req_details[11];
+            // var morningout= req_details[12]+':'+req_details[13]+':'+req_details[14]+' '+req_details[15];
+            // var aftnoonin = req_details[16]+':'+req_details[17]+':'+req_details[18]+' '+req_details[19];
+            // var aftnoonout= req_details[20]+':'+req_details[21]+':'+req_details[22]+' '+req_details[23];
+            // var OTtimein  = req_details[24]+':'+req_details[25]+':'+req_details[26]+' '+req_details[27];
+            // var OTtimeout = req_details[28]+':'+req_details[29]+':'+req_details[30]+' '+req_details[31];
+            // var month     = req_details[33];
+            // var evidence  = req_details[32];
+            // var reason    = req_details[34];
+            // var signatory = req_details[35];
             
-            var link = "<?=base_url('employee/reports/generate/')?>"+req_empno+"?rpt=reportDTRupdate&dtrupdate="+dtrupdate+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldaftout="+oldaftout+"&oldOTin="+oldOTin+"&oldOTout="+oldOTout+"&morningin="+morningin+"&morningout="+morningout+"&aftnoonin="+aftnoonin+"&aftnoonout="+aftnoonout+"&OTtimein="+OTtimein+"&OTtimeout="+OTtimeout+"&month="+month+"&evidence="+evidence+"&reason="+reason+"&signatory="+signatory;
+            var link = "<?=base_url('employee/reports/generate/')?>"+req_empno+"?rpt=reportDTRupdate&req_id="+requestid;
 
             $('#dtr-embed').attr('src',link);
             $('#dtr-embed-fullview').attr('href',link);

@@ -13,14 +13,49 @@ $in_pm  = '';
 $out_pm = '';
 $offset_wkdays = 0;
 $offset_wkends = 0;
+$employee = $this->uri->segment(4);
 ?>
+<style>
+    .image-popup {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
 
+    .image-popup img {
+        max-width: 100%;
+        max-height: 100%;
+        border: 5px solid white;
+        border-radius: 8px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+
+    .image-popup.close {
+        cursor: pointer;
+    }
+</style>
 <div class="tab-pane active" id="tab_1_4">
     <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <span class="caption-subject bold uppercase"> Daily Time Record</span>
+                    
+
+                    <div class="image-popup" style="display: none;">
+                    <img src="" alt="Enlarged Image">
+                    </div>
                 </div>
                 <div class="actions">
                     <?php if ($_SESSION['sessUserLevel'] == 1) : ?>
@@ -103,11 +138,17 @@ $offset_wkends = 0;
                 </thead>
                 <tbody>
                     <?php foreach ($arremp_dtr as $dtr) :
+
                         $in_am = '';
+                        $file_am_in = $file_am_out = $file_pm_in = $file_pm_out = '';
+
                         if (count($dtr['dtr']) > 0) {
+                           
                             if ($dtr['dtr']['inAM'] == '00:00:00' || $dtr['dtr']['inAM'] == '') {
                                 $in_am = '00:00';
                             } else {
+                                $file_am_in = $employee . '_' . $dtr['dtrdate'] . '_' . date('h-i-s', strtotime($dtr['dtrdate'] . ' ' . $dtr['dtr']['inAM'])).'.jpg';
+
                                 $in_am = date('h:i A', strtotime($dtr['dtr']['inAM']));
                             }
                         }
@@ -117,6 +158,7 @@ $offset_wkends = 0;
                             if ($dtr['dtr']['outAM'] == '00:00:00' || $dtr['dtr']['outAM'] == '') {
                                 $out_am = '00:00';
                             } else {
+                                $file_am_out = $employee . '_' . $dtr['dtrdate'] . '_' . date('h-i-s', strtotime($dtr['dtrdate'] . ' ' . $dtr['dtr']['outAM'])).'.jpg';
                                 $out_am = date('h:i A', strtotime($dtr['dtr']['outAM']));
                             }
                         }
@@ -126,6 +168,7 @@ $offset_wkends = 0;
                             if ($dtr['dtr']['inPM'] == '00:00:00' || $dtr['dtr']['inPM'] == '') {
                                 $in_pm = '00:00';
                             } else {
+                                $file_pm_in = $employee . '_' . $dtr['dtrdate'] . '_' . date('h-i-s', strtotime($dtr['dtrdate'] . ' ' . $dtr['dtr']['inPM'])).'.jpg';
                                 $in_pm = date('h:i A', strtotime($dtr['dtr']['inPM']));
                             }
                         }
@@ -135,6 +178,7 @@ $offset_wkends = 0;
                             if ($dtr['dtr']['outPM'] == '00:00:00' || $dtr['dtr']['outPM'] == '') {
                                 $out_pm = '00:00';
                             } else {
+                                $file_pm_out = $employee . '_' . $dtr['dtrdate'] . '_' . date('h-i-s', strtotime($dtr['dtrdate'] . ' ' . $dtr['dtr']['outPM'])).'.jpg';
                                 $out_pm = date('h:i A', strtotime($dtr['dtr']['outPM']));
                             }
                         }
@@ -148,10 +192,30 @@ $offset_wkends = 0;
                     ?>
                         <tr class="odd <?= $dtr['day'] ?> tooltips <?= count($dtr['holiday_name']) > 0 ? 'holiday' : '' ?>" data-original-title="<?= date('l', strtotime($dtr['dtrdate'])) ?>">
                             <td><?= date('M d', strtotime($dtr['dtrdate'])); ?>
-                            <td><?= $in_am ?></td>
-                            <td><?= $out_am ?></td>
-                            <td><?= $in_pm ?></td>
-                            <td><?= $out_pm ?></td>
+                            <td><?= $in_am ?>
+                                    <?php if ($file_am_in && file_exists(FCPATH . 'uploads/dtr/' . $file_am_in)) { ?>
+                                        <img src="<?= base_url('uploads/dtr/' . $file_am_in) ?>" width="5%" alt="Thumbnail" class="enlargeable" style="max-width: 200px; cursor: pointer;">
+                                    <?php } ?>
+                                </td>
+
+                                <td><?= $out_am ?>
+                                    <?php if ($file_am_out && file_exists(FCPATH . 'uploads/dtr/' . $file_am_out)) { ?>
+                                        <img src="<?= base_url('uploads/dtr/' . $file_am_out) ?>" width="5%" alt="Thumbnail" class="enlargeable" style="max-width: 200px; cursor: pointer;">
+                                    <?php } ?>
+                                </td>
+
+                                <td><?= $in_pm ?>
+                                    <?php if ($file_pm_in && file_exists(FCPATH . 'uploads/dtr/' . $file_pm_in)) { ?>
+                                        <img src="<?= base_url('uploads/dtr/' . $file_pm_in) ?>" width="5%" alt="Thumbnail" class="enlargeable" style="max-width: 200px; cursor: pointer;">
+                                    <?php } ?>
+                                </td>
+
+                                <td><?= $out_pm ?>
+                                    <?php if ($file_pm_out && file_exists(FCPATH . 'uploads/dtr/' . $file_pm_out)) { ?>
+                                        <img src="<?= base_url('uploads/dtr/' . $file_pm_out) ?>" width="5%" alt="Thumbnail" class="enlargeable" style="max-width: 200px; cursor: pointer;">
+                                    <?php } ?>
+                                </td>
+
                             <td style="text-align: left;">
                                 <?php
                                 if (count($dtr['dtr']) > 0 && $dtr['dtr']['wfh'] == 1) :
@@ -315,6 +379,7 @@ $offset_wkends = 0;
                 </div>
             </div>
         </div>
+ 
     </div>
 </div>
 
@@ -326,7 +391,20 @@ $offset_wkends = 0;
 <script src="<?= base_url('assets/plugins/jspdf/jspdf-autotable.js') ?>"></script>
 
 <script>
+
+    $('.enlargeable').on('click', function() {
+        var src = $(this).attr('src');
+        $('.image-popup img').attr('src', src);
+        $('.image-popup').fadeIn(300);
+        });
+
+        $('.image-popup').on('click', function() {
+        $(this).fadeOut(100);
+        });
+
     $(document).ready(function() {
+
+       
         $('td.hide').hide();
         // $('#tbldtr').dataTable({
         // "bPaginate" : false,

@@ -339,6 +339,7 @@ class Request_model extends CI_Model
 
 	function get_next_signatory($ob, $type, $requestflowid)
 	{
+	
 		$this->load->helper('config_helper');
 		$this->load->model('Request_model');
 		$signatories = $this->Request_model->get_signatory($requestflowid);

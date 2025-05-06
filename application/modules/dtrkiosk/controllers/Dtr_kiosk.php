@@ -15,6 +15,7 @@ class Dtr_kiosk extends MY_Controller
 		$this->load->library('session');
 		$arrPost = $this->input->post();
 
+	
 		
 	
 		$reg_holidays = $this->Holiday_model->getAllHolidates("",date('Y-m-d'),date('Y-m-d'));
@@ -25,17 +26,47 @@ class Dtr_kiosk extends MY_Controller
 
 		if(!empty($arrPost)):
 
-			$data = $arrPost['canvasImage'];
-
-			$data = str_replace('data:image/png;base64,', '', $data);
-			$data = str_replace(' ', '+', $data);
-			$decodedData = base64_decode($data);
+		
 			
 			$arrUser = $this->login_model->authenticate2($arrPost['strUsername']);
 
 				
 
 				if(count($arrUser) > 0):
+					$data = $arrPost['canvasImage'];
+					$data = str_replace('data:image/png;base64,', '', $data);
+					$data = str_replace(' ', '+', $data);
+					$decodedData = base64_decode($data);
+					$sourceImage = imagecreatefromstring($decodedData);
+					
+					$width = imagesx($sourceImage);
+					$height = imagesy($sourceImage);
+					
+					// Resize to half
+					$newWidth = $width / 2;
+					$newHeight = $height / 2;
+					
+					$resizedImage = imagecreatetruecolor($newWidth, $newHeight);
+					imagecopyresampled($resizedImage, $sourceImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+					
+					// Create filename using username + datetime with milliseconds
+					$username = preg_replace('/[^a-zA-Z0-9_\-]/', '', $arrPost['strUsername']); // sanitize
+					$microtime = microtime(true);
+					$datetime = date('Y-m-d_H-i-s', floor($microtime));
+					$filename = $username . '_' . $datetime . '.jpg';
+					
+					// Make sure the directory exists
+					$outputDir = 'uploads/dtr/';
+					if (!file_exists($outputDir)) {
+						mkdir($outputDir, 0777, true);
+					}
+					
+					$outputPath = $outputDir . $filename;
+					imagejpeg($resizedImage, $outputPath, 75);
+					
+					imagedestroy($sourceImage);
+					imagedestroy($resizedImage);
+
 					$empno = $arrUser[0]['empNumber'];
 					// v10 military
 					// $dtrlog = date('H:i:s',strtotime('06:30:00 pm'));
@@ -52,13 +83,10 @@ class Dtr_kiosk extends MY_Controller
 						$is_intl = 0;
 					}
 
-					
 
 					$wfh = isset($arrPost['wfh-toggle']) ? 1 : 0;
 
-					
-
-					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog,$is_intl, $wfh);
+					$emp_log_msg = $this->Dtr_log_model->chekdtr_log($empno,$dtrdate,$dtrlog,$is_intl, $wfh,$filename);
 
 					if($emp_log_msg[0] == 'strSuccessMsg')
 					{

@@ -233,7 +233,8 @@ class Request extends MY_Controller
 				$dtr_request = array();
 				if (strtolower($_GET['status']) != 'all') :
 					foreach ($arrdtr_request as $key => $dtr) :
-						$next_signatory = $this->Request_model->get_next_signatory($dtr, 'DTR');
+						
+						$next_signatory = $this->Request_model->get_next_signatory($dtr, 'DTR',$requestflowid);
 						$dtr['next_signatory'] = $next_signatory;
 						if (strtolower($_GET['status']) == strtolower($dtr['requestStatus'])) :
 							if ($active_menu == 'Filed Request') :
@@ -248,7 +249,9 @@ class Request extends MY_Controller
 					$arrdtr_request = $dtr_request;
 				else :
 					foreach ($arrdtr_request as $key => $dtr) :
-						$next_signatory = $this->Request_model->get_next_signatory($dtr, 'DTR');
+						$requestflowid = $dtr['requestflowid'];
+					
+						$next_signatory = $this->Request_model->get_next_signatory($dtr, 'DTR',$requestflowid);
 						$dtr['next_signatory'] = $next_signatory;
 						$dtr_request[] = $dtr;
 					endforeach;

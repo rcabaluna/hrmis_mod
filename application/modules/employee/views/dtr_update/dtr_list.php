@@ -87,7 +87,7 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <!-- <td align="center"> <?=isset($req_details[33]) ? date('F', mktime(0, 0, 0, $req_details[33], 10)) : ''?> </td> -->
                             <td width="150px" style="white-space: nowrap;text-align: center;">
                                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>"
-                                    data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>
+                                    data-rdetails='<?=$row['requestID']?>' data-rattach='<?=$row['file_location']?>'>
                                     <span class="icon-magnifier" title="View"></span> View</a>
                                 <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
                                     <a class="btn btn-sm green" href="<?=base_url('employee/update_dtr/edit?req_id='.$row['requestID'])?>">
@@ -177,11 +177,13 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             }} );
 
         $('#table-dtr').on('click','a#printreport',function(){
-            var req_details = $(this).data('rdetails');
-            
-            for (var i = req_details.length - 1; i >= 0; i--) {
-                req_details[i] = req_details[i].replace(" AM", "");
-            }
+
+            var requestid = $(this).data('rdetails');
+      
+            // alert(req_details);
+            // for (var i = req_details.length - 1; i >= 0; i--) {
+            //     req_details[i] = req_details[i].replace(" AM", "");
+            // }
             
             // var dtrupdate = req_details.length > 1 ? req_details[1] : '';
             // var oldmorin  = req_details.length > 2 ? req_details[2] : '';
@@ -201,25 +203,25 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
             // var evidence  = req_details.length > 34 ? req_details[34] : '';
             // var signatory = req_details.length > 35 ? req_details[35] : '';
 
-            var dtrupdate = req_details.length > 1 ? req_details[1] : '';
-            var oldmorin  = req_details.length > 2 ? req_details[2] : '';
-            var oldmorout = req_details.length > 3 ? req_details[3] : '';
-            var oldafin   = req_details.length > 4 ? req_details[4] : '';
-            var oldaftout = req_details.length > 5 ? req_details[5] : '';
-            var oldOTin   = req_details.length > 6 ? req_details[6] : '';
-            var oldOTout  = req_details.length > 7 ? req_details[7] : '';
-            var morningin = req_details.length > 8 ? req_details[8] : '';
-            var morningout= req_details.length > 9 ? req_details[9] : '';
-            var aftnoonin = req_details.length > 10 ? req_details[10] : '';
-            var aftnoonout= req_details.length > 11 ? req_details[11] : '';
-            var OTtimein  = req_details.length > 12 ? req_details[12] : '';
-            var OTtimeout = req_details.length > 13 ? req_details[13] : '';
-            var reason    = req_details.length > 14 ? req_details[14] : '';
-            var month     = req_details.length > 15 ? req_details[15] : '';
-            var evidence  = req_details.length > 16 ? req_details[16] : '';
-            var signatory = req_details.length > 17 ? req_details[17] : '';
+            // var dtrupdate = req_details.length > 1 ? req_details[1] : '';
+            // var oldmorin  = req_details.length > 2 ? req_details[2] : '';
+            // var oldmorout = req_details.length > 3 ? req_details[3] : '';
+            // var oldafin   = req_details.length > 4 ? req_details[4] : '';
+            // var oldaftout = req_details.length > 5 ? req_details[5] : '';
+            // var oldOTin   = req_details.length > 6 ? req_details[6] : '';
+            // var oldOTout  = req_details.length > 7 ? req_details[7] : '';
+            // var morningin = req_details.length > 8 ? req_details[8] : '';
+            // var morningout= req_details.length > 9 ? req_details[9] : '';
+            // var aftnoonin = req_details.length > 10 ? req_details[10] : '';
+            // var aftnoonout= req_details.length > 11 ? req_details[11] : '';
+            // var OTtimein  = req_details.length > 12 ? req_details[12] : '';
+            // var OTtimeout = req_details.length > 13 ? req_details[13] : '';
+            // var reason    = req_details.length > 14 ? req_details[14] : '';
+            // var month     = req_details.length > 15 ? req_details[15] : '';
+            // var evidence  = req_details.length > 16 ? req_details[16] : '';
+            // var signatory = req_details.length > 17 ? req_details[17] : '';
             
-            var link = "<?=base_url('employee/reports/generate/?rpt=reportDTRupdate')?>"+"&dtrupdate="+dtrupdate+"&oldmorin="+oldmorin+"&oldmorout="+oldmorout+"&oldafin="+oldafin+"&oldaftout="+oldaftout+"&oldOTin="+oldOTin+"&oldOTout="+oldOTout+"&morningin="+morningin+"&morningout="+morningout+"&aftnoonin="+aftnoonin+"&aftnoonout="+aftnoonout+"&OTtimein="+OTtimein+"&OTtimeout="+OTtimeout+"&month="+month+"&evidence="+evidence+"&reason="+reason+"&signatory="+signatory;
+            var link = "<?=base_url('employee/reports/generate/?rpt=reportDTRupdate')?>"+"&req_id="+requestid;
             $('#dtr-embed').attr('src',link);
             $('#dtr-embed-fullview').attr('href',link);
             $('#dtr-form').modal('show');

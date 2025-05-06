@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -99,25 +99,25 @@ $db['default'] = array(
 // print_r(FCPATH . 'schema/data/migration/schema/hrmis-schema-upt.sql');
 // die();
 $db['hrmisv10_upt'] = array(
-    'dsn'      => '',
-    'hostname' => 'localhost',
-    'username' => 'root',
-    // 'password' => 'R0OtDb@dM1n',
+	'dsn'      => '',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	// 'password' => 'R0OtDb@dM1n',
 	'password' => '',
-    'database' => 'hrmis',
-    'dbdriver' => 'mysqli',
-    'dbprefix' => '',
-    'pconnect' => FALSE,
-    'db_debug' => FALSE,
-    'autoinit' => FALSE,
-    'cache_on' => FALSE,
-    'cachedir' => '',
-    'char_set' => 'utf8',
-    'dbcollat' => 'utf8_general_ci',
-    'swap_pre' => '',
-    'encrypt'  => FALSE,
-    'compress' => FALSE,
-    'stricton' => FALSE,
-    'failover' => array(),
-    'save_queries' => TRUE
+	'database' => 'hrmis',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => FALSE,
+	'autoinit' => FALSE,
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt'  => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
 );

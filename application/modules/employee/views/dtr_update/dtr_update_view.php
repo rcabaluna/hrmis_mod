@@ -46,7 +46,7 @@ $hrmodule = isset($_GET['module']) ? ($_GET['module'] == 'hr' ? 1 : 0) : 0;
             <div class="portlet-body">
             <?= form_open($form_action, ['method' => 'post', 'id' => 'frmDTRupdate']) ?>
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label">Date : <span class="required"> * </span></label>
                         <div class="input-icon right">
@@ -56,7 +56,7 @@ $hrmodule = isset($_GET['module']) ? ($_GET['module'] == 'hr' ? 1 : 0) : 0;
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label>For the Month of : </label>
@@ -74,9 +74,9 @@ $hrmodule = isset($_GET['module']) ? ($_GET['module'] == 'hr' ? 1 : 0) : 0;
                             </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="row"> 
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <label class="control-label bold">Old Timein/Timeout : </label>
                     <div class="row">
                         <div class="col-sm-12">
@@ -134,7 +134,7 @@ $hrmodule = isset($_GET['module']) ? ($_GET['module'] == 'hr' ? 1 : 0) : 0;
                     </div>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <label class="control-label bold">New Timein/Timeout : </label>
                     <div class="row">
                         <div class="col-sm-12">

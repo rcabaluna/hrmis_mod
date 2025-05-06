@@ -10,7 +10,7 @@ class Dtr_log_model extends CI_Model
 		$this->load->model(array('hr/Attendance_summary_model'));
 	}
 
-	function chekdtr_log($empid, $dtrdate, $dtrlog, $is_intl, $wfh)
+	function chekdtr_log($empid, $dtrdate, $dtrlog, $is_intl, $wfh,$filename)
 	{
 
 	
@@ -20,6 +20,7 @@ class Dtr_log_model extends CI_Model
 		$att_scheme_ini = $this->db->get_where('tblattendancescheme', array('schemeCode' => $emp_scheme[0]['schemeCode']))->result_array();
 
 
+	
 		
 		$err_message = array();
 		$is_strict = $att_scheme_ini[0]['strict'] == 'Y' ? 1 : 0;
@@ -27,7 +28,8 @@ class Dtr_log_model extends CI_Model
 
 
 
-		
+
+	
 
 
 
@@ -54,10 +56,12 @@ class Dtr_log_model extends CI_Model
 		} else {
 			$coldate = date('Y-m-d');
 			$coldate_log = date('Y-m-d H:i:s');
-			$edit_date = date('Y-m-d H:i:s A');
+			$edit_date = date('Y-m-d h:i:s A');
 		}
 
 
+
+	
 		
 
 		
@@ -65,9 +69,15 @@ class Dtr_log_model extends CI_Model
 		$empdtr = $this->Attendance_summary_model->getEmployee_dtr($empid, $coldate, $coldate);
 
 		
+	
+		
+		
+
 
 		$emp_att_scheme = $this->get_employee_attscheme($empid);
-		
+
+				
+
 	
 	
 		if (!empty($emp_att_scheme)) :
@@ -79,11 +89,15 @@ class Dtr_log_model extends CI_Model
 		else :
 			$err_message = array('strErrorMsg', 'No Attendance Scheme. Please contact administrator.');
 			// added log
-			$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1], 'log_ip' => $this->input->ip_address()));
+			$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1], 'log_ip' => $this->input->ip_address(),'log_filename' => $filename));
 			return $err_message;
 		endif;
 
 		
+		
+
+	
+
 
 		# check if dtr is empty
 		if (count($empdtr) < 1) :
@@ -97,9 +111,16 @@ class Dtr_log_model extends CI_Model
 				$pm_timein = $dtrlog;
 			endif;
 
-			
 		else :
+
+		
+
 			$empdtr = $empdtr[0];
+
+			
+
+		
+
 			# if employee has already dtr log
 			$dtrid = $empdtr['id'];
 			$am_timein  = $empdtr['inAM']  == '00:00:00' ? '' : $empdtr['inAM'];
@@ -109,6 +130,11 @@ class Dtr_log_model extends CI_Model
 			$ot_timein  = $empdtr['inOT']  == '00:00:00' ? '' : $empdtr['inOT'];
 			$ot_timeout = $empdtr['outOT'] == '00:00:00' ? '' : $empdtr['outOT'];
 
+
+			
+		
+			
+
 			# check if dtrlog < morning out
 			if (strtotime($dtrlog) < strtotime($nn_out_from)) :
 				# if true, check if strict;
@@ -116,12 +142,16 @@ class Dtr_log_model extends CI_Model
 					# if yes, check if am_timein is empty
 					if ($am_timein != '') :
 						# if not empty, employee may try am_timeout, but the condition is strictly dont allow that
-						$err_message = array('strErrorMsg', 'You are not allow to logout! Lunch break is between ' . $nn_out_from . ' and ' . $nn_in_to . '. Please contact administrator.');
+						$err_message = array('strErrorMsg', 'You are not allow to logout! <br><br> Lunch break is between ' . date('h:i A', strtotime($nn_out_from)) . ' and ' . date('h:i A', strtotime($nn_in_to)) . '. Please contact administrator.');
 					else :
 						# if empty, set am_timein
 						$am_timein = $dtrlog;
 					endif;
 				else :
+
+					
+			
+
 					# if no, check if am_timein is empty
 					if ($am_timein != '') :
 						# if not empty, check if am_timeout is empty
@@ -146,15 +176,24 @@ class Dtr_log_model extends CI_Model
 				endif;
 			else :
 				# if false, process for [LUNCH BREAK]
-				# check if lunch break is not broken (for 30 mins allowance purposes)
+				# check if lunch break is not broken (for 15 mins allowance purposes)
 				if ($nn_out_from == $nn_in_from && $nn_out_to == $nn_in_to) :
+
+					
+			
+
 					# if lunchbreak is not broken, check if dtrlog is between lunch break
 					if (strtotime($nn_in_to) > strtotime($dtrlog) && strtotime($nn_out_from) <= strtotime($dtrlog)) :
+
+						
+	
+
 						# check if am_timein is empty, set to am_timein
 						if ($am_timein == '') :
 							$am_timein = $dtrlog;
 						else :
 							# check if am_timeout is empty, then set to am_timeout if yes
+
 							if ($am_timeout == '') :
 								$process_data  = $this->set_am_timeout($dtrlog, $empdtr, $has_30mins_allow, $is_strict, $nn_out_from, $nn_out_to, $nn_in_from, $nn_in_to);
 								if (!empty($process_data)) :
@@ -163,31 +202,49 @@ class Dtr_log_model extends CI_Model
 									$err_message = $process_data['err_message'];
 								endif;
 							else :
+
+							
+							
+								
+
+
 								if ($empdtr['outAM'] == '' || $empdtr['outAM'] == '00:00:00') :
-									# check if with 30 mins allowance
+									# check if with 15 mins allowance
 									if ($has_30mins_allow) :
-										# if yes, check if am_timeout + 30 mins is equal to dtrlog
-										if ($dtrlog >= date('H:i', strtotime('+30 minutes', strtotime($empdtr['outAM'])))) :
+										# if yes, check if am_timeout + 15 mins is equal to dtrlog
+										if ($dtrlog >= date('H:i', strtotime('+15 minutes', strtotime($empdtr['outAM'])))) :
 											# if yes, set pm_timeout
 											$pm_timeout = $dtrlog;
 										else :
 											# otherwise, employee not allow to login, need to wait for 30 mins
-											$err_message = array('strErrorMsg', 'You are not allow to login! Your login time should be on ' . (date('H:i', strtotime('+30 minutes', strtotime($am_timeout)))) . '. Please contact administrator.');
+											$err_message = array('strErrorMsg', 'You are not allow to login! Your login time should be on ' . (date('H:i', strtotime('+15 minutes', strtotime($am_timeout)))) . '. Please contact administrator.');
 										endif;
 									else :
 										# if no, set pm_timeout
 										$pm_timeout = $dtrlog;
 									endif;
 								else :
-									# if no, check if with 30 mins allowance
+
+									
+								
+									# if no, check if with 15 mins allowance
 									if ($has_30mins_allow) :
-										# if yes, check if am_timeout + 30 mins is equal to dtrlog
-										if ($dtrlog >= date('H:i:s', strtotime('+30 minutes', strtotime($empdtr['outAM'])))) :
+										
+								
+									
+										# if yes, check if am_timeout + 15 mins is equal to dtrlog
+										if ($dtrlog >= date('H:i:s', strtotime('+15 minutes', strtotime($empdtr['outAM'])))) :
+
+										
+
 											# otherwise, set pm_timeout
 											$pm_timein = $dtrlog;
 										else :
+										
+											
+
 											# if no, employee not allow to login, need to wait for 30 mins
-											$err_message = array('strErrorMsg', 'You are not allow to login! Your login time should be on ' . (date('H:i', strtotime('+30 minutes', strtotime($am_timeout)))) . '. Please contact administrator.');
+											$err_message = array('strErrorMsg', 'You are not allow to login! Your login time should be on <b>' . (date('h:i A', strtotime('+15 minutes', strtotime($am_timeout)))) . '</b>.<br><br> Please contact administrator.');
 										endif;
 									else :
 										# if no, set pm_timeout
@@ -197,6 +254,9 @@ class Dtr_log_model extends CI_Model
 							endif;
 						endif;
 					else :
+
+							
+
 						$process_data  = $this->set_pm_timeout($dtrlog, $empdtr, $has_30mins_allow, $is_strict, $nn_out_from, $nn_out_to, $nn_in_from, $nn_in_to);
 						if (!empty($process_data)) :
 							$err_message = $process_data['err_message'];
@@ -229,33 +289,39 @@ class Dtr_log_model extends CI_Model
 
 		endif;
 
-		$arrdtr = array('empNumber' => $empid, 'dtrDate' => $dtrdate, 'inAM' => $am_timein, 'outAM' => $am_timeout, 'inPM' => $pm_timein, 'outPM' => $pm_timeout, 'inOT' => $ot_timein, 'outOT' => $ot_timeout);
+		
+
+		$arrdtr = array('empNumber' => $empid, 'dtrDate' => $dtrdate, 'inAM' => $am_timein, 'outAM' => $am_timeout, 'inPM' => $pm_timein, 'outPM' => $pm_timeout, 'inOT' => $ot_timein, 'outOT' => $ot_timeout, 'filename' => $filename);
+
 
 		# insert/update tblempdtr
 		if ($dtrid == '') :
-			$err_message = array('strSuccessMsg', 'You have successfully Logged-IN !!!');
+			$err_message = array('strSuccessMsg', 'You have successfully timed in!');
 			$arrdtr['name'] = 'System';
 			$arrdtr['editdate'] = $edit_date;
 			$arrdtr['ip'] = $this->input->ip_address();
 			$arrdtr['wfh'] = $wfh;
-
-			// echo "<pre>";
-			// var_dump($dtrid);
-
-			// exit();
+			
 			
 			$sql_str = $this->Attendance_summary_model->add_dtrkios($arrdtr);
-			$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1], 'log_ip' => $this->input->ip_address()));
+	
+			$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1], 'log_ip' => $this->input->ip_address(),'log_filename' => $filename));
 
 			return $err_message;
 		else :
-			if ($err_message[0] == 'strSuccessMsg') :
+
+			// $err_message = array('strSuccessMsg', 'You have successfully timed in!');
+			
+			if ($err_message[0] == 'strSuccessMsg' || empty($err_message)) :
+
+				
+				
 				$sql_str = $this->Attendance_summary_model->edit_dtrkios($arrdtr, $dtrid);
-				$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1], 'log_ip' => $this->input->ip_address()));
+				$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1], 'log_ip' => $this->input->ip_address(),'log_filename' => $filename));
 				return $err_message;
 			else :
 				// added log
-				$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1], 'log_ip' => $this->input->ip_address()));
+				$this->Attendance_summary_model->add_dtr_log(array('empNumber' => $empid, 'log_date' => $coldate_log, 'log_sql' => $sql_str, 'log_notify' => $err_message[1], 'log_ip' => $this->input->ip_address(),'log_filename' => $filename));
 				return $err_message;
 			endif;
 		endif;
@@ -355,9 +421,11 @@ class Dtr_log_model extends CI_Model
 		$am_timeout = '';
 		$err_message = array();
 		# check if has 30 mins allowance
+
+		
 		if ($has_30mins_allow) :
 			# if logdtr + 30 mins is > last nn break time out
-			if (date('H:i:s', strtotime('+30 minutes', strtotime($dtrlog))) > $nn_in_to) :
+			if (date('H:i:s', strtotime('+15 minutes', strtotime($dtrlog))) > $nn_in_to) :
 				# if yes, employee not allow to logout for morning, pm time in will be beyond the last nn break time out
 				$err_message = array('strErrorMsg', 'You are not allow to logout for or login from lunch break! Please contact administrator.');
 			else :
@@ -405,7 +473,7 @@ class Dtr_log_model extends CI_Model
 			if ($am_timeout == '' || $am_timeout == '00:00:00') :
 				# if yes, check if allow 30 mins,
 				if ($has_30mins_allow) :
-					if (date('H:i:s', strtotime('+30 minutes', strtotime($dtrlog))) > $nn_in_to) :
+					if (date('H:i:s', strtotime('+15 minutes', strtotime($dtrlog))) > $nn_in_to) :
 						$err_message = array('strErrorMsg', 'You are not allow to logout for or login from lunch break! Please contact administrator.');
 					else :
 						$am_timeout = $dtrlog;
@@ -419,12 +487,12 @@ class Dtr_log_model extends CI_Model
 			else :
 				# else, check if allow 30 mins, if yes, check if am_timeout is within 30 minutes
 				if ($has_30mins_allow) :
-					if ($dtrlog >= date('H:i:s', strtotime('+30 minutes', strtotime($empdtr['outAM'])))) :
+					if ($dtrlog >= date('H:i:s', strtotime('+15 minutes', strtotime($empdtr['outAM'])))) :
 						# if yes, set pm_timein
 						$pm_timein = $dtrlog;
 						$err_message = array('strSuccessMsg', 'You have successfully Logged-IN !!!');
 					else :
-						$err_message = array('strErrorMsg', 'You are not allow to login! Your login time should be on ' . (date('H:i', strtotime('+30 minutes', strtotime($empdtr['outAM'])))) . '. Please contact administrator.');
+						$err_message = array('strErrorMsg', 'You are not allow to login! Your login time should be on ' . (date('H:i', strtotime('+15 minutes', strtotime($empdtr['outAM'])))) . '. Please contact administrator.');
 					endif;
 				else :
 					# else, set pm_timein
@@ -446,12 +514,12 @@ class Dtr_log_model extends CI_Model
 			else :
 				# else, check if allow 30 mins, if yes, check if am_timeout is within 30 minutes
 				if ($has_30mins_allow) :
-					if ($dtrlog >= date('H:i:s', strtotime('+30 minutes', strtotime($empdtr['outAM'])))) :
+					if ($dtrlog >= date('H:i:s', strtotime('+15 minutes', strtotime($empdtr['outAM'])))) :
 						# if yes, set pm_timein
 						$pm_timein = $dtrlog;
 						$err_message = array('strSuccessMsg', 'You have successfully Logged-IN !!!');
 					else :
-						$err_message = array('strErrorMsg', 'You are not allow to login! Your login time should be on ' . (date('H:i', strtotime('+30 minutes', strtotime($empdtr['outAM'])))) . '. Please contact administrator.');
+						$err_message = array('strErrorMsg', 'You are not allow to login! Your login time should be on ' . (date('H:i', strtotime('+15 minutes', strtotime($empdtr['outAM'])))) . '. Please contact administrator.');
 					endif;
 				else :
 					# else, set pm_timein

@@ -40,7 +40,7 @@
             <td align="center"> <?=$row['next_signatory']['next_sign']?> </td>
             <td width="150px" style="white-space: nowrap;text-align: center;">
                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>" data-id="<?=$row['requestID']?>" data-empno="<?=$row['empNumber']?>"
-                    data-rdetails='<?=json_encode($req_details)?>' data-rattach='<?=$row['file_location']?>'>
+                    data-rdetails='<?=$row['requestID']?>' data-rattach='<?=$row['file_location']?>'>
                     <span class="icon-magnifier" title="View"></span> View</a>
                 <?php if(strtolower($row['requestStatus']) == 'filed request'): ?>
                     <a class="btn btn-sm blue" id="btncertify" data-id="<?=$row['requestID']?>"><span class="icon-check"></span> Certify</a>

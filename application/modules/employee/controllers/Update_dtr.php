@@ -12,7 +12,7 @@ class Update_dtr extends MY_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model(['employee/update_dtr_model', 'libraries/user_account_model', 'hr/hr_model']);
+        $this->load->model(['employee/update_dtr_model', 'libraries/user_account_model', 'hr/hr_model', 'libraries/Request_model']);
     }
     public function index()
     {
@@ -118,10 +118,14 @@ class Update_dtr extends MY_Controller
     public function submit()
     {
         $arrPost = $this->input->post();
+
+      
+        
         if (!empty($arrPost)) {
             $dtmDTRupdate = $arrPost['dtmDTRupdate'];
             $strReason = $arrPost['strReason'];
-            $dtmMonthOf = $arrPost['dtmMonthOf'];
+            // $dtmMonthOf = $arrPost['dtmMonthOf'];
+            $dtmMonthOf = '';
             $strEvidence = $arrPost['strEvidence'];
             $strSignatory = $arrPost['strSignatory'] == '' ? '' : $arrPost['strSignatory'];
             $dtr_am_in = $arrPost['dtmMorningIn'] != '' ? explode(':', $arrPost['dtmMorningIn']) : explode(':', '00:00:00');
@@ -130,7 +134,9 @@ class Update_dtr extends MY_Controller
             $dtr_pm_out = $arrPost['dtmAfternoonOut'] != '' ? explode(':', $arrPost['dtmAfternoonOut']) : explode(':', '00:00:00');
             $dtr_ot_in = $arrPost['dtmOvertimeIn'] != '' ? explode(':', $arrPost['dtmOvertimeIn']) : explode(':', '00:00:00');
             $dtr_ot_out = $arrPost['dtmOvertimeOut'] != '' ? explode(':', $arrPost['dtmOvertimeOut']) : explode(':', '00:00:00');
-  
+
+            
+
             $arrdetails = [
                 'DTR',
                 $arrPost['dtmDTRupdate'],
@@ -138,8 +144,8 @@ class Update_dtr extends MY_Controller
                 $arrPost['strOldMorningOut'],
                 $arrPost['strOldAfternoonIn'],
                 $arrPost['strOldAfternoonOut'],
-                $arrPost['strOldOvertimeIn'] == '' ? '00:00:00' : $arrPost['strOldOvertimeIn'],
-                $arrPost['strOldOvertimeOut'] == '' ? '00:00:00' : $arrPost['strOldOvertimeOut'],
+                $arrPost['strOldOvertimeIn'],
+                $arrPost['strOldOvertimeOut'],
                 $arrPost['dtmMorningIn'],
                 $arrPost['dtmMorningOut'],
                 $arrPost['dtmAfternoonIn'],
@@ -176,15 +182,29 @@ class Update_dtr extends MY_Controller
                 $strSignatory
             ];
 
-    
+
+            // GET APPROVER
+			$empid = $this->session->userdata('sessEmpNo');
+			$office = employee_office($empid);
+
+			$requestflowid = $this->Request_model->get_approver_id2($office,'DTR',$empid);
+
+			if (!$requestflowid) {
+				$this->session->set_flashdata('strErrorMsg','Request flow not found. Please contact HR.');
+				redirect('employee/official_business');
+			}
+			elseif (count($requestflowid) > 1){
+				$this->session->set_flashdata('strErrorMsg','Duplicate request flow. Please contact HR.');
+				redirect('employee/official_business');
+			}else{
+				$requestflowid = $requestflowid[0]['reqID'];
+			}
+			//END GET APPROVER
+
             if (!empty($dtmDTRupdate)) {
                 if (count($this->update_dtr_model->checkExist($dtmDTRupdate)) == 0) {
-                    $arrData = ['requestDetails' => implode(';', $arrdetails), 'requestDate' => date('Y-m-d'), 'requestStatus' => 'Filed Request', 'requestCode' => 'DTR', 'empNumber' => $_SESSION['sessEmpNo']];
+                    $arrData = ['requestflowid' => $requestflowid,'requestDetails' => implode(';', $arrdetails), 'requestDate' => date('Y-m-d'), 'requestStatus' => 'Filed Request', 'requestCode' => 'DTR', 'empNumber' => $_SESSION['sessEmpNo']];
                     $blnReturn = $this->update_dtr_model->submit($arrData);
-                    // echo "<pre>";
-                    // var_dump($arrData);
-                    // exit();
-
 
                     if (count($blnReturn) > 0) {
                         log_action($this->session->userdata('sessEmpNo'), 'HR Module', 'tblemprequest', 'Added ' . $dtmDTRupdate . ' DTR Update', implode(';', $arrData), '');

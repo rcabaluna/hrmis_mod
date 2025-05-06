@@ -250,7 +250,7 @@
                 <h4 class="modal-title"></h4>
             </div>
             <?= // form_open('employee/requests/cancel_request', array('class' => 'form-horizontal')) 
-            form_open('employee/requests/update_to', array('class' => 'form-horizontal'))
+            form_open('employee/requests/update_to', array('class' => 'form-horizontal','id' => 'update-to-form-task'))
 
             ?>
             <div class="modal-body">
@@ -349,4 +349,10 @@
         $("#btnobcertify").attr("disabled", "disabled");
         $("#btnobcertify").text("Submitting...");
     });
+
+    $("#update-to-form-task").submit(function (e) { 
+        $("#btntocertify").attr("disabled", "disabled");
+        $("#btntocertify").text("Submitting...");
+    });
+
 </script>
