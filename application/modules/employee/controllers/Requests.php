@@ -48,7 +48,7 @@ class Requests extends MY_Controller
 		$requestFlow = $this->Request_model->getRequestFlow($officer_empid);
 		$requestdetails = $this->Request_model->getSelectedRequest($arrpost['txtto_id']);
 
-		echo "<pre>";
+		//echo "<pre>";
 
 
 		$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $requestdetails);
@@ -109,7 +109,6 @@ class Requests extends MY_Controller
 			}
 		}
 
-		
 		$this->session->set_flashdata('strSuccessMsg', 'Schedule added successfully.');
 		redirect('employee/notification');
 	}

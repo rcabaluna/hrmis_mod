@@ -86,7 +86,7 @@ class Travel_order extends MY_Controller {
 							if($_FILES['userfile']['name'] != ''):
 								$path_parts = pathinfo($_FILES['userfile']['name'][$i]);
 								$tmp_file = $_FILES['userfile']['tmp_name'][$i];
-								$config['upload_path']   = 'uploads/employees/attachments/travel_order/'.$arrPost['txtempno'].'/';
+								$config['upload_path']   = 'uploads/employees/attachments/travel_order/';
 								$config['allowed_types'] = '*';
 								$config['file_name'] = uniqid().'.'.$path_parts['extension']; 
 								$config['overwrite'] = TRUE;

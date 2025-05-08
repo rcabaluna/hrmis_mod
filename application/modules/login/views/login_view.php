@@ -73,6 +73,9 @@
             });  
         </script>
         <!-- END PAGE LEVEL SCRIPTS -->
+	<!-- jQuery UI CSS & JS (for datepicker) -->
+    	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
         <script src="<?=base_url('assets/js/custom-dtr-hcd.js')?>"></script>
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <!-- END THEME LAYOUT SCRIPTS -->
