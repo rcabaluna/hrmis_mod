@@ -389,36 +389,44 @@ $(document).ready(function() {
 
     });
 
-    $('#btn-request-to').click(function(e) {
+    $("#frmTO").submit(function (e) { 
         var total_error = 0;
+
+        $("#btn-request-to").attr("disabled", true);
 
         total_error = total_error + check_null('#strDestination','Destination must not be empty.');
         total_error = total_error + check_null('#dtmTOdatefrom','Date From must not be empty.');
         total_error = total_error + check_null('#dtmTOdateto','Date To must not be empty.');
         total_error = total_error + check_null('#strPurpose','Purpose must not be empty.');
         if($('#txtdgstorage').val()!='' && $('#txtdgstorage').val()!=''){
-            if($('#txtdgstorage').val() == 'MB' || $('#txtdgstorage').val() == 'KB') {
-                if($('#txtdgstorage').val() == 'MB') {
-                    if($('#txtfilesize').val() > 100){
-                        total_error = total_error + 1;
-                        $('#upload-error').show();
-                    }
+        if($('#txtdgstorage').val() == 'MB' || $('#txtdgstorage').val() == 'KB') {
+            if($('#txtdgstorage').val() == 'MB') {
+                if($('#txtfilesize').val() > 100){
+                    total_error = total_error + 1;
+                    $('#upload-error').show();
                 }
-            }else{
-                total_error = total_error + 1;
-                $('#upload-error').show();
-                
             }
+        }else{
+            total_error = total_error + 1;
+            $('#upload-error').show();
+            $("#btn-request-to").attr("disabled", false);
+            
         }
-
+        }
 
 
         if(total_error > 0){
-            e.preventDefault();
-
-            
+        e.preventDefault();
+        $("#btn-request-to").attr("disabled", false);
+        }else{
+        $("#btn-request-to").attr("disabled", true);
         }
+        
     });
+
+    // $('#btn-request-to').click(function(e) {
+        
+    // });
 
     $('#printreport').click(function() {
         var desti       = $('#strDestination').val();

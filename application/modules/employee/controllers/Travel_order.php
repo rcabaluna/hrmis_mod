@@ -58,8 +58,6 @@ class Travel_order extends MY_Controller {
     {
     	$arrPost = $this->input->post();
 
-		
-	
 
 		if(!empty($arrPost)):
 
