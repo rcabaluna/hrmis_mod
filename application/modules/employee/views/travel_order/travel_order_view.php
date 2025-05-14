@@ -407,11 +407,16 @@ $(document).ready(function() {
             }else{
                 total_error = total_error + 1;
                 $('#upload-error').show();
+                
             }
         }
 
+
+
         if(total_error > 0){
             e.preventDefault();
+
+            
         }
     });
 

@@ -531,10 +531,7 @@ if (!function_exists('sendemail_new_request')) {
         // Send email
         if ($CI->email->send()) {
             return true;
-        } else {
-            echo "Failed to send email.";
-            echo $CI->email->print_debugger(); // Debugging output
-        }
+        } 
     }
 }
 
@@ -588,10 +585,7 @@ if (!function_exists('sendemail_update_request')) {
         // Send email
         if ($CI->email->send()) {
             return true;
-        } else {
-            echo "Failed to send email.";
-            echo $CI->email->print_debugger(); // Debugging output
-        }
+        } 
     }
 
     if (!function_exists('get_email_address')) {
