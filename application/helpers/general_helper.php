@@ -494,7 +494,7 @@ if (!function_exists('sendemail_new_request')) {
             'protocol'  => 'smtp',
             'smtp_host' => 'smtp.gmail.com', // Your SMTP host
             'smtp_user' => 'rocabalunajr@region10.dost.gov.ph', // SMTP username
-            'smtp_pass' => 'wile avvt arei wcim', // SMTP password
+            'smtp_pass' => 'quqa cwlj qxhr etha', // SMTP password
             'smtp_port' => 587, // Use 465 for SSL, 587 for TLS
             'smtp_crypto' => 'tls', // Use 'ssl' for SSL
             'mailtype'  => 'html',
@@ -531,6 +531,8 @@ if (!function_exists('sendemail_new_request')) {
         // Send email
         if ($CI->email->send()) {
             return true;
+        }else{
+            return false;
         } 
     }
 }
@@ -549,7 +551,7 @@ if (!function_exists('sendemail_update_request')) {
             'protocol'  => 'smtp',
             'smtp_host' => 'smtp.gmail.com', // Your SMTP host
             'smtp_user' => 'rocabalunajr@region10.dost.gov.ph', // SMTP username
-            'smtp_pass' => 'wile avvt arei wcim', // SMTP password
+            'smtp_pass' => 'quqa cwlj qxhr etha', // SMTP password
             'smtp_port' => 587, // Use 465 for SSL, 587 for TLS
             'smtp_crypto' => 'tls', // Use 'ssl' for SSL
             'mailtype'  => 'html',
@@ -585,7 +587,7 @@ if (!function_exists('sendemail_update_request')) {
         // Send email
         if ($CI->email->send()) {
             return true;
-        } 
+        }
     }
 
     if (!function_exists('get_email_address')) {

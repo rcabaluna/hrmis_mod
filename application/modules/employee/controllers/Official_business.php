@@ -259,10 +259,10 @@ class Official_business extends MY_Controller {
 					$signatory = $this->Request_model->get_next_signatory_for_email($blnReturn);
 					$recepient = get_email_address($signatory['next_sign']);
 
+					$send = '';
 						if ($recepient) {
-							sendemail_request_to_signatory($recepient,'Official Business', date('Y-m-d'));
+							$send = sendemail_request_to_signatory($recepient,'Official Business', date('Y-m-d'));
 						}
-
 					
 
 					if(count($blnReturn)>0):
