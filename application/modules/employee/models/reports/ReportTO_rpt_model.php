@@ -293,8 +293,8 @@ class ReportTO_rpt_model extends CI_Model
 		$this->fpdf->SetFont('Arial', "B", 9);
 		$this->fpdf->Cell(45, 5, "LOCAL TRAVEL ORDER NO.	", 0, 0, "L");
 		$this->fpdf->SetFont('Arial', "", 9);
-		$this->fpdf->Cell(5, 5,"  ".$toDetails[5], 0, 0, "L");
-
+		//$this->fpdf->Cell(5, 5,"  ".$toDetails[5], 0, 0, "L");
+                $this->fpdf->Cell(5, 5, " " . (isset($toDetails[5]) ? $toDetails[5] : ''), 0, 0, "L");
 
 		$this->fpdf->Ln(0.2);
 		$this->fpdf->SetFont('Arial', "", 9);
@@ -316,8 +316,8 @@ class ReportTO_rpt_model extends CI_Model
 
 		$this->fpdf->Ln(8);
 
-		$employees = explode('/', $toDetails[6]);
-
+		//$employees = explode('/', $toDetails[6]);
+                $employees = isset($toDetails[6]) ? explode('/', $toDetails[6]) : [];
 
 		$this->fpdf->SetFont('Arial', "B", 10);
 		$this->fpdf->Cell(60, 5, "NAME ", 0, 0, "C");

@@ -229,7 +229,7 @@ class User_account extends MY_Controller {
 
 			$res = $this->user_account_model->save($arrData, $this->session->userdata('sessEmpNo'));
 			if(count($res)>0):
-				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Update Password '.$strUsername.' User_account',implode(';',$arrData),'');
+				log_action($this->session->userdata('sessEmpNo'),'HR Module','tblempaccount','Update Password '.$this->session->userdata('sessUserName').' User_account',implode(';',$arrData),'');
 				
 				$this->session->set_flashdata('strSuccessMsg','Password updated successfully.');
 			endif;
