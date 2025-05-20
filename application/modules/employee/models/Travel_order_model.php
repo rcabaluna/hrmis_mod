@@ -58,9 +58,9 @@ class Travel_order_model extends CI_Model {
 	{		
 		$strSQL = " SELECT * FROM tblemprequest					
 					WHERE  
-					requestDetails ='$str_details'";
+					requestDetails = ?";
 		//echo $strSQL;exit(1);
-		$objQuery = $this->db->query($strSQL);
+		$objQuery = $this->db->query($strSQL, array($str_details));
 		return $objQuery->result_array();	
 	}
 

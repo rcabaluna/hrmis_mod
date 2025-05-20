@@ -16,7 +16,7 @@ var system_config = {
 };
 var instance_config = {};
 var preempted = false;
-canvas = document.createElement('canvas');
+let canvas = document.createElement('canvas');
 var dpr = 1, bsr = 1;
 var resizable_images = [];
 
