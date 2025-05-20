@@ -48,9 +48,6 @@ class Requests extends MY_Controller
 		$requestFlow = $this->Request_model->getRequestFlow($officer_empid);
 		$requestdetails = $this->Request_model->getSelectedRequest($arrpost['txtto_id']);
 
-		echo "<pre>";
-
-
 		$arrRequest = $this->Notification_model->check_request_flow_and_signatories($requestFlow, $requestdetails);
 		$req = array_shift($arrRequest);
 
@@ -100,6 +97,8 @@ class Requests extends MY_Controller
 		if ($requestdetails[0]['empNumber']) {
 			$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Travel Order',$requestdetails[0]['requestDate'],$arrdata['requestStatus']);
 		}
+
+		
 
 		if ($send) {
 			$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
@@ -176,6 +175,8 @@ class Requests extends MY_Controller
 		if (get_email_address($requestdetails[0]['empNumber'])) {
 			$send = sendemail_update_request($_SESSION['sessEmpNo'],get_email_address($requestdetails[0]['empNumber']),'Official Business',$requestdetails[0]['requestDate'],$arrdata['requestStatus']);
 		}
+
+		
 
 		if ($send) {
 			$signatory = $this->Request_model->get_next_signatory_for_email($requestid);
