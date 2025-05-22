@@ -74,9 +74,7 @@ class Leave extends MY_Controller {
 	
     function add_leave()
     {
-    	$arrPost = $this->input->post();
-
-		
+    	$arrPost = $this->input->post();		
 		
 		if(!empty($arrPost)) {
 			$curr_leave = $this->leave_model->getleave($arrPost['txtempno'],$arrPost['dtmLeavefrom'],$arrPost['dtmLeaveto']);

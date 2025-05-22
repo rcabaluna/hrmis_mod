@@ -177,7 +177,7 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->Cell(82,6,'6.B DETAILS OF LEAVE',"RLT",0,"L");
 
         
-        foreach ($this->getleave_types() AS $leave_types) {
+        foreach($this->getleave_types() AS $leave_types) {
             
             if($leave_types['leaveCode'] == $requestDetails[0]){
                 $check = "4";
@@ -221,6 +221,12 @@ class ReportLeave_rpt_model extends CI_Model {
 
             }
 
+            if ($requestDetails[0] == "SPPL") {
+                $vl_w_remarks = $requestDetails[6];
+
+            }
+
+
             switch($leave_types['leave_id']){
                 case 1:
                     $this->fpdf->SetFont('Arial', "I", 8.5);
@@ -235,9 +241,13 @@ class ReportLeave_rpt_model extends CI_Model {
                     $this->fpdf->Cell(0.1,6,$vl_w,"",0,"L");
                     $this->fpdf->SetFont('Arial', "", 8.5);	
                     $this->fpdf->Cell(38  ,6,'        Within the Philippines ',"",0,"L");
-                    $this->fpdf->SetFont('Arial', "BU", 8.5);	
+                    
+                    $this->fpdf->SetFont('Arial', "B", 7);	
                     $this->fpdf->Cell(40.9  ,6,$vl_w_remarks,"R",0,"L");
 
+                    $this->fpdf->Ln(0);
+                    $this->fpdf->Cell(139.5  ,6,"","",0,"L");
+                    $this->fpdf->Cell(40.9  ,6,"__________________________","",0,"L");
                     break;
                 case 3:
                     $this->fpdf->Cell(3,6,'',"L",0,"L");
@@ -249,6 +259,10 @@ class ReportLeave_rpt_model extends CI_Model {
                     $this->fpdf->Cell(35,6,'        Abroad (Specify)',"",0,"L");
                     $this->fpdf->SetFont('Arial', "BU", 8.5);	
                     $this->fpdf->Cell(43.9  ,6,$vl_a_remarks,"R",0,"L");
+
+                    $this->fpdf->Ln(0);
+                    $this->fpdf->Cell(132  ,6,"","",0,"L");
+                    $this->fpdf->Cell(40.9  ,6,"__________________________","",0,"L");
                     break;
                 case 4:
                 $this->fpdf->Cell(82,6,'   In case of Sick Leave:',"LR",0,"L");
@@ -258,10 +272,14 @@ class ReportLeave_rpt_model extends CI_Model {
                     $this->fpdf->Cell(3,6,'',"",0,"L");
                     $this->fpdf->SetFont('ZapfDingbats','', 12);
                     $this->fpdf->Cell(0.1,6,$sl_i,"",0,"L");
-
+                    
                     $this->fpdf->SetFont('Arial', "", 8.5);	
                     $this->fpdf->Cell(28,6,'        In Hospital (Specify Illness)',"",0,"L");
                     $this->fpdf->Cell(50.9  ,6,$sl_i_remarks,"R",0,"C");
+
+                    $this->fpdf->Ln(0);
+                    $this->fpdf->Cell(145  ,6,"","",0,"L");
+                    $this->fpdf->Cell(40.9  ,6,"__________________","",0,"L");
                     break;
                 case 6:
                     $this->fpdf->Rect(120, $this->fpdf->GetY() + 1, 3, 3);
@@ -272,9 +290,13 @@ class ReportLeave_rpt_model extends CI_Model {
                     $this->fpdf->SetFont('Arial', "", 8.5);	
                     $this->fpdf->Cell(28,6,'        Out Patient (Specify Illness)',"",0,"L");
                     $this->fpdf->Cell(50.9  ,6,$sl_o_remarks,"R",0,"C");
+
+                    $this->fpdf->Ln(0);
+                    $this->fpdf->Cell(145  ,6,"","",0,"L");
+                    $this->fpdf->Cell(40.9  ,6,"__________________","",0,"L");
                     break;
                 case 7:
-                    $this->fpdf->Cell(82,6,'    ___________________________________',"LR",0,"L");
+                    $this->fpdf->Cell(82,6,'    ____________________________________________',"LR",0,"L");
                     break;
                 case 8:
                     $this->fpdf->SetFont('Arial', "I", 8.5);
@@ -285,7 +307,7 @@ class ReportLeave_rpt_model extends CI_Model {
                     $this->fpdf->Cell(82,6,'    (Specify Illness) '.$check_slw_remarks,"LR",0,"L");
                     break;
                 case 10:
-                    $this->fpdf->Cell(82,6,'    _______________________________________',"LR",0,"L");
+                    $this->fpdf->Cell(82,6,'    ____________________________________________',"LR",0,"L");
                     break;
                 case 11:
                     $this->fpdf->SetFont('Arial', "I", 8.5);
