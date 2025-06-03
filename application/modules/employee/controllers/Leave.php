@@ -74,9 +74,7 @@ class Leave extends MY_Controller {
 	
     function add_leave()
     {
-    	$arrPost = $this->input->post();
-
-		
+    	$arrPost = $this->input->post();		
 		
 		if(!empty($arrPost)) {
 			$curr_leave = $this->leave_model->getleave($arrPost['txtempno'],$arrPost['dtmLeavefrom'],$arrPost['dtmLeaveto']);
@@ -219,7 +217,7 @@ class Leave extends MY_Controller {
 				'requestCode'	 => 'Leave',
 				'empNumber'		 => $arrPost['txtempno'],
 				'file_location'	 => json_encode($attachments));
-			$this->leave_model->save($arrData,$_GET['req_id']);
+			$blnReturn = $this->leave_model->save($arrData,$_GET['req_id']);
 
 			$this->session->set_flashdata('strSuccessMsg','Leave has been updated.');
 
