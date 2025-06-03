@@ -665,7 +665,7 @@ class ReportTO_rpt_model extends CI_Model
         $this->fpdf->SetFont('Arial', "", 8.5);	
 
 		if ($approver) {
-			$this->fpdf->Cell(75, 5, employee_details($approver['empNumber'])[0]['positionDesc'], 0, 0, "C");
+			$this->fpdf->Cell(75, 5, employee_details($approver['empNumber'])[0]['positionDesc'] ?? '', 0, 0, "C");
 		}else{
 			$this->fpdf->Cell(75, 5, employee_details($requestSignatories['Signatory1EmpNumber'])[0]['positionDesc'], 0, 0, "C");
 		}
