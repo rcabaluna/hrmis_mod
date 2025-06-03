@@ -86,10 +86,10 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td align="center"> <?=$i++?> </td>
                             <td align="center"> <?=$row['requestDate']?> </td>
                             <td align="center"> <?=$row['requestStatus']?> </td>
-                            <td align="center"> <?=$req_details[14]?> </td>
+                            <td align="center"> <?=$req_details[14] ?? '' ?> </td>
                             <td align="center" nowrap>
                                 <?php
-                                    if($req_details[1]!='' && $req_details[2]!=''):
+                                    if(($req_details[1] ?? '')!='' && ($req_details[2] ?? '')!=''):
                                         echo date('M. d, Y',strtotime($req_details[1])).' <b>to</b> '.date('M. d, Y',strtotime($req_details[2]));
                                     else:
                                         echo $req_details[1]!=''?date('M. d, Y',strtotime($req_details[1])):'';
