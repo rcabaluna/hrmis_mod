@@ -178,7 +178,7 @@ class Leave extends MY_Controller {
 			$attachments = $arrleave['file_location']!='' ? json_decode($arrleave['file_location'],true) : array();
 			$attachment_id = count($attachments) > 0 ? max(array_column($attachments,'fileid')) : 0;
 			$total = count($_FILES['userfile']['name']);
-
+			$strEmpNum = '';
 			if($_FILES['userfile']['name'][0]!=''):
 
 				for($i=0; $i < $total; $i++):
