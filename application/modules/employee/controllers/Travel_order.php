@@ -30,6 +30,8 @@ class Travel_order extends MY_Controller {
     	$this->arrData['notif_icon'] = $notif_icon;
 
     	$arrto_request = $this->travel_order_model->getall_request($_SESSION['sessEmpNo']);
+
+	
     	if(isset($_GET['status'])):
     		if(strtolower($_GET['status'])!='all'):
     			$leave_request = array();
@@ -119,11 +121,11 @@ class Travel_order extends MY_Controller {
 
 					if (!$requestflowid) {
 						$this->session->set_flashdata('strErrorMsg','Request flow not found. Please contact HR.');
-						redirect('employee/official_business');
+						redirect('employee/travel_order');
 					}
 					elseif (count($requestflowid) > 1){
 						$this->session->set_flashdata('strErrorMsg','Duplicate request flow. Please contact HR.');
-						redirect('employee/official_business');
+						redirect('employee/travel_order');
 					}else{
 						$requestflowid = $requestflowid[0]['reqID'];
 					}

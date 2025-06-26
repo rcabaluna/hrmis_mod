@@ -135,9 +135,9 @@
             $('#to-form').modal('show');
         });
 
-        $("#to-form").on("hidden.bs.modal", function () {
-            location.reload();
-        });
+        // $("#to-form").on("hidden.bs.modal", function () {
+        //     location.reload();
+        // });
 
         $('#table-to').on('click', 'a#btncertify', function() {
             var action = $("#btncertify").text().trim();

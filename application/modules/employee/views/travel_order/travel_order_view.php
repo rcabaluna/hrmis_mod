@@ -490,5 +490,19 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
+$(document).ready(function() {
+    // Set default selected value if not already selected
+    const defaultEmp = '<?=$_SESSION['sessEmpNo']?>';
+    const select = $('#selemps');
+
+    if (select.length) {
+        select.find(`option[value="${defaultEmp}"]`).prop('selected', true);
+        select.multiSelect('refresh');
+    }
+});
+</script>
+
+
 
 <?=load_plugin('js',array('datetimepicker','timepicker','datepicker','select2','multi-select'));?>

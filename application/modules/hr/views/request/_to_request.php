@@ -17,6 +17,7 @@
     <thead>
         <tr>
             <th style="width: 100px;text-align:center;"> No. </th>
+            <th style="width: 100px;text-align:center;">TO Number</th>
             <th style="text-align: center;"> Employee </th>
             <th style="text-align: center;"> Request Date </th>
             <th style="text-align: center;"> Request Status </th>
@@ -29,12 +30,15 @@
         </tr>
     </thead>
     <tbody>
-    <?php $i=1; foreach($arrto_request as $row): $req_details = explode(';',$row['requestDetails']);?>
+    <?php $i=1; foreach($arrto_request as $row): $req_details = explode(';',$row['requestDetails']);
+
+    ?>
         <tr class="odd gradeX">
-            <td align="center"> <?=$i++?> </td>
-            <td> <?=employee_name_formal($row['empNumber'])?> </td>
-            <td align="center"> <?=$row['requestDate']?> </td>
-            <td align="center"> <?=$row['requestStatus']?> </td>
+            <td align="center"> <?=$i++;?> </td>
+            <td align="center"><?php  $secondToLast = $req_details[count($req_details) - 2]; echo $secondToLast;?></td>
+            <td> <?=employee_name_formal($row['empNumber'])?></td>
+            <td align="center"> <?=date('F d, Y', strtotime($row['requestDate']))?> </td>
+            <td align="center"> <?=$row['requestStatus']; ?> </td>
             <?php if(isset($_GET['status'])): if($_GET['status']=='Disapproved'): ?>
                 <td align="center"> <?=$row['remarks']?> </td>
             <?php endif; endif; ?>
@@ -108,7 +112,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="javascript:;" id="to-open-request" class="btn green btn-sm"> <i class="icon-doc"> </i> Open Request</a>
+                <!-- <a href="javascript:;" id="to-open-request" class="btn green btn-sm"> <i class="icon-doc"> </i> Open Request</a> -->
                 <a href="javascript:;" id="to-embed-fullview" class="btn blue btn-sm" target="_blank"> <i class="glyphicon glyphicon-resize-full"> </i> Open in New Tab</a>
                 <button type="button" class="btn dark btn-sm" data-dismiss="modal"> <i class="icon-ban"> </i> Close</button>
             </div>

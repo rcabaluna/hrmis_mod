@@ -28,13 +28,18 @@ class Travel_order_model extends CI_Model {
 		endif;
 	}
 
-	function getall_request($empno='')
+	function getall_request($empno = '')
 	{
-		if($empno!=''):
-			$this->db->where('empNumber',$empno);
+		if ($empno != ''):
+			$this->db->where('empNumber', $empno);
 		endif;
-		return $this->db->order_by('requestDate','DESC')->get_where('tblemprequest',array('requestCode' => 'TO'))->result_array();
+
+		$this->db->order_by('requestDate', 'DESC');
+		$this->db->order_by('requestID', 'DESC'); // Add this line
+
+		return $this->db->get_where('tblemprequest', array('requestCode' => 'TO'))->result_array();
 	}
+
 
 	function submit($arrData)
 	{
