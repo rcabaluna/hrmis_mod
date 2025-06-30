@@ -374,14 +374,17 @@ class ReportLeave_rpt_model extends CI_Model {
         $this->fpdf->Cell(98, 6,"       __________________________________________", "RL", 0, "L");
 
         $check_commutation_r = $check_commutation_nr = '';
-        if ($requestDetails[13] == "requested") {
-            $check_commutation_r = 4;
-        }
+        if(isset($requestDetails[13])) {
+		if ($requestDetails[13] == "requested") {
+            		$check_commutation_r = 4;
+        	}
 
-        if ($requestDetails[13] == "not-requested") {
-            $check_commutation_nr = 4;
-        }
-
+        	if ($requestDetails[13] == "not-requested") {
+            		$check_commutation_nr = 4;
+        	}
+	} else {
+		$check_commutation_r = $check_commutation_nr = '';
+	}
         // COMMUTATION NOT REQUESTED
         $this->fpdf->Cell(3,6,'',"L",0,"L");
         $this->fpdf->SetFont('ZapfDingbats','', 12);
