@@ -452,66 +452,83 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
 
         // });
 
-        $("#frmLeave").submit(function (e) { 
-            
-            $("#btn-request-leave").attr("disabled", true);
+	$("#frmLeave").submit(function (e) {
+	    $("#btn-request-leave").attr("disabled", true);
 
-            var total_error = 0;
+	    var total_error = 0;
 
-            total_error = total_error + check_null('#dtmLeavefrom','Leave from must not be empty.');
-            total_error = total_error + check_null('#dtmLeaveto','Leave to must not be empty.');
-            // total_error = total_error + check_null('#strReason',' This field must not be empty.');
-            total_error = total_error + check_null('#strCommutation',' This field must not be empty.');
+	    const leaveType = $("#strLeavetype").val().toLowerCase();
+	    const leaveFrom = $("#dtmLeavefrom").val();
+	    const leaveTo = $("#dtmLeaveto").val();
+	    const today = new Date();
+	    const parsedLeaveFrom = new Date(leaveFrom);
+	    const parsedLeaveTo = new Date(leaveTo);
 
-            
-            
-            var strLeavetype = $("#strLeavetype").val();
-            
-            switch (strLeavetype) {
-                case 'VL':
-                    total_error = total_error + check_null('#strIncaseVL','This field must not be empty.');
-                    total_error = total_error + check_null('#strReason',' This field must not be empty.');
+	    // Check required fields
+	    total_error += check_null('#dtmLeavefrom','Leave from must not be empty.');
+	    total_error += check_null('#dtmLeaveto','Leave to must not be empty.');
+	    total_error += check_null('#strCommutation',' This field must not be empty.');
 
+	    switch (leaveType) {
+	        case 'vl':
+	            total_error += check_null('#strIncaseVL','This field must not be empty.');
+	            total_error += check_null('#strReason','This field must not be empty.');
+	            break;
+		case 'fl':
+		    total_error += check_null('#strReason','This field must not be empty.');
                     break;
-                case 'SL':
-                    total_error = total_error + check_null('#strIncaseSL',' This field must not be empty.');
-                    total_error = total_error + check_null('#strReason',' This field must not be empty.');
+	        case 'sl':
+	            total_error += check_null('#strIncaseSL','This field must not be empty.');
+	            total_error += check_null('#strReason','This field must not be empty.');
+	            break;
+	        case 'stl':
+	            total_error += check_null('#strIncaseSTL','This field must not be empty.');
+	            total_error += check_null('#strReason','This field must not be empty.');
+	            break;
+	        case 'sppl':
+	            total_error += check_null('#strReason','This field must not be empty.');
+	            break;
+	    }
 
-                    break;
-                case 'STL':
-                    total_error = total_error + check_null('#strIncaseSTL',' This field must not be empty.');
-                    total_error = total_error + check_null('#strReason',' This field must not be empty.');
-                case 'SPPL':
-                    total_error = total_error + check_null('#strReason',' This field must not be empty.');
-                    break;
-            }
+	    // Validation: Restrict non-SL if filed within 5 days
+	    if (leaveType !== 'sl') {
+	        const timeDiff = parsedLeaveFrom.getTime() - today.getTime();
+	        const diffDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
+	        if (diffDays < 5) {
+	            alert("Leave must be filed at least 5 days in advance.");
+	            $("#btn-request-leave").attr("disabled", false);
+	            e.preventDefault();
+	            return;
+	        }
+	    }
 
-            if($('#txtdgstorage').val()!='' && $('#txtdgstorage').val()!=''){
-                if($('#txtdgstorage').val() == 'MB' || $('#txtdgstorage').val() == 'KB') {
-                    if($('#txtdgstorage').val() == 'MB') {
-                        if($('#txtfilesize').val() > 100){
-                            total_error = total_error + 1;
-                            $('#upload-error').show();
-                        }
-                    }
-                }else{
-                    total_error = total_error + 1;
-                    $('#upload-error').show();
-                }
-            }
+	    // Validation: SL must be filed only up to return-to-office day
+	    if (leaveType === 'sl') {
+	        let returnDate = new Date(parsedLeaveTo);
+	        returnDate.setDate(returnDate.getDate() + 1);
 
-            // e.preventDefault();
+	        if (today > returnDate) {
+	            alert("Sick Leave can only be filed on or before the return-to-office date.");
+	            $("#btn-request-leave").attr("disabled", false);
+	            e.preventDefault();
+	            return;
+	        }
+	    }
 
-            if(total_error > 0){
-                e.preventDefault();
-                $("#btn-request-leave").attr("disabled", false);
-            }
+	    // File size limit check
+	    if ($('#txtdgstorage').val() && $('#txtfilesize').val()) {
+	        if ($('#txtdgstorage').val() === 'MB' && parseInt($('#txtfilesize').val()) > 100) {
+	            $('#upload-error').show();
+	            total_error += 1;
+	        }
+	    }
 
-            
-        });
-
-
+	    if (total_error > 0) {
+	        e.preventDefault();
+	        $("#btn-request-leave").attr("disabled", false);
+	    }
+	});
 
         $('#printreport').click(function(){
             var leavetype=$('#strLeavetype').val();
