@@ -89,12 +89,17 @@ Copyright Notice:   Copyright(C)2018 by the DOST Central Office - Information Te
                             <td align="center"> <?=$req_details[14] ?? '' ?> </td>
                             <td align="center" nowrap>
                                 <?php
-                                    if(($req_details[1] ?? '')!='' && ($req_details[2] ?? '')!=''):
-                                        echo date('M. d, Y',strtotime($req_details[1])).' <b>to</b> '.date('M. d, Y',strtotime($req_details[2]));
-                                    else:
-                                        echo $req_details[1]!=''?date('M. d, Y',strtotime($req_details[1])):'';
-                                        echo $req_details[2]!=''?date('M. d, Y',strtotime($req_details[2])):'';
-                                    endif;
+                                    if (isset($req_details[1]) && isset($req_details[2]) && $req_details[1] != '' && $req_details[2] != ''):
+        				echo date('M. d, Y', strtotime($req_details[1])) . ' <b>to</b> ' . date('M. d, Y', strtotime($req_details[2]));
+    				    else:
+        				if (isset($req_details[1]) && $req_details[1] != ''):
+            				    echo date('M. d, Y', strtotime($req_details[1]));
+        				endif;
+
+        				if (isset($req_details[2]) && $req_details[2] != ''):
+            				    echo date('M. d, Y', strtotime($req_details[2]));
+        				endif;
+    				    endif; 
                                 ?></td>
                             <td width="150px" style="white-space: nowrap;text-align: center;">
                                 <a class="btn btn-sm grey-cascade" id="printreport" data-rdate="<?=$row['requestDate']?>"

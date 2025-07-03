@@ -52,6 +52,8 @@ $(document).ready(function () {
 
 		switch (leave_type) {
 			case "fl":
+				$("#reason_textbox").show();
+				break;
 			case "ml":
 			case "pl":
 			case "spl":
