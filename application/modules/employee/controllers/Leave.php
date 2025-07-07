@@ -13,9 +13,21 @@ class Leave extends MY_Controller {
 
 	var $arrData;
 
-	function __construct() {
+    function __construct() {
         parent::__construct();
         $this->load->model(array('employee/leave_model', 'libraries/user_account_model','hr/hr_model','libraries/Request_model'));
+	$this->load->helper('url');
+
+        // Initialize session if not already started
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Redirect if sessEmpNo is not set
+        if (!isset($_SESSION['sessEmpNo'])) {
+            redirect('login');
+            exit;
+        }   
     }
 
     public function index()
