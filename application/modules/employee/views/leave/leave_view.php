@@ -508,7 +508,11 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
 	        let returnDate = new Date(parsedLeaveTo);
 	        returnDate.setDate(returnDate.getDate() + 1);
 
-	        if (today > returnDate) {
+	        // Strip time from both dates
+		const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+		const returnDateOnly = new Date(returnDate.getFullYear(), returnDate.getMonth(), returnDate.getDate());
+
+		if (todayDateOnly > returnDateOnly) {
 	            alert("Sick Leave can only be filed on or before the return-to-office date.");
 	            $("#btn-request-leave").attr("disabled", false);
 	            e.preventDefault();
