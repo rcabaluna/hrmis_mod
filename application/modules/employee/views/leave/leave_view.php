@@ -508,16 +508,28 @@ $hrmodule = isset($_GET['module']) ? $_GET['module'] == 'hr' ? 1 : 0 : 0;
 	        let returnDate = new Date(parsedLeaveTo);
 	        returnDate.setDate(returnDate.getDate() + 1);
 
-	        // Strip time from both dates
+	        // Strip time components
 		const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-		const returnDateOnly = new Date(returnDate.getFullYear(), returnDate.getMonth(), returnDate.getDate());
+		let allowedDate = new Date(returnDate.getFullYear(), returnDate.getMonth(), returnDate.getDate());
 
-		if (todayDateOnly > returnDateOnly) {
-	            alert("Sick Leave can only be filed on or before the return-to-office date.");
-	            $("#btn-request-leave").attr("disabled", false);
-	            e.preventDefault();
-	            return;
-	        }
+		// If return date is Saturday or Sunday, move to next Monday
+		const day = allowedDate.getDay(); // 0 = Sunday, 6 = Saturday
+		if (day === 6) {
+		    // Saturday -> add 2 days
+		    allowedDate.setDate(allowedDate.getDate() + 2);
+		} else if (day === 0) {
+		    // Sunday -> add 1 day
+		    allowedDate.setDate(allowedDate.getDate() + 1);
+		}
+
+		// Final check
+		if (todayDateOnly > allowedDate) {
+		    alert("Sick Leave must be filed on or before the next working day after return-to-office.");
+		    $("#btn-request-leave").attr("disabled", false);
+		    e.preventDefault();
+		    return;
+		}
+
 	    }
 
 	    // File size limit check
